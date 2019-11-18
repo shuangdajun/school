@@ -1,0 +1,373 @@
+<html>
+<head>
+<title>Js弹出浮动窗口，支持鼠标拖动和关闭</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript">
+        //全局变量
+        var numCount;       //数据总数量
+        var columnsCounts;  //数据列数量
+        var pageCount;      //每页显示的数量
+        var pageNum;        //总页数
+        var currPageNum ;   //当前页数
+
+        //页面标签变量
+        var blockTable;
+        var preSpan;
+        var firstSpan;
+        var nextSpan;
+        var lastSpan;
+        var pageNumSpan;
+        var currPageSpan;
+        window.onload=function(){
+            alert("haha")
+            //页面标签变量
+            blockTable = document.getElementById("blocks");
+            preSpan = document.getElementById("spanPre");
+            firstSpan = document.getElementById("spanFirst");
+            nextSpan = document.getElementById("spanNext");
+            lastSpan = document.getElementById("spanLast");
+            pageNumSpan = document.getElementById("spanTotalPage");
+            currPageSpan = document.getElementById("spanPageNum");
+
+            numCount = document.getElementById("blocks").rows.length - 1;       //取table的行数作为数据总数量（减去标题行1）
+
+            columnsCounts = blockTable.rows[0].cells.length;//列数
+            pageCount = 5;
+            pageNum = parseInt(numCount/pageCount);
+            alert()
+            if(0 != numCount%pageCount){
+                pageNum += 1;
+            }
+            if(numCount==pageCount){
+                firstLast();
+            }
+            else{
+                firstPage();
+            }
+
+        };
+
+    </script>
+<script>
+    function firstLast() {
+        alert("hehe")
+       hide();
+        currPageNum = 1;
+        showCurrPage(currPageNum);
+        showTotalPage();
+        for(i = 1; i < pageCount + 1; i++){
+            blockTable.rows[i].style.display = "";
+        }
+        firstText();
+        preText();
+        nextText();
+        lastText();
+    }
+    function firstPage(){
+        hide();
+        currPageNum = 1;
+        showCurrPage(currPageNum);
+        showTotalPage();
+        for(i = 1; i < pageCount + 1; i++){
+            blockTable.rows[i].style.display = "";
+        }
+
+        firstText();
+        preText();
+        nextLink();
+        lastLink();
+    }
+
+    function prePage(){
+        hide();
+        currPageNum--;
+        showCurrPage(currPageNum);
+        showTotalPage();
+        var firstR = firstRow(currPageNum);
+        var lastR = lastRow(firstR);
+        for(i = firstR; i < lastR; i++){
+            blockTable.rows[i].style.display = "";
+        }
+
+        if(1 == currPageNum){
+            firstText();
+            preText();
+            nextLink();
+            lastLink();
+        }else if(pageNum == currPageNum){
+            preLink();
+            firstLink();
+            nextText();
+            lastText();
+        }else{
+            firstLink();
+            preLink();
+            nextLink();
+            lastLink();
+        }
+
+    }
+
+    function nextPage(){
+        hide();
+        currPageNum++;
+        showCurrPage(currPageNum);
+        showTotalPage();
+        var firstR = firstRow(currPageNum);
+        var lastR = lastRow(firstR);
+        console.log(lastR+"lastR")
+        console.log(firstR+"firstR")
+        for(i = firstR; i < lastR; i ++){
+            blockTable.rows[i].style.display = "";
+        }
+        console.log(pageNum,currPageNum)
+        if(1 == currPageNum){
+            firstText();
+            preText();
+            nextLink();
+            lastLink();
+        }else if(pageNum == currPageNum){
+            preLink();
+            firstLink();
+            nextText();
+            lastText();
+        }else{
+            firstLink();
+            preLink();
+            nextLink();
+            lastLink();
+        }
+    }
+
+    function lastPage(){
+        hide();
+        currPageNum = pageNum;
+        showCurrPage(currPageNum);
+        showTotalPage();
+        var firstR = firstRow(currPageNum);
+        for(i = firstR; i < numCount + 1; i++){
+            blockTable.rows[i].style.display = "";
+        }
+
+        firstLink();
+        preLink();
+        nextText();
+        lastText();
+    }
+
+    // 计算将要显示的页面的首行和尾行
+    function firstRow(currPageNum){
+        return pageCount*(currPageNum - 1) + 1;
+    }
+
+    function lastRow(firstRow){
+        var lastRow = firstRow + pageCount;
+        if(lastRow > numCount + 1){
+            lastRow = numCount + 1;
+        }
+        console.log(lastRow)
+        return lastRow;
+    }
+
+    function showCurrPage(cpn){
+        currPageSpan.innerHTML = cpn;
+
+    }
+
+    function showTotalPage(){
+        pageNumSpan.innerHTML = pageNum;
+    }
+
+    //隐藏所有行
+    function hide(){
+        for(var i = 1; i < numCount + 1; i ++){
+            blockTable.rows[i].style.display = "none";
+        }
+    }
+
+    //控制首页等功能的显示与不显示
+    function firstLink(){firstSpan.innerHTML = "<a href='javascript:firstPage();'>首页</a>";}
+    function firstText(){firstSpan.innerHTML = "首页";}
+
+    function preLink(){preSpan.innerHTML = "<a href='javascript:prePage();'>前一页</a>";}
+    function preText(){preSpan.innerHTML = "前一页";}
+
+    function nextLink(){nextSpan.innerHTML = "<a href='javascript:nextPage();'>下一页</a>";}
+    function nextText(){nextSpan.innerHTML = "下一页";}
+
+    function lastLink(){lastSpan.innerHTML = "<a href='javascript:lastPage();'>最后一页</a>";}
+    function lastText(){lastSpan.innerHTML = "最后一页";}
+    </script>
+<script type="text/javascript">
+/**
+关于一些参数说明：
+*bodycontent:要在窗口显示的内容，dom对象
+*title:窗口标题，字符串类型
+*removeable:窗口能否拖动，布尔类型
+*注意：内容窗体的高度是height-30px，请计算好你要显示的内容的高度和宽度。弹出窗的id为"223238909"，所以你的页面不要再取值为"223238909"的id了，以防js执行出错*/
+function createdialog(width,height,bodycontent,title,search,removeable){
+ if(document.getElementById("www_jb51_net")==null){
+  /*创建窗口的组成元素*/
+  var dialog = document.createElement("div");
+  var dialogtitlebar= document.createElement("div");
+  var dialogbody = document.createElement("div");
+  var dialogtitleimg = document.createElement("span");
+  var dialogtitle = document.createElement("span");
+  var dialogsearch=document.createElement("span");
+  var dialogsearch_input=document.createElement("input")
+  var dialogclose = document.createElement("span");
+  var closeaction = document.createElement("button");
+  
+  /*为窗口设置一个id，id如此怪异是为了尽量避免与其他用户取的id相同而出错*/
+  dialog.id = "223238909";
+  /*组装对话框标题栏,按从里到外的顺序组装*/
+  dialogtitle.innerHTML = title;
+  dialogsearch.innerHTML=search;
+  //dialogtitlebar.appendChild(dialogtitleimg);
+  dialogtitlebar.appendChild(dialogtitle);
+  dialogtitlebar.appendChild(dialogsearch);
+  dialogtitlebar.appendChild(dialogsearch_input);
+  dialogtitlebar.appendChild(dialogclose);
+  dialogclose.appendChild(closeaction);
+  closeaction.innerHTML="X"
+  /*组装对话框主体内容*/
+  if(bodycontent!=null){
+   bodycontent.style.display = "block";
+   dialogbody.appendChild(bodycontent);
+  }
+  /*组装成完整的对话框*/
+  dialog.appendChild(dialogtitlebar);
+  dialog.appendChild(dialogbody);
+  /*设置窗口组成元素的样式*/
+  var templeft,temptop,tempheight//窗口的位置（将窗口放在页面中间的辅助变量）
+  var dialogcssText,dialogbodycssText;//拼出dialog和dialogbody的样式字符串
+  templeft = (document.body.clientWidth-width)/2;
+  temptop = (document.body.clientHeight-height)/2;
+  tempheight= height-30;
+  dialogcssText= "position:absolute;background:cornflowerblue;padding:1px;border:4px;top:"+temptop+"px;left:"+templeft+"px;height:"+height+"px;width:"+width+"px;";
+  dialogbodycssText = "width:100%;background:#ffffff;";
+
+  dialog.style.cssText = dialogcssText;
+  dialogtitlebar.style.cssText = "height:30px;width:100%;background:url(images/titlebar.png) repeat;cursor:move;";
+  dialogbody.style.cssText  = dialogbodycssText;
+  //dialogtitleimg.style.cssText = "float:left;height:20px;width:20px;background:url(images/40.gif);"+"display:block;margin:4px;line-height:20px;";
+  dialogtitle.style.cssText = "font-size:16px;float:left;display:block;margin:4px;line-height:20px;margin-right:380px;";
+  dialogsearch.style.cssText="font-size:16px;float:left;display:block;margin:4px;line-height:20px;"
+  dialogsearch_input.style.cssText="font-size:16px;float:left;display:block;margin:2px;line-height:20px;"
+  dialogclose.style.cssText  = "float:right;display:block;margin:4px;line-height:20px;";
+  closeaction.style.cssText = "height:20px;width:24px;border-width:1px;"+"background-image:url(images/close.png);cursor:pointer;";
+  /*为窗口元素注册事件*/
+  var dialogleft = parseInt(dialog.style.left);
+  var dialogtop = parseInt(dialog.style.top);
+  var ismousedown = false;//标志鼠标是否按下
+  /*关闭按钮的事件*/
+  closeaction.onclick = function(){
+   dialog.parentNode.removeChild(dialog);
+  }
+  /*实现窗口的移动，这段代码很典型，网上很多类似的代码*/
+  if(removeable == true){
+   var ismousedown = false;
+   var dialogleft,dialogtop;
+   var downX,downY;
+   dialogleft = parseInt(dialog.style.left);
+   dialogtop = parseInt(dialog.style.top);
+   dialogtitlebar.onmousedown = function(e){
+   ismousedown = true;
+   downX = e.clientX;
+   downY = e.clientY;
+   }
+   document.onmousemove = function(e){
+    if(ismousedown){
+    dialog.style.top = e.clientY - downY + dialogtop + "px";
+    dialog.style.left = e.clientX - downX + dialogleft + "px";
+    }
+   }
+   /*松开鼠标时要重新计算当前窗口的位置*/
+   document.onmouseup = function(){
+    dialogleft = parseInt(dialog.style.left);
+    dialogtop = parseInt(dialog.style.top);
+    ismousedown = false;
+   }
+  }
+  return dialog;
+ }//end if(if的结束)
+}
+</script>
+<style>
+table tr td{background:white;border: 1px solid cornflowerblue;
+    border-left: none;
+    border-right: none;}
+th{align-items: right}
+td{border-width:thin; }
+
+#linkurl,#linkname,#savelink{width:50px;}
+</style>
+</head>
+<body>
+<!-- 显示窗口的地方 -->
+<div id="here"></div><a id="clickhere" href="#">点击生成窗口</a>
+<!-- 要嵌入到窗口的内容 -->
+<div id="login" style="display:none;">
+ <form action="#" method="post" onSubmit="return false;" style="height: 85%;">
+  <table width="100%" id="blocks" cellspacing="0" cellpadding="0" height="100%" >
+
+
+  <tr>
+   <td >学生信息</td>
+    <td>描&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp述</td>
+  </tr>
+  <tr>
+   <td ><span><input name="link.name" type="checkbox" value="双大骏"/>双大骏</span></td>
+    <td><span></span></td>
+  </tr>
+  <tr>
+   <td ><span><input name="link.name" type="checkbox" value="双大骏"/>双大骏</span></td>
+    <td><span></span></td>
+  </tr>
+    <tr>
+   <td ><span><input name="link.name" type="checkbox" value="双大骏"/>双大骏</span></td>
+    <td><span></span></td>
+  </tr>
+    <tr>
+   <td ><span><input name="link.name" type="checkbox" value="双大骏"/>双大骏</span></td>
+    <td><span></span></td>
+  </tr>
+          <tr>
+   <td ><span><input name="link.name" type="checkbox" value="双大骏"/>双大骏</span></td>
+    <td><span></span></td>
+  </tr>
+          <tr>
+   <td ><span><input name="link.name" type="checkbox" value="双大骏"/>双大骏</span></td>
+    <td><span></span></td>
+  </tr>
+  </table>
+
+<div id="pagiDiv" align="right" style="border: 1px solid cornflowerblue;height: 40px;padding-top: 2%" >
+    <span id="spanFirst">首页</span>
+    <span id="spanPre">上一页</span>
+    <span id="spanNext">下一页</span>
+    <span id="spanLast">尾页</span>
+    第 <span id="spanPageNum"></span> 页
+    <span id="spanTotalPage"></span> 总计
+</div>
+<div align="right"style="border: 1px solid cornflowerblue;height: 40px;padding-top: 1%;background:lightblue" >
+    <button style="font-size: 20px;height: 30px;margin-right: 10px" >提交</button>
+</div>
+</form>
+
+
+
+</div>
+<script type="text/javascript">
+var here = document.getElementById("here");
+var login = document.getElementById("login");
+var clickhere = document.getElementById("clickhere");
+clickhere.onclick = function(){
+here.appendChild(createdialog(800,200,login,"关联学生信息","搜索",true));
+}
+</script>
+
+
+
+</body>
+</html>

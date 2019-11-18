@@ -1,0 +1,40 @@
+{% macro Embeds(pagination) %}
+<!-- 要嵌入到窗口的内容 -->
+<div id="login" style="display:none;height: 400px;width: 800px;">
+ <form action="#" method="post" onSubmit="return false;" style="height: 85%;">
+  <table width="100%" id="blocks" cellspacing="0" cellpadding="0" height="100%" >
+
+
+  <tr>
+   <td >学生信息</td>
+    <td>描&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp述</td>
+  </tr>
+      {% for item in pagination.items %}
+          <tr>
+              <td><input name="link.name" type="checkbox" />/td>
+          <td></td>
+          </tr>
+      {% endfor %}
+
+
+
+
+  </table>
+
+<div id="pagiDiv" align="right" style="border: 1px solid cornflowerblue;height: 40px;padding-top: 2%" >
+    <span id="spanFirst">首页</span>
+    <span id="spanPre">上一页</span>
+    <span id="spanNext">下一页</span>
+    <span id="spanLast">尾页</span>
+    第 <span id="spanPageNum"></span> 页
+    <span id="spanTotalPage"></span> 总计
+</div>
+<div align="right"style="border: 1px solid cornflowerblue;height: 40px;padding-top: 1%;background:lightblue" >
+    <button id="table_button" style="font-size: 20px;height: 30px;margin-right: 10px" >提交</button>
+</div>
+</form>
+
+
+
+</div>
+{% endmacro %}
