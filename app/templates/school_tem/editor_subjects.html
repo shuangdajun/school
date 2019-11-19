@@ -1,81 +1,429 @@
 {% extends "school_tem/layout.html" %}
+{% import "school_tem/sub_stu.html" as sub_stu %}
 {% block header %}
-    <link href="static/school_static/css/artific.css",rel="stylesheet">
+    <link href="static/school_static/css/artific.css" ,rel="stylesheet">
+    <style>
+        table tr td {
+            background: white;
+            border: 1px solid cornflowerblue;
+        }
+
+        th {
+            align-items: right
+        }
+
+        td {
+            border-width: thin;
+        }
+    </style>
 {% endblock %}
 {% block content %}
-<div class="col-lg-12" style="margin-top: 5%;">
+    <div id="here">
+        <div id="content" class="col-lg-12" style="margin-top: 5%;">
             <h2 style="margin-bottom: 2%">编辑学科信息</h2>
             <div class="panel panel-default panel-body panel-body-nopadding" style="margin-top: 55px">
                 <form class="form-horizontal form-bordered" action="{{ request.url }}" method="POST">
-
-                <div class="form-group"style="margin-top: 55px">
-                  <label class="col-sm-3 control-label" style="font-size: 24px;font-weight: normal;font-family: FangSong;">学生姓名</label>
-                  <div class="col-sm-6">
-
-                      <input type="text" class="form-control" name="student_name"  value="{{ students_modelSelect.student_name }}">
-                  </div>
-                </div>
-
-
-                <div class="form-group"style="margin-top: 55px">
-                  <label class="col-sm-3 control-label" style="font-size:  24px;font-weight: normal;font-family: FangSong">性&nbsp&nbsp&nbsp&nbsp别</label>
-                  <div class="col-sm-6">
-
-                      <select class="form-control" name="student_sex" value="{{ students_modelSelect.student_sex }}" >
-
-                          <option value="男" >男</option>
-
-                          <option value="女" >女</option>
-
-
-                      </select>
-                  </div>
-                </div>
-
-                <div class="form-group"style="margin-top: 55px">
-                  <label class="col-sm-3 control-label"style="font-size:  24px;font-weight: normal;font-family: FangSong">年&nbsp&nbsp&nbsp&nbsp龄</label>
-                  <div class="col-sm-6">
-                      <!--需要核对数据类型，数字就可以 -->
-                    <input type="text"  class="form-control" name="student_age" value="{{ students_modelSelect.student_age }}"/>
-                  </div>
-                </div>
-
-                <div class="form-group"style="margin-top: 55px">
-                  <label class="col-sm-3 control-label"style="font-size:  24px;font-weight: normal;font-family: FangSong">手机号码</label>
-                  <div class="col-sm-6">
-                    <input type="text" class="form-control"name="student_phone" value="{{ students_modelSelect.student_phone }}"/>
-                  </div>
-                </div>
-
-                <div class="form-group"style="margin-top: 55px">
-                  <label class="col-sm-3 control-label"style="font-size:  24px;font-weight: normal;font-family: FangSong">座机号码</label>
-                  <div class="col-sm-6">
-                    <input type="text" class="form-control"name="student_landline" value="{{ students_modelSelect.student_landline }}"/>
-                  </div>
-                </div>
-{#                <div class="form-group"style="margin-top: 55px;margin-bottom: 55px">#}
-{#                  <label class="col-sm-3 control-label"style="font-size:  24px;font-weight: normal;font-family: FangSong;" >所学学科</label>#}
-{#                  <div class="col-sm-6">#}
-{#                    <input type="text" class="form-control"name="student_subjects" value=""/>#}
-{#                  </div>#}
-{#                </div>#}
-
-
-
-                <input type="hidden" name="page" value="">
-
-                <div class="panel-footer">
-                     <div class="row">
-                        <div class="col-sm-6 col-sm-offset-3">
-                          <button class="btn btn-primary" type="submit">提交</button>&nbsp;
-                            <a href="/cmdb/physical_assets?idc_id=&amp;status=&amp;page=" class="btn btn-default ">返回</a>
+                    <div class="form-group" style="margin-top: 55px">
+                        <label class="col-sm-3 control-label"
+                               style="font-size: 24px;font-weight: normal;font-family: FangSong;">学科</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" name="subject_name"
+                                   value={{ subjects_modelSelect.subject_name }}>
                         </div>
-                     </div>
-                </div><!-- panel-footer -->
+                    </div>
 
 
-            </form>
+                    <div class="form-group" style="margin-top: 55px">
+                        <label class="col-sm-3 control-label"
+                               style="font-size:  24px;font-weight: normal;font-family: FangSong">教师</label>
+
+                        <!--需要核对数据类型，数字就可以 -->
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" name="teacher_name"
+                                   value={{ subjects_modelSelect.sub_tea[0].teacher_name }}>
+                        </div>
+
+
+                    </div>
+
+                    <div class="form-group" style="margin-top: 55px">
+                        <label class="col-sm-3 control-label"
+                               style="font-size:  24px;font-weight: normal;font-family: FangSong">学生</label>
+                        <div class="col-sm-6">
+                            <input id="StuChoice" type="text" class="form-control" name="student_name"
+                                   value={{ student_list }}/>
+                        </div>
+                    </div>
+
+                    <input type="hidden" name="page" value="">
+
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-sm-6 col-sm-offset-3">
+                                <button class="btn btn-primary" id="btn" type="submit" disabled="true">提交</button>&nbsp;
+                                <a href="{{ url_for(".Subject_info") }}" class="btn btn-default ">返回</a>
+                            </div>
+                        </div>
+                    </div><!-- panel-footer -->
+
+                </form>
             </div>
-          </div>
-        </div><!-- /.row -->
+        </div>
+        <!-- /.row -->
+        {{ sub_stu.Embeds(pagination) }}
+    </div>
+{% endblock %}
+
+{% block foot %}
+    <script type="text/javascript">
+        //全局变量
+        var numCount;       //数据总数量
+        var columnsCounts;  //数据列数量
+        var pageCount;      //每页显示的数量
+        var pageNum;        //总页数
+        var currPageNum;   //当前页数
+        var paginate;
+        //页面标签变量
+        var blockTable;
+        var preSpan;
+        var firstSpan;
+        var nextSpan;
+        var lastSpan;
+        var pageNumSpan;
+        var currPageSpan;
+        var student_list = new Array();
+        var clickstudent = document.getElementById("StuChoice");
+        window.onload = function () {
+            //页面标签变量
+            blockTable = document.getElementById("blocks");
+            preSpan = document.getElementById("spanPre");
+            firstSpan = document.getElementById("spanFirst");
+            nextSpan = document.getElementById("spanNext");
+            lastSpan = document.getElementById("spanLast");
+            pageNumSpan = document.getElementById("spanTotalPage");
+            currPageSpan = document.getElementById("spanPageNum");
+            numCount = {{ pagination.total }};
+
+            columnsCounts = blockTable.rows[0].cells.length;//列数
+            pageCount = 6;
+            pageNum =
+            {{ pagination.pages }}
+
+
+            if ("{{ pagination.has_prev }}" == "True") {
+                if ("{{ pagination.has_next }}" == "True") {
+                    firstLast();
+                }
+            }
+            else {
+                firstPage();
+            }
+
+            {% for student in studentlist %}
+                student_list.push("{{ student }}")
+            {% endfor %}
+            clickstudent.value = student_list;
+
+        };
+
+    </script>
+    <script>
+        function firstLast() {
+
+            hide();
+            currPageNum = 1;
+            showCurrPage(currPageNum);
+            showTotalPage();
+            $.ajax({
+                url: "paginate_Subejct?page=" + String(currPageNum),
+                type: "POST",
+                async: false,
+                success: function (result) {
+                    paginate = result
+                }
+            });
+            for (i = 1; i <= paginate.length; i++) {
+                blockTable.rows[i].cells[0].innerHTML = "<input  type=\"checkbox\" value=\"" + paginate[i - 1] + "\"/>" + paginate[i - 1]
+            }
+            checkbox_enable()
+            firstText();
+            preText();
+            nextText();
+            lastText();
+        }
+
+        function firstPage() {
+            hide();
+            currPageNum = 1;
+            showCurrPage(currPageNum);
+            showTotalPage();
+
+            $.ajax({
+                url: "paginate_Subejct?page=" + String(currPageNum),
+                type: "POST",
+                async: false,
+                success: function (result) {
+                    paginate = result
+                }
+            });
+            for (i = 1; i <= paginate.length; i++) {
+
+                blockTable.rows[i].cells[0].innerHTML = "<input name=\"link.name\" type=\"checkbox\" value=\"" + paginate[i - 1] + "\"/>" + paginate[i - 1]
+            }
+            checkbox_enable()
+            firstText();
+            preText();
+            nextLink();
+            lastLink();
+        }
+
+        function prePage() {
+            hide();
+            currPageNum--;
+
+            showCurrPage(currPageNum);
+            showTotalPage();
+            $.ajax({
+                url: "paginate_Subejct?page=" + String(currPageNum),
+                type: "POST",
+                async: false,
+                success: function (result) {
+                    paginate = result
+                }
+            });
+            for (i = 1; i <= paginate.length; i++) {
+
+                blockTable.rows[i].cells[0].innerHTML = "<input name=\"link.name\" type=\"checkbox\" value=\"" + paginate[i - 1] + "\"/>" + paginate[i - 1]
+            }
+            checkbox_enable()
+
+            if (1 == currPageNum) {
+                firstText();
+                preText();
+                nextLink();
+                lastLink();
+            } else if (pageNum == currPageNum) {
+                preLink();
+                firstLink();
+                nextText();
+                lastText();
+            } else {
+                firstLink();
+                preLink();
+                nextLink();
+                lastLink();
+            }
+
+        }
+
+        function nextPage() {
+            hide();
+            currPageNum++;
+            showCurrPage(currPageNum);
+            showTotalPage();
+
+
+            $.ajax({
+                url: "paginate_Subejct?page=" + String(currPageNum),
+                type: "POST",
+                async: false,
+                success: function (result) {
+                    paginate = result
+                }
+            });
+
+            for (i = 1; i <= paginate.length; i++) {
+
+                blockTable.rows[i].cells[0].innerHTML = "<input name=\"link.name\" type=\"checkbox\" value=\"" + paginate[i - 1] + "\"/>" + paginate[i - 1]
+            }
+            checkbox_enable()
+            if (1 == currPageNum) {
+                firstText();
+                preText();
+                nextLink();
+                lastLink();
+            } else if (pageNum == currPageNum) {
+                preLink();
+                firstLink();
+                nextText();
+                lastText();
+            } else {
+                firstLink();
+                preLink();
+                nextLink();
+                lastLink();
+            }
+        }
+
+        function lastPage() {
+            hide();
+            currPageNum = pageNum;
+            showCurrPage(currPageNum);
+            showTotalPage();
+
+            $.ajax({
+                url: "paginate_Subejct?page=" + String(currPageNum),
+                type: "POST",
+                async: false,
+                success: function (result) {
+                    paginate = result
+                }
+            });
+
+            for (i = 1; i <= paginate.length; i++) {
+
+                blockTable.rows[i].cells[0].innerHTML = "<input name=\"link.name\" type=\"checkbox\" value=\"" + paginate[i - 1] + "\"/>" + paginate[i - 1]
+            }
+            checkbox_enable()
+            firstLink();
+            preLink();
+            nextText();
+            lastText();
+        }
+
+        function checkbox_enable() {
+            var student_list = document.getElementById("StuChoice").value;
+            if (student_list != "") {
+
+                var student_list_new = student_list.split(",")
+                for (var i = 1; i < pageCount + 1; i++) {
+                    if (student_list_new.indexOf(blockTable.rows[i].cells[0].children[0].value) >= 0) {
+                        blockTable.rows[i].cells[0].children[0].checked = true
+                    }
+
+
+                }
+
+            }
+        }
+
+        function showCurrPage(cpn) {
+            currPageSpan.innerHTML = cpn;
+
+        }
+
+        function showTotalPage() {
+            pageNumSpan.innerHTML = pageNum;
+        }
+
+        function hide() {
+
+            for (var i = 1; i < pageCount + 1; i++) {
+                blockTable.rows[i].cells[0].innerHTML = ""
+            }
+        }
+
+        function searchPage(result) {
+            hide();
+
+            if (result != "False") {
+                blockTable.rows[1].cells[0].innerHTML = "<input type=\"checkbox\" value=\"" + result + "\"/>" + result
+            }
+            ;
+        }
+
+        //控制首页等功能的显示与不显示
+        function firstLink() {
+            firstSpan.innerHTML = "<a href='javascript:firstPage();'>首页</a>";
+        }
+
+        function firstText() {
+            firstSpan.innerHTML = "首页";
+        }
+
+        function preLink() {
+            preSpan.innerHTML = "<a href='javascript:prePage();'>前一页</a>";
+        }
+
+        function preText() {
+            preSpan.innerHTML = "前一页";
+        }
+
+        function nextLink() {
+            nextSpan.innerHTML = "<a href='javascript:nextPage();'>下一页</a>";
+        }
+
+        function nextText() {
+            nextSpan.innerHTML = "下一页";
+        }
+
+        function lastLink() {
+            lastSpan.innerHTML = "<a href='javascript:lastPage();'>最后一页</a>";
+        }
+
+        function lastText() {
+            lastSpan.innerHTML = "最后一页";
+        }
+    </script>
+    <script type="text/javascript" src="../../static/school_static/js/subject_student_input.js"></script>
+
+    <script>
+        $("#btn").attr("disabled", "true");
+        $("#btn").attr("disabled", "disabled");
+        $("#btn").attr("disabled", "false");
+        $("#btn").removeAttr("disabled", "disabled");
+    </script>
+    <script type="text/javascript">
+        var here = document.getElementById("here");
+        var login = document.getElementById("login");
+
+
+        var clickteacher = document.getElementById("TeaChoice");
+        clickstudent.onclick = function () {
+            clickstudent.disabled = true;
+            here.appendChild(createdialog(800, 200, login, "关联学生信息", "搜索", true));
+        }
+
+
+    </script>
+    <script>
+        function unique(array) {
+            var temp = []
+            for (var i = 0; i < array.length; i++) {
+                if (temp.indexOf(array[i]) < 0) {
+                    temp.push(array[i]);
+                }
+            }
+            return temp
+        }
+
+        function deletelist(array, data) {
+            for (var i = 0; i < array.length; i++) {
+                if (data == array[i]) {
+                    delete array[i]
+                }
+            }
+            return array
+        }
+
+        $("#table_button").click(
+            function () {
+                var student_list = document.getElementById("StuChoice").value;
+                if (student_list == "") {
+                    var student_list_new = new Array();
+                }
+
+                else {
+
+                    var student_list_new = student_list.split(",")
+                }
+
+                for (var i = 1; i < pageCount + 1; i++) {
+                    if (blockTable.rows[i].cells[0].innerHTML != "" && blockTable.rows[i].cells[0].children[0].checked == true) {
+                        student_list_new.push(blockTable.rows[i].cells[0].children[0].value)
+                    }
+                    else if (blockTable.rows[i].cells[0].innerHTML != "" && blockTable.rows[i].cells[0].children[0].checked == false) {
+                        if (student_list_new.indexOf(blockTable.rows[i].cells[0].children[0].value) >= 0) {
+                            student_list_new = deletelist(student_list_new, blockTable.rows[i].cells[0].children[0].value)
+                        }
+                    }
+                }
+
+
+                document.getElementById("StuChoice").value = unique(student_list_new)
+                document.getElementById("close").click()
+            }
+        )
+
+    </script>
 {% endblock %}

@@ -54,13 +54,13 @@ def search_student_db(args,params_dict):
     if params_dict["search_student"]=="":
         result = Students.query.all()
         pagination, user = paginate_html_db(Students)
-        return pagination, result
+        return pagination, user
     if Students.query.filter_by(student_name=args.get("search_student")).all()==[]:
         return None
     return paginate_html_db(Students)[0],Students.query.filter_by(student_name=args.get("search_student")).all()
 
 
-def paginate_html_db(Object,num):
+def paginate_html_db(Object,num=14):
     page=request.args.get("page",1,type=int)
     # sql_select = "select * from Students limit {0},{1}".format(9*(page-1)+1, 9*page)
 

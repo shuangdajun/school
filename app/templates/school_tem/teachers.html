@@ -23,7 +23,6 @@
                     <a href="export_Teacher/Teachers_info" download="教师表.xlsx">
                         <button id="export_teacher_button" type="file" style="width: 13%;font-size: 23px; border: 1px solid #cccccc;
                     border-radius: 2px;padding: 18px 20px;margin-right:2%;margin-top:auto" >导出</button>
-
                     </a>
 
 
@@ -47,22 +46,16 @@
                       <tr class="active" >
                         <td >{{ teacher.teacher_name }}</td>
                         <td>{{ teacher.teacher_address }}</td>
-{#                        <td>{{ teacher.student_age }}</td>#}
                         <td>{{ teacher.teacher_phone }}</td>
-{#                        <td>{{ teacher.student_landline }}</td>#}
                           <td>学科</td>
                       <td>
 
 
 
-{#                              <h1>{{  request.url | accept_pattern("(.*)/(.*)")}}</h1>#}
                           {% set teacher_name=teacher.teacher_name %}
                           {% set url=request.url | accept_pattern("(.*)/(.*)")+"/editor_Teacher?search="+teacher_name%}
 
                           <input type="button" value="编辑" onclick=editor_teacher("{{ url }}")>
-
-                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
                           <input type="button" value="删除"  onclick="deleteTeacher('{{ teacher_name }}')"/>
 
                           <input type="hidden" value="submit" onclick="getText();"/>
@@ -121,7 +114,7 @@
         {#button触发input 上传#}
         $("#upload_teacher_button").click(
             function () {
-                console.log("haha")
+
                 document.getElementById("upload_teacher_input").click()
             }
         )
@@ -130,7 +123,7 @@
     <script>
         //首先监听input框的变动，选中一个新的文件会触发change事件
                 document.querySelector("#upload_teacher_input").addEventListener("change",function () {
-                    console.log("hehe")
+
                     //获取到选中的文件
                     var file = document.querySelector("#upload_teacher_input").files[0];
                     //创建formdata对象

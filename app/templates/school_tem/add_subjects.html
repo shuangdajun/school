@@ -37,10 +37,8 @@
                                style="font-size:  24px;font-weight: normal;font-family: FangSong">教师</label>
 
                         <!--需要核对数据类型，数字就可以 -->
-                        <div class="col-sm-6" >
-                            <select style="width: 793px;height: 34px;">
-
-                            </select>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" name="teacher_name" value="">
                         </div>
 
 
@@ -50,18 +48,9 @@
                         <label class="col-sm-3 control-label"
                                style="font-size:  24px;font-weight: normal;font-family: FangSong">学生</label>
                         <div class="col-sm-6">
-                            <input id="StuChoice" type="text" class="form-control" name="student_name" value=""/>
+                            <input id="StuChoice" type="text" class="form-control" name="student_name"/>
                         </div>
                     </div>
-
-
-                    {#                <div class="form-group"style="margin-top: 55px;margin-bottom: 55px">#}
-                    {#                  <label class="col-sm-3 control-label"style="font-size:  24px;font-weight: normal;font-family: FangSong;" >所学学科</label>#}
-                    {#                  <div class="col-sm-6">#}
-                    {#                    <input type="text" class="form-control"name="student_subjects" value=""/>#}
-                    {#                  </div>#}
-                    {#                </div>#}
-
 
                     <input type="hidden" name="page" value="">
 
@@ -69,11 +58,10 @@
                         <div class="row">
                             <div class="col-sm-6 col-sm-offset-3">
                                 <button class="btn btn-primary" id="btn" type="submit" disabled="true">提交</button>&nbsp;
-                                <a href="/cmdb/physical_assets?idc_id=&amp;status=&amp;page=" class="btn btn-default ">返回</a>
+                                <a href="{{ url_for(".Subject_info") }}" class="btn btn-default ">返回</a>
                             </div>
                         </div>
                     </div><!-- panel-footer -->
-
 
                 </form>
             </div>
@@ -110,12 +98,13 @@
             lastSpan = document.getElementById("spanLast");
             pageNumSpan = document.getElementById("spanTotalPage");
             currPageSpan = document.getElementById("spanPageNum");
-            numCount = {{ pagination.total }}
-                alert({{ pagination.total }});
+            numCount = {{ pagination.total }};
+
             columnsCounts = blockTable.rows[0].cells.length;//列数
             pageCount = 6;
             //pageNum = parseInt(numCount/pageCount);
-            pageNum = {{ pagination.pages }}
+            pageNum =
+            {{ pagination.pages }}
 //            if(0 != numCount%pageCount){
 //                pageNum += 1;
             //           }
@@ -147,9 +136,9 @@
                 }
             });
             for (i = 1; i <= paginate.length; i++) {
-                console.log(paginate[i - 1])
-                blockTable.rows[i].cells[0].innerHTML = "<input name=\"link.name\" type=\"checkbox\" value=\"" + paginate[i - 1] + "\"/>" + paginate[i - 1]
+                blockTable.rows[i].cells[0].innerHTML = "<input  type=\"checkbox\" value=\"" + paginate[i - 1] + "\"/>" + paginate[i - 1]
             }
+            checkbox_enable()
             firstText();
             preText();
             nextText();
@@ -171,9 +160,10 @@
                 }
             });
             for (i = 1; i <= paginate.length; i++) {
-                console.log(paginate[i - 1])
+
                 blockTable.rows[i].cells[0].innerHTML = "<input name=\"link.name\" type=\"checkbox\" value=\"" + paginate[i - 1] + "\"/>" + paginate[i - 1]
             }
+            checkbox_enable()
             firstText();
             preText();
             nextLink();
@@ -195,10 +185,10 @@
                 }
             });
             for (i = 1; i <= paginate.length; i++) {
-                console.log(paginate[i - 1])
+
                 blockTable.rows[i].cells[0].innerHTML = "<input name=\"link.name\" type=\"checkbox\" value=\"" + paginate[i - 1] + "\"/>" + paginate[i - 1]
             }
-
+            checkbox_enable()
             if (1 == currPageNum) {
                 firstText();
                 preText();
@@ -221,7 +211,7 @@
         function nextPage() {
             hide();
             currPageNum++;
-            showCurrPage({{ pagination.page }});
+            showCurrPage(currPageNum);
             showTotalPage();
 
 
@@ -235,9 +225,10 @@
             });
 
             for (i = 1; i <= paginate.length; i++) {
-                console.log(paginate[i - 1])
-                blockTable.rows[i].cells[0].innerHTML = "<input type=\"checkbox\" value=\"" + paginate[i - 1] + "\"/>" + paginate[i - 1]
+
+                blockTable.rows[i].cells[0].innerHTML = "<input name=\"link.name\" type=\"checkbox\" value=\"" + paginate[i - 1] + "\"/>" + paginate[i - 1]
             }
+            checkbox_enable()
             if (1 == currPageNum) {
                 firstText();
                 preText();
@@ -272,16 +263,31 @@
             });
 
             for (i = 1; i <= paginate.length; i++) {
-                console.log(paginate[i - 1])
-                blockTable.rows[i].cells[0].innerHTML = "<input  type=\"checkbox\" value=\"" + paginate[i - 1] + "\"/>" + paginate[i - 1]
-            }
 
+                blockTable.rows[i].cells[0].innerHTML = "<input name=\"link.name\" type=\"checkbox\" value=\"" + paginate[i - 1] + "\"/>" + paginate[i - 1]
+            }
+            checkbox_enable()
             firstLink();
             preLink();
             nextText();
             lastText();
         }
 
+        function checkbox_enable() {
+            var student_list = document.getElementById("StuChoice").value;
+            if (student_list != "") {
+
+                var student_list_new = student_list.split(",")
+                for (var i = 1; i < pageCount + 1; i++) {
+                    if (student_list_new.indexOf(blockTable.rows[i].cells[0].children[0].value) >= 0) {
+                        blockTable.rows[i].cells[0].children[0].checked = true
+                    }
+
+
+                }
+
+            }
+        }
 
         function showCurrPage(cpn) {
             currPageSpan.innerHTML = cpn;
@@ -293,7 +299,7 @@
         }
 
         function hide() {
-            console.log(pageCount)
+
             for (var i = 1; i < pageCount + 1; i++) {
                 blockTable.rows[i].cells[0].innerHTML = ""
             }
@@ -301,9 +307,9 @@
 
         function searchPage(result) {
             hide();
-            console.log(result)
+
             if (result != "False") {
-                blockTable.rows[1].cells[0].innerHTML = "<input name=\"link.name\" type=\"checkbox\" value=\"" + result + "\"/>" + result
+                blockTable.rows[1].cells[0].innerHTML = "<input type=\"checkbox\" value=\"" + result + "\"/>" + result
             }
             ;
         }
@@ -353,27 +359,57 @@
         var here = document.getElementById("here");
         var login = document.getElementById("login");
         var clickstudent = document.getElementById("StuChoice");
-        var clickteacher=document.getElementById("TeaChoice");
         clickstudent.onclick = function () {
             clickstudent.disabled = true;
             here.appendChild(createdialog(800, 200, login, "关联学生信息", "搜索", true));
         }
 
 
-
     </script>
     <script>
+
+        function unique(array) {
+            var temp = []
+            for (var i = 0; i < array.length; i++) {
+                if (temp.indexOf(array[i]) < 0) {
+                    temp.push(array[i]);
+                }
+            }
+            return temp
+        }
+        function deletelist(array,data){
+            for (var i =0;i<array.length;i++){
+                if (data==array[i]){
+                    delete array[i]
+                }
+            }
+            return array
+        }
         $("#table_button").click(
             function () {
-                var student_list = new Array();
-                var index = 0;
+                var student_list = document.getElementById("StuChoice").value;
+                if (student_list == "") {
+                    var student_list_new = new Array();
+                }
+
+                else {
+
+                    var student_list_new = student_list.split(",")
+                }
+
                 for (var i = 1; i < pageCount + 1; i++) {
-                    if (blockTable.rows[i].cells[0].children[0].checked == true) {
-                        student_list[index] = blockTable.rows[i].cells[0].children[0].value
-                        index++;
+                    if (blockTable.rows[i].cells[0].innerHTML != "" && blockTable.rows[i].cells[0].children[0].checked == true) {
+                        student_list_new.push(blockTable.rows[i].cells[0].children[0].value)
+                    }
+                    else if (blockTable.rows[i].cells[0].innerHTML != "" && blockTable.rows[i].cells[0].children[0].checked == false) {
+                        if (student_list_new.indexOf(blockTable.rows[i].cells[0].children[0].value) >= 0) {
+                            student_list_new=deletelist(student_list_new,blockTable.rows[i].cells[0].children[0].value)
+                        }
                     }
                 }
-                document.getElementById("StuChoice").value = student_list
+
+
+                document.getElementById("StuChoice").value = unique(student_list_new)
                 document.getElementById("close").click()
             }
         )

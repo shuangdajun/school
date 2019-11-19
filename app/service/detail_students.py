@@ -46,8 +46,21 @@ def xlsx_excel(path, Object):
 
     for row in range(1, sheet.nrows):
         ss = Object()
+
         for col in range(0, sheet.ncols):
-            setattr(ss, field[col], sheet.cell_value(row, col))
+
+            if field[col]=="student_name":
+                data = []
+                result=sheet.cell_value(row, col).split(",")
+                for student in result:
+                    data.append(Students.query.filter_by(student_name=student).first())
+                setattr(ss,"sub_stu",data)
+            elif field[col]=="teacher_name":
+
+                teacher=Teachers.query.filter_by(teacher_name=sheet.cell_value(row, col)).first()
+                setattr(ss,"sub_tea",[teacher])
+            else:
+                setattr(ss, field[col], sheet.cell_value(row, col))
             object.append(ss)
     try:
         db.session.add_all(object)
@@ -65,7 +78,7 @@ def export_file(filename):
     elif re.search("Teachers_info", filename):
         result = export_db(Teachers, filename, "teacher")
     elif re.search("Subjects_info", filename):
-        result = export_db(Subjects, filename, "subject")
+        result = export_db_subject(Subjects, filename, "subject")
     else:
         return False
     return result
@@ -82,9 +95,45 @@ def export_db(Object, path, patter):
     try:
         for col in range(0, len(field)):
             sheet.write(0, col, field[col])
-        for row in range(1, rows):
+        for row in range(1, rows+1):
             for col in range(0, len(field)):
-                sheet.write(row, col, getattr(students[row], field[col]))
+                sheet.write(row, col, getattr(students[row-1], field[col]))
+        workbook.save(path + ".xlsx")
+    except Exception as e:
+        return False
+    return True
+def export_db_subject(Object, path, patter):
+    workbook = xlwt.Workbook(encoding="utf-8")
+    sheet = workbook.add_sheet("Sheet1")
+    students = Object.query.all()
+    rows = len(students)
+
+    field = [value for value in Object.__dict__ if
+             re.search("__(.*)", value)==None and value != "_sa_class_manager" and value != "{}_id".format(patter)]
+
+    try:
+        for col in range(0, len(field)):
+            if field[col]=="sub_stu":
+                sheet.write(0, col, "student_name")
+            elif field[col]=="sub_tea":
+                sheet.write(0, col, "teacher_name")
+            else:
+                sheet.write(0, col, field[col])
+
+        for row in range(1, rows+1):
+            for col in range(0, len(field)):
+                data = []
+                if field[col] == "sub_stu":
+
+                    for student in getattr(students[row - 1], field[col]):
+                        data.append(student.student_name)
+                    sheet.write(row, col, data)
+                elif field[col] == "sub_tea":
+                    for teacher in getattr(students[row - 1], field[col]):
+                        data.append(teacher.teacher_name)
+                    sheet.write(row, col, data)
+                else:
+                    sheet.write(row, col, getattr(students[row-1], field[col]))
         workbook.save(path + ".xlsx")
     except Exception as e:
         return False

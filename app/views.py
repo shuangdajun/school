@@ -9,7 +9,7 @@ from werkzeug.utils import secure_filename
 from app import app, db
 from app.db_service.students import editor_student_db, delete_student_db, search_student_db, paginate_html_db, \
     add_student_db, search_stduent
-from app.db_service.subjects import delete_subject_db, search_subject_db, add_subject_db
+from app.db_service.subjects import delete_subject_db, search_subject_db, add_subject_db, editor_subject_db
 from app.db_service.teachers import search_teacher_db, delete_teacher_db, editor_teacher_db, add_teacher_db, \
     search_teacher
 from app.model.Subjects import Subjects
@@ -265,7 +265,7 @@ def export_Teacher(filename):
 def Subject_info():
     params_dict = request.args.to_dict()
 
-    if "search_subject" in request.args.to_dict():
+    if "search_Subject" in request.args.to_dict():
         result = search_subject_db(request.args, params_dict)
         if result == None:
             return redirect(url_for("Subject_info") + "?page=1")
@@ -300,17 +300,17 @@ def add_Subject():
 
 # 编辑学科信息
 @app.route("/editor_Subject", methods=["GET", "POST"])
-def editor_subject():
+def editor_Subject():
     if request.method == "POST":
-        editor_teacher_db(request.args, request.form)
+        editor_subject_db(request.args, request.form)
         return redirect("/Subject_info")
-    subjects_modellistSelect = Subjects.query.filter_by(subject_name=request.args.get("search")).all()
-    if subjects_modellistSelect == "" or len(subjects_modellistSelect) > 1:
-        return "搜索结果多个禁止编辑|禁止直接访问"
-    return render_template("school_tem/editor_subjects.html", subjects_modelSelect=subjects_modellistSelect[0])
+    subjects_modelSelect = Subjects.query.filter_by(subject_name=request.args.get("search")).first()
+    studentlist=[]
+    for student in subjects_modelSelect.sub_stu:
+        studentlist.append(student.student_name)
+    pagination, subjects_modellistAll = paginate_html_db(Students, 6)
+    return render_template("school_tem/editor_subjects.html", subjects_modelSelect=subjects_modelSelect, pagination=pagination,studentlist=studentlist)
 
-
-#
 
 
 @app.route("/paginate_Subejct", methods=["POST"])
@@ -321,7 +321,9 @@ def paginate_subeject():
         student_list.append(user.student_name)
     return jsonify(student_list)
 
-
+@app.route("/paginate_Teacher", methods=["GET","POST"])
+def paginate_Teacher():
+    return {"id":1, "text":"hehe"}
 
 
 
@@ -354,197 +356,23 @@ def add_student():
 
         return redirect(url_for('dashboard'))
 
-
-@app.route('/edit-student/<string:id>', methods=['GET', 'POST'])
-@login_required
-def edit_student(id):
-    student = Student.query.filter_by(student_id=id).first()
-    if student:
-        if request.method == 'POST':
-            create_admin_user()
-            student = {"first_name": request.form["first_name"],
-                       "last_name": request.form["last_name"],
-                       "major_id": request.form["major"],
-                       "minors": request.form["minors"]}
-            response = requests.put(path + "/api/v1/students/" + id,
-                                    data=student,
-                                    headers=get_token())
-            output = json.loads(response.text)
-            if output.get("error"):
-                flash(output["error"], "error")
-            else:
-                if "error" in output["message"].lower():
-                    flash(output["message"], "error")
-                else:
-                    flash(output["message"], "success")
-    else:
-        flash("Specified student doesn't exit!", "error")
-
-    return redirect(url_for('dashboard'))
+# 上传学科信息
+@app.route("/upload_Subject", methods=["GET", "POST"])
+def upload_Subject():
+    path = "app/upload/" + request.files["file"].filename
+    result = xlsx_upload(request.files["file"], path)  # 格式化并存储数据
+    if result is None:
+        return "文件未上传"
+    xlsx_excel(path, Subjects)
+    return "文件上传成功"
 
 
-# @app.route('/delete-student/<string:id>', methods=['GET', 'POST'])
-# @login_required
-# def delete_student(id):
-#     student = Student.query.filter_by(student_id=id).first()
-#     if student:
-#         create_admin_user()
-#         response = requests.delete(path + "/api/v1/students/" + id,
-#                                    headers=get_token())
-#         output = json.loads(response.text)
-#         if output.get("error"):
-#             flash(output["error"], "error")
-#         else:
-#             if "error" in output["message"].lower():
-#                 flash(output["message"], "error")
-#             else:
-#                 flash(output["message"], "success")
-#     else:
-#         flash("Specified student doesn't exit!", "error")
-#
-#     return redirect(url_for('dashboard'))
+# 下载学科信息
+@app.route("/export_Subject/<path:filename>", methods=["POST", "GET"])
+def export_Subject(filename):
+    path = "app/export/" + filename
+    result = export_file(path)
+    if result is False:
+        return False
+    return send_from_directory(app.config["UPLOAD_FOLDER"], filename + ".xlsx", as_attachment=True)
 
-
-# @app.route('/add-teacher', methods=['GET', 'POST'])
-# # @login_required
-# def add_teacher():
-#     if request.method == 'POST':
-#         create_admin_user()
-#         teacher = {"first_name": request.form["first_name"],
-#                    "last_name": request.form["last_name"],
-#                    "email_address": request.form["email_address"],
-#                    "subjects_taught": request.form["subjects_taught"]}
-#         response = requests.post(path + "/api/v1/teachers",
-#                                  data=teacher,
-#                                  headers=get_token())
-#         output = json.loads(response.text)
-#         if output.get("error"):
-#             flash(output["error"], "error")
-#         else:
-#             if "error" in output["message"].lower():
-#                 flash(output["message"], "error")
-#             else:
-#                 flash(output["message"], "success")
-#
-#         return redirect(url_for('dashboard'))
-
-
-@app.route('/edit-teacher/<string:id>', methods=['GET', 'POST'])
-@login_required
-def edit_teacher(id):
-    teacher = Teacher.query.filter_by(staff_id=id).first()
-    if teacher:
-        if request.method == 'POST':
-            create_admin_user()
-            teacher = {"first_name": request.form["first_name"],
-                       "last_name": request.form["last_name"],
-                       "subjects_taught": request.form["subjects_taught"]}
-            response = requests.put(path + "/api/v1/teachers/" + id,
-                                    data=teacher,
-                                    headers=get_token())
-            output = json.loads(response.text)
-            if output.get("error"):
-                flash(output["error"], "error")
-            else:
-                if "error" in output["message"].lower():
-                    flash(output["message"], "error")
-                else:
-                    flash(output["message"], "success")
-    else:
-        flash("Specified teacher doesn't exit!", "error")
-
-    return redirect(url_for('dashboard'))
-
-
-@app.route('/delete-teacher/<string:id>', methods=['GET', 'POST'])
-@login_required
-def delete_teacher(id):
-    teacher = Teacher.query.filter_by(staff_id=id).first()
-    if teacher:
-        create_admin_user()
-        response = requests.delete(path + "/api/v1/teachers/" + id,
-                                   headers=get_token())
-        output = json.loads(response.text)
-        if output.get("error"):
-            flash(output["error"], "error")
-        else:
-            if "error" in output["message"].lower():
-                flash(output["message"], "error")
-            else:
-                flash(output["message"], "success")
-    else:
-        flash("Specified teacher doesn't exit!", "error")
-
-    return redirect(url_for('dashboard'))
-
-
-@app.route('/add-subject', methods=['GET', 'POST'])
-@login_required
-def add_subject():
-    if request.method == 'POST':
-        create_admin_user()
-        subject = {"name": request.form["name"],
-                   "description": request.form["description"],
-                   "teacher_id": request.form["teacher_id"]}
-        response = requests.post(path + "/api/v1/subjects",
-                                 data=subject,
-                                 headers=get_token())
-        output = json.loads(response.text)
-        if output.get("error"):
-            flash(output["error"], "error")
-        else:
-            if "error" in output["message"].lower():
-                flash(output["message"], "error")
-            else:
-                flash(output["message"], "success")
-
-        return redirect(url_for('dashboard'))
-
-
-@app.route('/edit-subject/<string:id>', methods=['GET', 'POST'])
-@login_required
-def edit_subject(id):
-    subject = Subject.query.filter_by(subject_id=id).first()
-    if subject:
-        if request.method == 'POST':
-            create_admin_user()
-            subject = {"name": request.form["name"],
-                       "description": request.form["description"],
-                       "teacher_id": request.form["teacher_id"]}
-            response = requests.put(path + "/api/v1/subjects/" + id,
-                                    data=subject,
-                                    headers=get_token())
-            output = json.loads(response.text)
-            if output.get("error"):
-                flash(output["error"], "error")
-            else:
-                if "error" in output["message"].lower():
-                    flash(output["message"], "error")
-                else:
-                    flash(output["message"], "success")
-    else:
-        flash("Specified subject doesn't exit!", "error")
-
-    return redirect(url_for('dashboard'))
-
-
-@app.route('/delete-subject/<string:id>', methods=['GET', 'POST'])
-@login_required
-def delete_subject(id):
-    subject = Subject.query.filter_by(subject_id=id).first()
-    if subject:
-        create_admin_user()
-        response = requests.delete(path + "/api/v1/subjects/" + id,
-                                   headers=get_token())
-        output = json.loads(response.text)
-        if output.get("error"):
-            flash(output["error"], "error")
-        else:
-            if "error" in output["message"].lower():
-                flash(output["message"], "error")
-            else:
-                flash(output["message"], "success")
-    else:
-        flash("Specified subject doesn't exit!", "error")
-
-    return redirect(url_for('dashboard'))

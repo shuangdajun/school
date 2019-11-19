@@ -46,7 +46,7 @@ def search_teacher_db(args,params_dict):
     if params_dict["search_teacher"]=="":
         result = Teachers.query.all()
         pagination, user = paginate_html_db(Teachers)
-        return pagination, result
+        return pagination, user
     if Teachers.query.filter_by(teacher_name=args.get("search_teacher")).all()==[]:
         return None
     return paginate_html_db(Teachers)[0],Teachers.query.filter_by(teacher_name=args.get("search_teacher")).all()

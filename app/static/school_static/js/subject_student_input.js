@@ -3,7 +3,7 @@
 //  *title:窗口标题，字符串类型
 //  *removeable:窗口能否拖动，布尔类型
 //  *注意：内容窗体的高度是height-30px，请计算好你要显示的内容的高度和宽度。弹出窗的id为"223238909"，所以你的页面不要再取值为"223238909"的id了，以防js执行出错*/
-function createdialog(width, height, bodycontent, title, search, removeable, ) {
+function createdialog(width, height, bodycontent, title, search, removeable) {
     if (document.getElementById("www_jb51_net") == null) {
         /*创建窗口的组成元素*/
         var dialog = document.createElement("div");
@@ -71,6 +71,7 @@ function createdialog(width, height, bodycontent, title, search, removeable, ) {
         closeaction.onclick = function () {
             dialog.parentNode.removeChild(dialog);
             clickstudent.disabled = false;
+            currPageNum=1;
         }
 
         dialogsearchbutton.onclick = function () {
@@ -119,6 +120,12 @@ function createdialog(width, height, bodycontent, title, search, removeable, ) {
                 ismousedown = false;
             }
 
+
+
+            if (numCount==pageCount) {
+                firstLast()
+            }
+            else {firstPage()}
         }
         return dialog;
     }//end if(if的结束)
