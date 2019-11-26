@@ -47,7 +47,13 @@
                         <td >{{ teacher.teacher_name }}</td>
                         <td>{{ teacher.teacher_address }}</td>
                         <td>{{ teacher.teacher_phone }}</td>
-                          <td>学科</td>
+                                                  <td>
+                              {% for subject in teacher.tea_sub %}
+                                  {{ subject.subject_name }}&nbsp;
+
+                              {% endfor %}
+
+                          </td>
                       <td>
 
 
@@ -100,7 +106,6 @@
 
                 {#alert(name)#}
                 if (delete_teacher==true) {
-                    alert("{{ request.url }}")
                     window.location.href = "?delete_teacher=" + name
                     {#alert(window.location.href)#}
                 }
@@ -108,7 +113,6 @@
         {#编辑学生信息#}
         function editor_teacher(url) {
             window.location.href=url
-            alert(url)
 
         }
         {#button触发input 上传#}
@@ -132,7 +136,6 @@
                     //创建xhr，使用ajax进行文件上传
                     var xhr = new XMLHttpRequest();
                     xhr.open("post","/upload_Teacher?"+file);
-                    console.log("/upload_Teacher?"+file.name)
                     {#//回调#}
                     {#xhr.onreadystatechange = function () {#}
                     {#    if (xhr.readyState==4 && xhr.status==200){#}

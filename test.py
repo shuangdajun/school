@@ -2,41 +2,16 @@
 from sqlalchemy import Column, String, Integer, create_engine, ForeignKey, MetaData, Table
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
-
-
-Base=declarative_base()
-class User(Base):
-    __tablename__="user"
-    id=Column(Integer,primary_key=True)
-    user_name=Column(String(20))
-class Address(Base):
-    __tablename__="address"
-    add_id = Column(Integer, primary_key=True)
-    address=Column(String(30))
-    user_id = Column(Integer, ForeignKey('users.id'))
-    user = relationship("User")
-
-if __name__=="__main__":
-    engine=create_engine("mysql+pymysql://root:1qaz@WSX@172.18.1.101/test",connect_args={'charset':'utf8'})
-    metadata = MetaData(engine)
-
-    user = Table('user', metadata,
-                 Column('id', Integer, primary_key=True),
-                 Column('user_name', String(20)))
-    address = Table('address', metadata,
-                    Column('add_id', Integer, primary_key=True),
-                    Column('address', String(30), nullable=False),
-                    )
-
-    # metadata.create_all(engine)
-    session=sessionmaker(bind=engine)
-    user=User()
-    user.user_name="张三"
-    db=session()
-    db.add(user)
-
-
-
-
-
-
+from openpyxl import load_workbook
+wb=load_workbook("C:\\Users\\x\\Documents\\WeChat Files\\wxid_vbfe2gu2k0rc22\FileStorage\\File\\2019-11\\学生表(2)(1).xlsx")
+sheet_names=wb.sheetnames
+for sheet_name in sheet_names:
+    ws=wb[sheet_name]
+    max_row=ws.max_row
+    max_col=ws.max_column
+    list=""
+    for row in range(2,max_row+1):
+        if ws.cell(row=row,column=2).value==None:
+            continue
+        list=list+","+ws.cell(row=row,column=2).value
+    print(sheet_name+" "+list)

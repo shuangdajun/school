@@ -1,0 +1,154 @@
+{% extends "school_tem/layout.html" %}
+{% import "school_tem/_macros.html" as macros %}
+{% block content %}
+    <div id="page-wrapper">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>缴费信息</h2>
+                <div class="table-responsive">
+                    <div class="form-group " style="margin-bottom: 1%;margin-top: 1%;margin-left: 4%;">
+
+                        <input id="search_Price" style="width: 35%;font-size: 24px; border: 1px solid #cccccc;
+                    border-radius: 2px;padding: 18px 20px;margin-right:2%;" placeholder="请输入学生名称">
+                        <button id="search_Price_button" type="submit" style="width: 13%;font-size: 23px; border: 1px solid #cccccc;
+                    border-radius: 2px;padding: 18px 20px;margin-right:2%;margin-top:auto">搜索
+                        </button>
+                        <a href="add_Price">
+                            <button id="add_student_button" type="submit" style="width: 13%;font-size: 23px; border: 1px solid #cccccc;
+                    border-radius: 2px;padding: 18px 20px;margin-right:2%;margin-top:auto" name="ti">添加
+                            </button>
+                        </a>
+                        <input id="upload_Price_input" type="file" style="display: none;">
+                        <button id="upload_Price_button" type="file" style="width: 13%;font-size: 23px; border: 1px solid #cccccc;
+                    border-radius: 2px;padding: 18px 20px;margin-right:2%;margin-top:auto">导入
+                        </button>
+                        <a href="export_Price/Subjects_info" download="教师表.xlsx">
+                            <button id="export_Price_button" type="file" style="width: 13%;font-size: 23px; border: 1px solid #cccccc;
+                    border-radius: 2px;padding: 18px 20px;margin-right:2%;margin-top:auto">导出
+                            </button>
+
+                        </a>
+
+
+                    </div>
+                    <table class="table table-bordered table-hover table-striped tablesorter">
+                        <thead>
+                        <tr>
+                            <th style="width:11%;">学生姓名 <i class="fa fa-sort"></i></th>
+                            <th style="width:6%;"> 教学讲师<i class="fa fa-sort"></i></th>
+                            <th style="width:11%;">学科<i class="fa fa-sort"></i></th>
+                            <th style="width:18%;">开始时间<i class="fa fa-sort"></i></th>
+                            <th style="width:18%;">结束时间<i class="fa fa-sort"></i></th>
+                            <th style="width:11%;">学时<i class="fa fa-sort"></i></th>
+                            <th style="width:11%;">费用<i class="fa fa-sort"></i></th>
+                            <th style="width:20%;">选择<i class="fa fa-sort"></i></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for prices in prices_modellist %}
+
+                            <tr class="active">
+                                <td>{{ prices.pri_stu.student_name }}</td>
+                                <td>
+                                    {{ prices.pri_tea.teacher_name }}
+
+                                </td>
+                                <td>
+
+                                    {{ prices.pri_sub.subject_name }}
+                                </td>
+                                <td>
+                                     {{ prices.startTime}}
+                                </td>
+                                 <td>
+                                     {{ prices.stopTime}}
+                                </td>
+                                  <td>
+                                     {{ prices.ClassHours}}
+                                </td>
+                                  <td>
+                                     {{ prices.prices}} 元
+                                </td>
+                                <td>
+                                    {% set price_id=prices.price_id|string %}
+
+                                    {% set url=request.url | accept_pattern("(.*)/(.*)")+"/editor_Price?search="+price_id %}
+
+                                    <input type="button" value="编辑" onclick=editor_Price("{{ url }}")>
+
+                                    <input type="button" value="删除" onclick="deletePrice('{{ price_id }}')"/>
+
+                                    <input type="hidden" value="submit" onclick="getText();"/>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div id="page">
+
+                </div>
+                {#                分页#}
+                {{ macros.pagination_widget(pagination, '.Price_info') }}
+            </div>
+
+        </div><!-- /.row -->
+
+    </div><!-- /#page-wrapper -->
+
+
+{% endblock %}
+{% block foot %}
+
+    <script>
+        {#搜索学生#}
+        $("#search_Price_button").click(
+            function () {
+                var search_Price = $("#search_Price").val()
+                console.log("?search_Price=" + search_Price)
+                window.location.href = "?search_Price=" + search_Price
+
+            });
+
+
+        {#删除学生#}
+
+        function deletePrice(id) {
+            var delete_Price = confirm("请确认是否删除")
+
+            if (delete_Price == true) {
+                window.location.href = "?delete_Subject=" + id
+            }
+        }
+
+        {#编辑信息#}
+
+        function editor_Price(url) {
+            window.location.href = url
+        }
+        {#button触发input 上传#}
+        $("#upload_Price_button").click(
+            function () {
+
+                document.getElementById("upload_Price_input").click()
+            }
+        )
+    </script>
+    <script>
+        //首先监听input框的变动，选中一个新的文件会触发change事件
+                document.querySelector("#upload_Price_input").addEventListener("change",function () {
+
+                    //获取到选中的文件
+                    var file = document.querySelector("#upload_Price_input").files[0];
+                    //创建formdata对象
+                    var formdata = new FormData();
+                    formdata.append("file",file);
+                    //创建xhr，使用ajax进行文件上传
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("post","/upload_Price?"+file);
+
+                    xhr.send(formdata);
+                });
+    </script>
+{% endblock %}

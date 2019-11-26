@@ -40,28 +40,6 @@ def delete_subject_db(args):
         print(e)
 
 
-def editor_subject_db(args, form):
-    subject_name = args["search"]
-    subject_id = \
-        list(db.session.execute(
-            'select subject_id from fisher.Subjects  where subject_name="{0}"'.format(subject_name)))[0]._row[0]
-    print(subject_id)
-    print('UPDATE fisher.Subjects  set subject_name="{0}" where subject_id="{1}";'.format(form["teacher_name"],
-                                                                                          subject_id))
-    # db.session.execute(
-    #     'UPDATE fisher.Subjects  set teacher_name="{0}" where subject_id="{1}";'.format(form["teacher_name"],
-    #                                                                              subject_id))
-    # db.session.execute(
-    #     'UPDATE fisher.Subjects  set subject_name="{0}" where subject_id="{1}";'.format(form["teacher_address"],
-    #                                                                                 subject_id))
-    #
-    # db.session.execute(
-    #     'UPDATE fisher.Subjects  set teacher_phone="{0}" where subject_id="{1}";'.format(form["teacher_phone"],
-    #                                                                               subject_id))
-    # db.session.commit()
-    subject = Subjects.query.fiter_by(subject_name="subject_name")
-    subject.sut_stu
-
 
 def search_subject_db(args, params_dict):
     if params_dict["search_Subject"] == "":
@@ -77,7 +55,7 @@ def editor_subject_db(args,form):
     result=Subjects.query.filter_by(subject_name=subject_name).first()
     result.sub_tea.teacher_name=form["teacher_name"]
     student_list=[]
-    for student in form["student_name"].split(","):
+    for student in form["student_name"].strip(",").split(","):
         student_list.append(Students.query.filter_by(student_name=student).first())
     if student_list!=result.sub_stu:
         result.sub_stu=student_list

@@ -40,9 +40,13 @@
                         <!--需要核对数据类型，数字就可以 -->
                         <div class="col-sm-6">
                             <input type="text" class="form-control" name="teacher_name"
-                                   value={{ subjects_modelSelect.sub_tea[0].teacher_name }}>
-                        </div>
 
+                            {% if  subjects_modelSelect.sub_tea|length ==0 %}
+                                value={{ "" }}
+                            {% else %}
+                                value={{ subjects_modelSelect.sub_tea[0].teacher_name | default("") }}
+                            {% endif %} >
+                        </div>
 
                     </div>
 
@@ -92,6 +96,7 @@
         var pageNumSpan;
         var currPageSpan;
         var student_list = new Array();
+        var student_new=""
         var clickstudent = document.getElementById("StuChoice");
         window.onload = function () {
             //页面标签变量
@@ -121,8 +126,10 @@
 
             {% for student in studentlist %}
                 student_list.push("{{ student }}")
+
             {% endfor %}
-            clickstudent.value = student_list;
+
+            clickstudent.value = student_list.join(",");
 
         };
 

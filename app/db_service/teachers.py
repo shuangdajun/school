@@ -1,16 +1,20 @@
 from app.db_service.students import paginate_html_db
 from app.model.Base import db
+from app.model.Subjects import Subjects
 from app.model.Teachers import Teachers
 
 
 
 
 
-def add_teacher_db(form_dict):
+def add_teacher_db(form_dict,subjectList):
     teacher = Teachers()
     for key, value in form_dict:
         if hasattr(teacher, key):
             setattr(teacher, key, value)
+        elif key == "subjectSelect":
+            value = Subjects.query.filter(Subjects.subject_name.in_(subjectList)).all()
+            setattr(teacher, "tea_sub", value)
     try:
         db.session.add(teacher)
         db.session.commit()
@@ -18,28 +22,31 @@ def add_teacher_db(form_dict):
         db.session.rollback()
         print(e)
 def delete_teacher_db(args):
-    db.session.execute('delete from fisher.Teachers where teacher_name="{}"'.format(args["delete_teacher"]))
 
-    db.session.commit()
-
+    try:
+        result=db.session.query(Teachers).filter_by(teacher_name=args["delete_teacher"]).first()
+        db.session.delete(result)
+        db.session.commit()
+    except Exception as e:
+        db.session.rollback()
+        print(e)
 def editor_teacher_db(args,form):
     teacher_name = args["search"]
-    teacher_id = \
-    list(db.session.execute('select teacher_id from Teachers where teacher_name="{0}"'.format(teacher_name)))[0]._row[0]
-    print(teacher_id)
-    print('UPDATE Teachers  set teacher_name="{0}" where teacher_id="{1}";'.format(form["teacher_name"],
-                                                                                 teacher_id))
-    db.session.execute(
-        'UPDATE Teachers  set teacher_name="{0}" where teacher_id="{1}";'.format(form["teacher_name"],
-                                                                                 teacher_id))
-    db.session.execute(
-        'UPDATE Teachers  set teacher_address="{0}" where teacher_id="{1}";'.format(form["teacher_address"],
-                                                                                teacher_id))
+    teacher=Teachers.query.filter_by(teacher_name=teacher_name).first()
+    subject_list=[]
+    for subject in form.getlist("subjectSelect"):
+        subject_list.append(Subjects.query.filter_by(subject_name=subject).first())
+    teacher.tea_sub = subject_list
 
-    db.session.execute(
-        'UPDATE Teachers  set teacher_phone="{0}" where teacher_id="{1}";'.format(form["teacher_phone"],
-                                                                                  teacher_id))
-    db.session.commit()
+
+    try:
+        teacher.teacher_name=form["teacher_name"]
+        teacher.teacher_address=form["teacher_address"]
+        teacher.teacher_phone=form["teacher_phone"]
+        db.session.commit()
+    except Exception as e:
+        db.session.rollback()
+        print(e)
 
 
 def search_teacher_db(args,params_dict):

@@ -6,14 +6,14 @@ from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 
 from app.model.Base import db
-from config.config import app_config
 
-# from app.model.Base import db
+
 from app.model.Students import Students
 from app.model.Subjects import Subjects
 from app.model.Teachers import Teachers
-# from app.model.Prices import Prices
+from app.model.Prices import Prices
 
+from config.config import app_config
 
 import re
 

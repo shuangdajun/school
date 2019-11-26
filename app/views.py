@@ -12,10 +12,10 @@ from app.db_service.students import editor_student_db, delete_student_db, search
 from app.db_service.subjects import delete_subject_db, search_subject_db, add_subject_db, editor_subject_db
 from app.db_service.teachers import search_teacher_db, delete_teacher_db, editor_teacher_db, add_teacher_db, \
     search_teacher
+from app.model.Prices import Prices
 from app.model.Subjects import Subjects
 
 from app.model.Teachers import Teachers
-
 
 from app.model.Students import Students
 
@@ -120,7 +120,11 @@ def dashboard():
 @app.route("/Student_info", methods=["GET", "POST"])
 def Student_info():
     params_dict = request.args.to_dict()
-    if "search_student" in request.args.to_dict():
+    if "page" in params_dict and params_dict["page"] != "":
+        pagination, students_modellistAll = paginate_html_db(Students, 14)
+        return render_template("school_tem/students.html", students_modellist=students_modellistAll,
+                               pagination=pagination)
+    elif "search_student" in request.args.to_dict():
         result = search_student_db(request.args, params_dict)
         if result == None:
             return redirect(url_for("Student_info") + "?page=1")
@@ -129,14 +133,10 @@ def Student_info():
     elif "delete_student" in params_dict and params_dict["delete_student"] != "":
         delete_student_db(request.args)
         return redirect("/Student_info")
-    elif "page" in params_dict and params_dict["page"] != "":
-        pagination, students_modellistAll = paginate_html_db(Students, 14)
-        return render_template("school_tem/students.html", students_modellist=students_modellistAll,
-                               pagination=pagination)
+
 
     return redirect(request.url + "?page=1")
 
-    # return render_template('school_tem/students.html', students_modellist=students_modellistAll, page=request.args.to_dict()["page"])
 
 
 # 添加学生
@@ -147,23 +147,27 @@ def add_Student():
         if result[0] == False:
             print(result[1].errors)
             return render_template("school_tem/error.html", errors=result[1].errors)
-
-        add_student_db(result[1].data.items())
+        subjectList=request.form.getlist("subjectSelect")
+        add_student_db(result[1].data.items(),subjectList)
 
         return redirect("/Student_info")
-    return render_template("school_tem/add_students.html")
+    subject_modellist = Subjects.query.all()
+    return render_template("school_tem/add_students.html",subject_modellist=subject_modellist)
 
 
 # 编辑学生信息
 @app.route("/editor_student", methods=["GET", "POST"])
 def editor_student():
+
     if request.method == "POST":
         editor_student_db(request.args, request.form)
         return redirect("/Student_info")
-    students_modellistSelect = Students.query.filter_by(student_name=request.args.get("search")).all()
-    if students_modellistSelect == "" or len(students_modellistSelect) > 1:
-        return "搜索结果多个禁止编辑|禁止直接访问"
-    return render_template("school_tem/editor_student.html", students_modelSelect=students_modellistSelect[0])
+    students_modelSelect = Students.query.filter_by(student_name=request.args.get("search")).first()
+    subject_modellist=Subjects.query.all()
+    subject_modelforce = [value for value in students_modelSelect.stu_sub]
+
+    return render_template("school_tem/editor_student.html", students_modelSelect=students_modelSelect,
+                            subject_modellist=subject_modellist,subject_modelforce=subject_modelforce)
 
 
 # 上传学生信息
@@ -192,8 +196,11 @@ def export_Student(filename):
 @app.route("/Teacher_info", methods=["GET", "POST"])
 def Teacher_info():
     params_dict = request.args.to_dict()
-
-    if "search_teacher" in request.args.to_dict():
+    if "page" in params_dict and params_dict["page"] != "":
+        pagination, teachers_modellistAll = paginate_html_db(Teachers, 14)
+        return render_template("school_tem/teachers.html", teachers_modellist=teachers_modellistAll,
+                               pagination=pagination)
+    elif "search_teacher" in request.args.to_dict():
         result = search_teacher_db(request.args, params_dict)
         if result == None:
             return redirect(url_for("Teacher_info") + "?page=1")
@@ -201,10 +208,6 @@ def Teacher_info():
     elif "delete_teacher" in params_dict and params_dict["delete_teacher"] != "":
         delete_teacher_db(request.args)
         return redirect("/Teacher_info")
-    elif "page" in params_dict and params_dict["page"] != "":
-        pagination, teachers_modellistAll = paginate_html_db(Teachers, 14)
-        return render_template("school_tem/teachers.html", teachers_modellist=teachers_modellistAll,
-                               pagination=pagination)
 
     return redirect(request.url + "?page=1")
 
@@ -219,11 +222,12 @@ def add_Teacher():
         if result[0] == False:
             print(result[1].errors)
             return render_template("school_tem/error.html", errors=result[1].errors)
-
-        add_teacher_db(result[1].data.items())
+        subjectList = request.form.getlist("subjectSelect")
+        add_teacher_db(result[1].data.items(),subjectList)
 
         return redirect("/Teacher_info")
-    return render_template("school_tem/add_teachers.html")
+    subject_modellist=Subjects.query.all()
+    return render_template("school_tem/add_teachers.html",subject_modellist=subject_modellist)
 
 
 # 编辑教师信息
@@ -232,10 +236,11 @@ def editor_teacher():
     if request.method == "POST":
         editor_teacher_db(request.args, request.form)
         return redirect("/Teacher_info")
-    teachers_modellistSelect = Teachers.query.filter_by(teacher_name=request.args.get("search")).all()
-    if teachers_modellistSelect == "" or len(teachers_modellistSelect) > 1:
-        return "搜索结果多个禁止编辑|禁止直接访问"
-    return render_template("school_tem/editor_teacher.html", teachers_modelSelect=teachers_modellistSelect[0])
+    teachers_modellistSelect = Teachers.query.filter_by(teacher_name=request.args.get("search")).first()
+    subject_modellist=Subjects.query.all()
+    subject_modelforce = [value for value in teachers_modellistSelect.tea_sub]
+    return render_template("school_tem/editor_teacher.html", teachers_modelSelect=teachers_modellistSelect,teachers_modellistSelect=teachers_modellistSelect,
+                           subject_modellist=subject_modellist,subject_modelforce=subject_modelforce)
 
 
 #
@@ -264,8 +269,11 @@ def export_Teacher(filename):
 @app.route("/Subject_info", methods=["GET", "POST"])
 def Subject_info():
     params_dict = request.args.to_dict()
-
-    if "search_Subject" in request.args.to_dict():
+    if "page" in params_dict and params_dict["page"] != "":
+        pagination, subjects_modellistAll = paginate_html_db(Subjects, 14)
+        return render_template("school_tem/subjects.html", subjects_modellist=subjects_modellistAll,
+                               pagination=pagination)
+    elif "search_Subject" in request.args.to_dict():
         result = search_subject_db(request.args, params_dict)
         if result == None:
             return redirect(url_for("Subject_info") + "?page=1")
@@ -273,11 +281,7 @@ def Subject_info():
     elif "delete_Subject" in params_dict and params_dict["delete_Subject"] != "":
         delete_subject_db(request.args)
         return redirect("/Subject_info" + "?page=1")
-    elif "page" in params_dict and params_dict["page"] != "":
-        pagination, subjects_modellistAll = paginate_html_db(Subjects, 14)
-        print(subjects_modellistAll)
-        return render_template("school_tem/subjects.html", subjects_modellist=subjects_modellistAll,
-                               pagination=pagination)
+
 
     return redirect(request.url + "?page=1")
 
@@ -305,12 +309,12 @@ def editor_Subject():
         editor_subject_db(request.args, request.form)
         return redirect("/Subject_info")
     subjects_modelSelect = Subjects.query.filter_by(subject_name=request.args.get("search")).first()
-    studentlist=[]
+    studentlist = []
     for student in subjects_modelSelect.sub_stu:
         studentlist.append(student.student_name)
     pagination, subjects_modellistAll = paginate_html_db(Students, 6)
-    return render_template("school_tem/editor_subjects.html", subjects_modelSelect=subjects_modelSelect, pagination=pagination,studentlist=studentlist)
-
+    return render_template("school_tem/editor_subjects.html", subjects_modelSelect=subjects_modelSelect,
+                           pagination=pagination, studentlist=studentlist)
 
 
 @app.route("/paginate_Subejct", methods=["POST"])
@@ -321,40 +325,9 @@ def paginate_subeject():
         student_list.append(user.student_name)
     return jsonify(student_list)
 
-@app.route("/paginate_Teacher", methods=["GET","POST"])
-def paginate_Teacher():
-    return {"id":1, "text":"hehe"}
 
 
 
-
-@app.route("/forms.html", methods=["GET", "POST"])
-def forms_info():
-    print(request.method)
-    return render_template('school_tem/forms.html')
-
-
-@app.route('/add-student', methods=['GET', 'POST'])
-@login_required
-def add_student():
-    if request.method == 'POST':
-        create_admin_user()
-        student = {"first_name": request.form["first_name"],
-                   "last_name": request.form["last_name"],
-                   "email_address": request.form["email_address"],
-                   "major_id": request.form["major"],
-                   "minors": request.form["minors"]}
-        response = requests.post(path + "/api/v1/students", data=student, headers=get_token())
-        output = json.loads(response.text)
-        if output.get("error"):
-            flash(output["error"], "error")
-        else:
-            if "error" in output["message"].lower():
-                flash(output["message"], "error")
-            else:
-                flash(output["message"], "success")
-
-        return redirect(url_for('dashboard'))
 
 # 上传学科信息
 @app.route("/upload_Subject", methods=["GET", "POST"])
@@ -376,3 +349,39 @@ def export_Subject(filename):
         return False
     return send_from_directory(app.config["UPLOAD_FOLDER"], filename + ".xlsx", as_attachment=True)
 
+
+
+
+@app.route("/forms.html", methods=["GET", "POST"])
+def forms_info():
+    print(request.method)
+    return render_template('school_tem/forms.html')
+
+
+@app.route("/Price_info",methods=["POST","GET"])
+def Price_info():
+    params_dict = request.args.to_dict()
+    if "page" in params_dict and params_dict["page"] != "":
+        pagination, prices_modellistAll = paginate_html_db(Prices, 14)
+        return render_template("school_tem/prices.html", prices_modellist=prices_modellistAll,
+                               pagination=pagination)
+    elif "search_Price" in request.args.to_dict():
+        result = search_subject_db(request.args, params_dict)
+        if result == None:
+            return redirect(url_for("Price_info") + "?page=1")
+        return render_template('school_tem/prices.html', subjects_modellist=result[1], pagination=result[0])
+    elif "delete_Price" in params_dict and params_dict["delete_Price"] != "":
+        delete_subject_db(request.args)
+        return redirect("/Price_info" + "?page=1")
+    return redirect(request.url + "?page=1")
+
+
+# 上传缴费信息
+@app.route("/upload_Price", methods=["GET", "POST"])
+def upload_Price():
+    path = "app/upload/" + request.files["file"].filename
+    result = xlsx_upload(request.files["file"], path)  # 格式化并存储数据
+    if result is None:
+        return "文件未上传"
+    xlsx_excel(path, Prices)
+    return "文件上传成功"

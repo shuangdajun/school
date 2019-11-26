@@ -56,7 +56,7 @@
                                 <td>
 
                                     {% for sub in subject.sub_stu %}
-                                        {{ sub.student_name }}
+                                        {{ sub.student_name }}&nbsp
                                     {% endfor %}
                                 </td>
                                 <td>
@@ -81,7 +81,7 @@
 
                 </div>
                 {#                分页#}
-                {{ macros.pagination_widget(pagination, '.Student_info') }}
+                {{ macros.pagination_widget(pagination, '.Subject_info') }}
             </div>
 
         </div><!-- /.row -->
@@ -96,7 +96,6 @@
         {#搜索学生#}
         $("#search_Subject_button").click(
             function () {
-                console.log("pp")
                 var search_Subject = $("#search_Subject").val()
                 console.log("?search_Subject=" + search_Subject)
                 window.location.href = "?search_Subject=" + search_Subject
@@ -112,7 +111,6 @@
 
             if (delete_Subject == true) {
                 window.location.href = "?delete_Subject=" + name
-                {#alert(window.location.href)#}
             }
         }
 
@@ -120,7 +118,7 @@
 
         function editor_Subject(url) {
             window.location.href = url
-            alert(url)
+
 
         }
         {#button触发input 上传#}
@@ -143,21 +141,7 @@
                     //创建xhr，使用ajax进行文件上传
                     var xhr = new XMLHttpRequest();
                     xhr.open("post","/upload_Subject?"+file);
-                    console.log("/upload_Subject?"+file.name)
-                    {#//回调#}
-                    {#xhr.onreadystatechange = function () {#}
-                    {#    if (xhr.readyState==4 && xhr.status==200){#}
-                    {#        document.querySelector("#callback").innerText = xhr.responseText;#}
-                    {#    }#}
-                    {##}
-                    {#//获取上传的进度#}
-                    {#xhr.upload.onprogress = function (event) {#}
-                    {#    if(event.lengthComputable){#}
-                    {#        var percent = event.loaded/event.total *100;#}
-                    {#        document.querySelector("#progress .progress-item").style.width = percent+"%";#}
-                    {#    }#}
-                    {##}
-                    //将formdata上传
+
                     xhr.send(formdata);
                 });
     </script>

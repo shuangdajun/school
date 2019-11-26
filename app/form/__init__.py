@@ -13,6 +13,7 @@ class judgeStuentForm(Form):
     student_age = IntegerField(validators=[NumberRange(min=1,max=50),DataRequired("请输入正确的年龄")])
     student_phone =StringField()
     student_landline = StringField()
+    subjectSelect=StringField()
     # def validate_student_name(self,field):
     #     print(Students.query.filter_by(student_name=field.data))
     #
@@ -30,6 +31,7 @@ class judgeTeacherForm(Form):
     teacher_name=StringField(validators=[Length(min=1,max=20),DataRequired("请输入正确的学生姓名")])
     teacher_address=StringField(validators=[Length(min=1,max=50),DataRequired("请输入正确的住址信息")])
     teacher_phone=StringField()
+    subjectSelect=StringField()
     # def validate_teacher_name(self,field):
     #     print(Teachers.query.filter_by(teacher_name=field.data))
     #
