@@ -2,34 +2,45 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1dd29122-aa0d-4427-b338-f3845b82896f" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/app/templates/school_tem/prices.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/db_service/prices.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/model/Prices_warning.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/templates/school_tem/editor_prices.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/db_service/students.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/db_service/students.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/db_service/subjects.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/db_service/subjects.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/db_service/teachers.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/db_service/teachers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/export/Students_info.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/export/Students_info.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/export/Subjects_info.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/export/Subjects_info.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/export/Teachers_info.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/export/Teachers_info.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/form/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/form/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/model/Prices.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/model/Prices.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/service/detail_students.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/service/detail_students.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/base.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/dashboard.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/login.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/school_tem/add_students.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/school_tem/add_students.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/school_tem/add_teachers.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/school_tem/add_teachers.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/school_tem/editor_student.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/school_tem/editor_student.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/school_tem/editor_subjects.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/school_tem/editor_subjects.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/school_tem/editor_teacher.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/school_tem/editor_teacher.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/school_tem/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/school_tem/layout.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/school_tem/students.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/school_tem/students.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/templates/school_tem/subjects.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/school_tem/subjects.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/school_tem/teachers.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/school_tem/teachers.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/search_student.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jiaoben5887/css/bootstrap.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jiaoben5887/css/demo.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jiaoben5887/dist/css/component-chosen.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jiaoben5887/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jiaoben5887/js/chosen.jquery.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jiaoben5887/js/jquery-1.10.2.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jiaoben5887/js/jquery-1.11.0.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jiaoben5887/说明.htm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jiaoben5887/说明.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/manage.py" beforeDir="false" afterPath="$PROJECT_DIR$/manage.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/README" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/alembic.ini" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/env.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/script.py.mako" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/versions/1744cd46c8d2_.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshots/api_list_subjects.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshots/api_list_teachers.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshots/api_login.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshots/api_register.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshots/api_update_student.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshots/app_dashboard.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshots/app_login.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshots/app_students.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshots/app_subjects.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshots/app_teachers.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_authorization.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_students.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_subjects.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_teachers.py" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -44,7 +55,7 @@
     <SUITE FILE_PATH="coverage/flask_school_app_and_api_master$Unittests_in___init___py.coverage" NAME="Unittests in __init__.py Coverage Results" MODIFIED="1571662202361" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/flask_school_app_and_api_master$Flask__app___init___py_.coverage" NAME="Flask (app/__init__.py) Coverage Results" MODIFIED="1572410112746" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/flask_school_app_and_api_master$test.coverage" NAME="test Coverage Results" MODIFIED="1574756921579" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/app" />
-    <SUITE FILE_PATH="coverage/flask_school_app_and_api_master$manage.coverage" NAME="manage Coverage Results" MODIFIED="1574760368377" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/flask_school_app_and_api_master$manage.coverage" NAME="manage Coverage Results" MODIFIED="1574834186334" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/flask_school_app_and_api_master$test__1_.coverage" NAME="test (1) Coverage Results" MODIFIED="1574660774578" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/flask_school_app_and_api_master$run.coverage" NAME="run Coverage Results" MODIFIED="1571819468755" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
@@ -70,11 +81,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="322">
-              <caret line="381" selection-start-line="381" selection-end-line="381" />
+            <state relative-caret-position="-879">
+              <caret line="162" selection-start-line="162" selection-end-line="162" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -82,54 +93,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="prices.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/templates/school_tem/prices.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1156">
-              <caret line="92" column="63" selection-start-line="92" selection-start-column="63" selection-end-line="92" selection-end-column="63" />
-              <folding>
-                <element signature="e#430#567#0#HTML" expanded="true" />
-                <element signature="e#662#814#0#HTML" expanded="true" />
-                <element signature="e#973#1125#0#HTML" expanded="true" />
-                <element signature="e#1271#1293#0#HTML" expanded="true" />
-                <element signature="e#1364#1516#0#HTML" expanded="true" />
-                <element signature="e#1709#1861#0#HTML" expanded="true" />
-                <element signature="e#2150#2168#0#HTML" expanded="true" />
-                <element signature="e#2238#2255#0#HTML" expanded="true" />
-                <element signature="e#2325#2343#0#HTML" expanded="true" />
-                <element signature="e#2410#2428#0#HTML" expanded="true" />
-                <element signature="e#2497#2515#0#HTML" expanded="true" />
-                <element signature="e#2584#2602#0#HTML" expanded="true" />
-                <element signature="e#2669#2687#0#HTML" expanded="true" />
-                <element signature="e#2754#2772#0#HTML" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="subjects.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/templates/school_tem/subjects.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-405">
-              <caret line="21" column="32" lean-forward="true" selection-start-line="21" selection-start-column="32" selection-end-line="21" selection-end-column="32" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/__init__.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="351">
-              <caret line="13" column="32" lean-forward="true" selection-start-line="13" selection-start-column="32" selection-end-line="13" selection-end-column="32" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Prices.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/model/Prices.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="297">
-              <caret line="17" column="28" selection-start-line="17" selection-start-column="28" selection-end-line="17" selection-end-column="28" />
+            <state relative-caret-position="371">
+              <caret line="73" column="16" lean-forward="true" selection-start-line="73" selection-start-column="16" selection-end-line="73" selection-end-column="16" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -137,52 +105,85 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="teachers.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/templates/school_tem/teachers.html">
+      <file leaf-file-name="scheduler.py" pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/Envs/env/Lib/site-packages/flask_apscheduler/scheduler.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="813">
-              <caret line="155" column="16" selection-start-line="155" selection-start-column="16" selection-end-line="155" selection-end-column="16" />
+            <state relative-caret-position="-9381">
+              <caret line="34" column="8" selection-start-line="34" selection-start-column="8" selection-end-line="34" selection-end-column="8" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="layout.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/templates/school_tem/layout.html">
+      <file leaf-file-name="base.py" pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/Envs/env/Lib/site-packages/apscheduler/executors/base.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="269">
-              <caret line="45" column="31" selection-start-line="45" selection-start-column="31" selection-end-line="45" selection-end-column="31" />
+            <state relative-caret-position="148">
+              <caret line="124" selection-start-line="124" selection-end-line="124" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="detail_students.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/service/detail_students.py">
+      <file leaf-file-name="config.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/config/config.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="417">
-              <caret line="65" selection-start-line="65" selection-end-line="65" />
+            <state relative-caret-position="359">
+              <caret line="47" column="9" lean-forward="true" selection-start-line="47" selection-start-column="9" selection-end-line="47" selection-end-column="9" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".env" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.env">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="108">
+              <caret line="4" column="19" lean-forward="true" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="68" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="manage.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/manage.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="324">
+              <caret line="30" selection-start-line="30" selection-end-line="30" selection-end-column="21" />
               <folding>
-                <element signature="e#0#17#0" expanded="true" />
+                <element signature="e#0#9#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/test.py">
+      <file leaf-file-name="prices.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/db_service/prices.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="471">
-              <caret line="71" selection-start-line="71" selection-end-line="71" />
+            <state relative-caret-position="211">
+              <caret line="54" column="19" selection-start-line="54" selection-start-column="4" selection-end-line="54" selection-end-column="19" />
+              <folding>
+                <element signature="e#0#52#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="students.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/db_service/students.py">
+      <file leaf-file-name="Prices_warning.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/model/Prices_warning.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="222">
-              <caret line="63" column="4" selection-start-line="63" selection-start-column="4" selection-end-line="63" selection-end-column="4" />
+            <state relative-caret-position="351">
+              <caret line="13" column="56" lean-forward="true" selection-start-line="13" selection-start-column="56" selection-end-line="13" selection-end-column="56" />
               <folding>
-                <element signature="e#0#25#0" expanded="true" />
+                <element signature="e#0#15#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Prices.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/model/Prices.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="115">
+              <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
+              <folding>
+                <element signature="e#0#15#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -195,21 +196,13 @@
       <list>
         <option value="CSS File" />
         <option value="HTML File" />
-        <option value="Python Script" />
         <option value="JavaScript File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>jquery-1.11.0.min.js</find>
-      <find>form-control</find>
-      <find>max-height</find>
-      <find>chosen-container-multi</find>
-      <find>sub_stu</find>
-      <find>form-control-chosen</find>
-      <find>xi</find>
-      <find>select</find>
       <find>opti</find>
       <find>editor_student</find>
       <find>editor_subject_db</find>
@@ -219,7 +212,6 @@
       <find>getlist</find>
       <find>in</find>
       <find>filter(</find>
-      <find>subjects_modelSelect</find>
       <find>alert</find>
       <find>student_new</find>
       <find>in_</find>
@@ -230,8 +222,17 @@
       <find>subjects_modellistAll</find>
       <find>subjects_modellist</find>
       <find>prices_modellistAll</find>
-      <find>search_Subject</find>
+      <find>subject_db</find>
       <find>delete</find>
+      <find>subjects_modelSelect</find>
+      <find>studentlist</find>
+      <find>search_Subject</find>
+      <find>students_modelSelect</find>
+      <find>csNextPage</find>
+      <find>cs_button</find>
+      <find>Chicago Bulls</find>
+      <find>comboSelect1</find>
+      <find>comboSelect</find>
     </findStrings>
     <replaceStrings>
       <replace>static/school_static/cs/</replace>
@@ -249,6 +250,8 @@
       <replace>upload</replace>
       <replace>checkbox</replace>
       <replace>subjects_modelSelect</replace>
+      <replace>price_db</replace>
+      <replace>prices_modelSelect</replace>
     </replaceStrings>
     <dirStrings>
       <dir>C:\flask-school-app-and-api-master</dir>
@@ -260,11 +263,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/templates/school_tem/index.html" />
-        <option value="$PROJECT_DIR$/app/view_models/Students.py" />
-        <option value="$PROJECT_DIR$/app/templates/school_tem/Base.html" />
-        <option value="$PROJECT_DIR$/app/templates/school_tem/forms.html" />
-        <option value="$PROJECT_DIR$/app/templates/school_tem/test.py" />
         <option value="$PROJECT_DIR$/app/templates/school_tem/css/artific.css" />
         <option value="$PROJECT_DIR$/.env" />
         <option value="$PROJECT_DIR$/app/templates/school_tem/error.html" />
@@ -275,8 +273,6 @@
         <option value="$USER_HOME$/Envs/env/Lib/site-packages/flask_login/login_manager.py" />
         <option value="$PROJECT_DIR$/app/model/Teacher.py" />
         <option value="$PROJECT_DIR$/app/model/Price.py" />
-        <option value="$PROJECT_DIR$/manage.py" />
-        <option value="$PROJECT_DIR$/config/config.py" />
         <option value="$PROJECT_DIR$/app/model/Students.py" />
         <option value="$PROJECT_DIR$/app/model/Subjects.py" />
         <option value="$PROJECT_DIR$/app/model/Teachers.py" />
@@ -301,16 +297,23 @@
         <option value="$PROJECT_DIR$/app/db_service/teachers.py" />
         <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/app/db_service/students.py" />
-        <option value="$PROJECT_DIR$/app/db_service/subjects.py" />
         <option value="$PROJECT_DIR$/app/templates/school_tem/editor_subjects.html" />
-        <option value="$PROJECT_DIR$/app/__init__.py" />
         <option value="$PROJECT_DIR$/app/templates/school_tem/layout.html" />
-        <option value="$PROJECT_DIR$/app/templates/school_tem/subjects.html" />
-        <option value="$PROJECT_DIR$/app/templates/school_tem/prices.html" />
         <option value="$PROJECT_DIR$/app/test.py" />
-        <option value="$PROJECT_DIR$/app/views.py" />
         <option value="$PROJECT_DIR$/app/model/Prices.py" />
         <option value="$PROJECT_DIR$/app/service/detail_students.py" />
+        <option value="$PROJECT_DIR$/app/templates/school_tem/prices.html" />
+        <option value="$PROJECT_DIR$/app/db_service/subjects.py" />
+        <option value="$PROJECT_DIR$/app/templates/school_tem/subjects.html" />
+        <option value="$PROJECT_DIR$/app/db_service/prices.py" />
+        <option value="$PROJECT_DIR$/app/views.py" />
+        <option value="$PROJECT_DIR$/app/templates/school_tem/editor_prices.html" />
+        <option value="$PROJECT_DIR$/jiaoben5147/index.html" />
+        <option value="$PROJECT_DIR$/jiaoben5147/js/demo.js" />
+        <option value="$PROJECT_DIR$/app/model/Prices_warning.py" />
+        <option value="$PROJECT_DIR$/manage.py" />
+        <option value="$PROJECT_DIR$/app/__init__.py" />
+        <option value="$PROJECT_DIR$/config/config.py" />
       </list>
     </option>
   </component>
@@ -358,117 +361,7 @@
               <item name="flask-school-app-and-api-master" type="b2602c69:ProjectViewProjectNode" />
               <item name="flask-school-app-and-api-master" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="export" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="flask-school-app-and-api-master" type="b2602c69:ProjectViewProjectNode" />
-              <item name="flask-school-app-and-api-master" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="form" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="flask-school-app-and-api-master" type="b2602c69:ProjectViewProjectNode" />
-              <item name="flask-school-app-and-api-master" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="model" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="flask-school-app-and-api-master" type="b2602c69:ProjectViewProjectNode" />
-              <item name="flask-school-app-and-api-master" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="service" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="flask-school-app-and-api-master" type="b2602c69:ProjectViewProjectNode" />
-              <item name="flask-school-app-and-api-master" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="flask-school-app-and-api-master" type="b2602c69:ProjectViewProjectNode" />
-              <item name="flask-school-app-and-api-master" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="school_static" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="flask-school-app-and-api-master" type="b2602c69:ProjectViewProjectNode" />
-              <item name="flask-school-app-and-api-master" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="school_static" type="462c0819:PsiDirectoryNode" />
-              <item name="css" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="flask-school-app-and-api-master" type="b2602c69:ProjectViewProjectNode" />
-              <item name="flask-school-app-and-api-master" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="school_static" type="462c0819:PsiDirectoryNode" />
-              <item name="js" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="flask-school-app-and-api-master" type="b2602c69:ProjectViewProjectNode" />
-              <item name="flask-school-app-and-api-master" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="school_static" type="462c0819:PsiDirectoryNode" />
-              <item name="js" type="462c0819:PsiDirectoryNode" />
-              <item name="tablesorter" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="flask-school-app-and-api-master" type="b2602c69:ProjectViewProjectNode" />
-              <item name="flask-school-app-and-api-master" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="flask-school-app-and-api-master" type="b2602c69:ProjectViewProjectNode" />
-              <item name="flask-school-app-and-api-master" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="school_tem" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="flask-school-app-and-api-master" type="b2602c69:ProjectViewProjectNode" />
-              <item name="flask-school-app-and-api-master" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="upload" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="flask-school-app-and-api-master" type="b2602c69:ProjectViewProjectNode" />
-              <item name="flask-school-app-and-api-master" type="462c0819:PsiDirectoryNode" />
-              <item name="config" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="flask-school-app-and-api-master" type="b2602c69:ProjectViewProjectNode" />
-              <item name="flask-school-app-and-api-master" type="462c0819:PsiDirectoryNode" />
-              <item name="jiaoben5887" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="flask-school-app-and-api-master" type="b2602c69:ProjectViewProjectNode" />
-              <item name="flask-school-app-and-api-master" type="462c0819:PsiDirectoryNode" />
-              <item name="jiaoben5887" type="462c0819:PsiDirectoryNode" />
-              <item name="css" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="flask-school-app-and-api-master" type="b2602c69:ProjectViewProjectNode" />
-              <item name="flask-school-app-and-api-master" type="462c0819:PsiDirectoryNode" />
-              <item name="jiaoben5887" type="462c0819:PsiDirectoryNode" />
-              <item name="dist" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="flask-school-app-and-api-master" type="b2602c69:ProjectViewProjectNode" />
-              <item name="flask-school-app-and-api-master" type="462c0819:PsiDirectoryNode" />
-              <item name="jiaoben5887" type="462c0819:PsiDirectoryNode" />
-              <item name="dist" type="462c0819:PsiDirectoryNode" />
-              <item name="css" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="flask-school-app-and-api-master" type="b2602c69:ProjectViewProjectNode" />
-              <item name="flask-school-app-and-api-master" type="462c0819:PsiDirectoryNode" />
-              <item name="jiaoben5887" type="462c0819:PsiDirectoryNode" />
-              <item name="js" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -515,8 +408,8 @@
     </option>
   </component>
   <component name="RunManager" selected="Python.manage">
+    <configuration name="index.html (1)" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/flask-school-app-and-api-master/jiaoben5147/index.html" />
     <configuration name="index.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/flask-school-app-and-api-master/app/templates/jiaoben4128/index.html" />
-    <configuration name="test.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/flask-school-app-and-api-master/app/templates/school_tem/test.html" />
     <configuration name="manage" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="flask-school-app-and-api-master" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -591,18 +484,18 @@
     <list>
       <item itemvalue="Flask server.flask-school-app-and-api-master" />
       <item itemvalue="Python.manage" />
-      <item itemvalue="JavaScript Debug.test.html" />
       <item itemvalue="JavaScript Debug.index.html" />
       <item itemvalue="Python.test (1)" />
       <item itemvalue="Python.test" />
+      <item itemvalue="JavaScript Debug.index.html (1)" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.manage" />
+        <item itemvalue="JavaScript Debug.index.html (1)" />
         <item itemvalue="Python.test" />
         <item itemvalue="Python.test (1)" />
         <item itemvalue="JavaScript Debug.index.html" />
-        <item itemvalue="JavaScript Debug.test.html" />
       </list>
     </recent_temporary>
   </component>
@@ -635,13 +528,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32997763" />
       <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Python Console" order="10" weight="0.32997763" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.16573349" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.38297874" />
       <window_info anchor="bottom" id="Terminal" order="11" weight="0.32997763" />
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.77744806" visible="true" weight="0.23187633" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
@@ -651,7 +545,7 @@
       <window_info id="Structure" order="1" sideWeight="0.21995465" side_tool="true" weight="0.17697228" />
       <window_info anchor="bottom" id="Concurrent Activities Diagram" order="13" weight="0.32922733" />
       <window_info id="Favorites" order="2" sideWeight="0.22255193" side_tool="true" weight="0.17857143" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.32586786" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.5106383" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Coverage" order="4" side_tool="true" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -734,11 +628,6 @@
           <option name="timeStamp" value="383" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/app/views.py</url>
-          <line>161</line>
-          <option name="timeStamp" value="417" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/app/db_service/teachers.py</url>
           <line>33</line>
           <option name="timeStamp" value="418" />
@@ -750,7 +639,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/app/views.py</url>
-          <line>150</line>
+          <line>151</line>
           <option name="timeStamp" value="426" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -760,12 +649,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/app/views.py</url>
-          <line>228</line>
+          <line>229</line>
           <option name="timeStamp" value="430" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/app/views.py</url>
-          <line>133</line>
+          <line>134</line>
           <option name="timeStamp" value="445" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -790,12 +679,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/app/db_service/subjects.py</url>
-          <line>53</line>
+          <line>52</line>
           <option name="timeStamp" value="491" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/app/views.py</url>
-          <line>381</line>
+          <line>396</line>
           <option name="timeStamp" value="499" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -813,6 +702,21 @@
           <line>230</line>
           <option name="timeStamp" value="510" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/app/views.py</url>
+          <line>384</line>
+          <option name="timeStamp" value="519" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/app/__init__.py</url>
+          <line>27</line>
+          <option name="timeStamp" value="526" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/app/__init__.py</url>
+          <line>39</line>
+          <option name="timeStamp" value="527" />
+        </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
@@ -821,13 +725,9 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="512" />
+      <option name="time" value="528" />
     </breakpoint-manager>
     <watches-manager>
-      <configuration name="PythonConfigurationType">
-        <watch expression="sheet.cell_value(row, col)" language="Python" />
-        <watch expression="field[col]" language="Python" />
-      </configuration>
       <configuration name="Python.FlaskServer">
         <watch expression="key = '盐'" language="Python" />
         <watch expression="from app.model.Test import Product" language="Python" />
@@ -838,47 +738,52 @@
   <component name="debuggerHistoryManager">
     <expressions id="watch">
       <expression>
-        <expression-string>field[col]</expression-string>
+        <expression-string>session.delete_all(result)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>sheet.cell_value(row, col)</expression-string>
+        <expression-string>session.commit(priwar)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>setattr(ss, field[col], date)</expression-string>
+        <expression-string>session.query(PricesWarn).all()</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>date.year</expression-string>
+        <expression-string>session.query(PricesWarn).all().delete()</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>datetime.date</expression-string>
+        <expression-string>session.execute('select * from Prices where DATEDIFF(&quot;2019-11-27&quot;,stopTime)&gt;=0').fetchall()</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>datetime.date()</expression-string>
+        <expression-string>session.execute('select * from Prices where DATEDIFF(&quot;2019-11-27&quot;,stopTime)&lt;=0').fetchall()</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>datetime.date(sheet.cell_value(row, col))</expression-string>
+        <expression-string>session.execute('select * from Prices where DATEDIFF(&quot;2019-11-27&quot;,stopTime)&lt;=0')</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>import datetime</expression-string>
+        <expression-string>session.query(Prices).filter(db.cast(Prices.stopTime, db.Date) &lt;= db.cast(datetime.date.today(), db.Date)).all()</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>datetime</expression-string>
+        <expression-string>{ArgumentError}SQL expression object expected, got object of type &lt;class 'sqlalchemy.sql.visitors.VisitableType'&gt; instead</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>session.query(Prices).filter(db.cast(Prices.stopTime, db.Date) &gt;= db.cast(&quot;2019-11-27&quot;,db.Date), db.Date).all()</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
@@ -892,89 +797,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/templates/school_tem/js/jquery-1.10.2.js" />
-    <entry file="file://$PROJECT_DIR$/app/templates/school_tem/找免费网站模板就上【模板之家】cssMoban.com.url">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="27">
-          <caret line="1" column="8" selection-start-line="1" selection-start-column="8" selection-end-line="1" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/templates/school_tem/css/bootstrap.css" />
-    <entry file="file://$PROJECT_DIR$/.env">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="2" column="21" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Envs/env/Lib/site-packages/flask/templating.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="185">
-          <caret line="121" column="4" selection-start-line="121" selection-start-column="4" selection-end-line="121" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Envs/env/Lib/site-packages/flask/helpers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5238">
-          <caret line="218" column="3" selection-start-line="218" selection-start-column="3" selection-end-line="222" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/static/school_static/js/bootstrap.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-648" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models.py" />
-    <entry file="file://$PROJECT_DIR$/app/templates/school_tem/test1.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-945">
-          <caret line="1" selection-start-line="1" selection-end-line="1" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/templates/school_tem/test.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="487">
-          <caret line="46" selection-start-line="46" selection-end-line="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/templates/jiaoben4128/index.html" />
-    <entry file="file://$PROJECT_DIR$/app/static/school_static/js/subject_student_input.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="23" column="8" selection-start-line="23" selection-start-column="8" selection-end-line="23" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/templates/school_tem/add_subjects.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="215">
-          <caret line="371" selection-start-line="371" selection-end-line="377" selection-end-column="23" />
-          <folding>
-            <element signature="e#1287#1774#0#HTML" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/static/school_static/css/demo.css" />
-    <entry file="file://$PROJECT_DIR$/app/static/school_static/js/chosen.jquery.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="27">
-          <caret line="1" column="23" selection-start-line="1" selection-start-column="17" selection-end-line="1" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/static/school_static/js/tablesorter/tables.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-line="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/static/school_static/js/jquery-1.10.2.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="351">
@@ -1042,13 +864,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/templates/school_tem/editor_student.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="2" selection-start-line="2" selection-end-line="17" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/templates/school_tem/add_teachers.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2268">
@@ -1111,16 +926,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/db_service/subjects.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="57" column="19" selection-start-line="57" selection-start-column="19" selection-end-line="57" selection-end-column="61" />
-          <folding>
-            <element signature="e#0#52#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/templates/school_tem/sub_stu.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="365">
@@ -1141,13 +946,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/manage.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/model/Base.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="54">
@@ -1155,23 +953,6 @@
           <folding>
             <element signature="e#0#50#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/model/Students.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="386">
-          <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
-          <folding>
-            <element signature="e#0#65#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Envs/env/Lib/site-packages/flask/app.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="143">
-          <caret line="1798" selection-start-line="1798" selection-end-line="1798" />
         </state>
       </provider>
     </entry>
@@ -1189,16 +970,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/db_service/students.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="222">
-          <caret line="63" column="4" selection-start-line="63" selection-start-column="4" selection-end-line="63" selection-end-column="4" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/test.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="471">
@@ -1206,10 +977,58 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/service/detail_students.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="768">
+          <caret line="42" column="11" selection-start-line="42" selection-start-column="11" selection-end-line="42" selection-end-column="11" />
+          <folding>
+            <element signature="e#0#17#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/db_service/students.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="174">
+          <caret line="63" column="4" selection-start-line="63" selection-start-column="4" selection-end-line="63" selection-end-column="4" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/db_service/subjects.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="309">
+          <caret line="44" column="43" selection-start-line="44" selection-start-column="43" selection-end-line="44" selection-end-column="43" />
+          <folding>
+            <element signature="e#0#52#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Envs/env/Lib/site-packages/flask/app.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="143">
+          <caret line="1798" selection-start-line="1798" selection-end-line="1798" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/templates/school_tem/subjects.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1875">
+          <caret line="99" column="74" selection-start-line="99" selection-start-column="60" selection-end-line="99" selection-end-column="74" />
+          <folding>
+            <element signature="e#432#569#0#HTML" expanded="true" />
+            <element signature="e#666#818#0#HTML" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/templates/school_tem/prices.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1156">
-          <caret line="92" column="63" selection-start-line="92" selection-start-column="63" selection-end-line="92" selection-end-column="63" />
+        <state relative-caret-position="221">
+          <caret line="44" column="52" selection-start-line="44" selection-start-column="52" selection-end-line="44" selection-end-column="52" />
           <folding>
             <element signature="e#430#567#0#HTML" expanded="true" />
             <element signature="e#662#814#0#HTML" expanded="true" />
@@ -1229,46 +1048,186 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/__init__.py">
+    <entry file="file://$PROJECT_DIR$/app/templates/school_tem/editor_student.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="93" column="42" selection-start-line="93" selection-start-column="42" selection-end-line="93" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jiaoben5147/说明.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jiaoben5147/说明.htm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1257" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jiaoben5147/js/b.comboselect.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2754" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/templates/school_tem/editor_prices.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="370">
+          <caret line="41" column="5" selection-start-line="41" selection-start-column="5" selection-end-line="57" selection-end-column="33" />
+          <folding>
+            <element signature="n#style#0;n#div#1;n#form#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#label#0;n#div#1;n#form#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#2;n#form#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#label#0;n#div#2;n#form#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#3;n#form#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#label#0;n#div#3;n#form#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#4;n#form#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#label#0;n#div#4;n#form#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#5;n#form#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#label#0;n#div#5;n#form#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#6;n#form#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#label#0;n#div#6;n#form#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jiaoben5147/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1161">
+          <caret line="43" selection-start-line="43" selection-end-line="43" />
+          <folding>
+            <element signature="e#656#660#0#HTML" expanded="true" />
+            <element signature="e#721#725#0#HTML" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jiaoben5147/js/demo.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="397">
+          <caret line="33" column="19" selection-start-line="33" selection-start-column="8" selection-end-line="33" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jiaoben5147/js/comboselect.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7772">
+          <caret line="544" column="127" selection-start-line="544" selection-start-column="116" selection-end-line="544" selection-end-column="127" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Envs/env/Lib/_collections_abc.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="659" selection-start-line="659" selection-end-line="659" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.travis.yml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/model/Students.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
+          <folding>
+            <element signature="e#0#65#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/db_service/prices.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="211">
+          <caret line="54" column="19" selection-start-line="54" selection-start-column="4" selection-end-line="54" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#52#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/model/Prices_warning.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="351">
-          <caret line="13" column="32" lean-forward="true" selection-start-line="13" selection-start-column="32" selection-end-line="13" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/templates/school_tem/subjects.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-405">
-          <caret line="21" column="32" lean-forward="true" selection-start-line="21" selection-start-column="32" selection-end-line="21" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/model/Prices.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="17" column="28" selection-start-line="17" selection-start-column="28" selection-end-line="17" selection-end-column="28" />
+          <caret line="13" column="56" lean-forward="true" selection-start-line="13" selection-start-column="56" selection-end-line="13" selection-end-column="56" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views.py">
+    <entry file="file://$USER_HOME$/Envs/env/Lib/os.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="381" selection-start-line="381" selection-end-line="381" />
+        <state relative-caret-position="123">
+          <caret line="772" selection-start-line="772" selection-end-line="772" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/model/Prices.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
           <folding>
-            <element signature="e#0#11#0" expanded="true" />
+            <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/service/detail_students.py">
+    <entry file="file://$PROJECT_DIR$/manage.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="417">
-          <caret line="65" selection-start-line="65" selection-end-line="65" />
+        <state relative-caret-position="324">
+          <caret line="30" selection-start-line="30" selection-end-line="30" selection-end-column="21" />
           <folding>
-            <element signature="e#0#17#0" expanded="true" />
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.env">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="4" column="19" lean-forward="true" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="68" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Envs/env/Lib/site-packages/apscheduler/executors/base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="148">
+          <caret line="124" selection-start-line="124" selection-end-line="124" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Envs/env/Lib/site-packages/flask_apscheduler/scheduler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-9381">
+          <caret line="34" column="8" selection-start-line="34" selection-start-column="8" selection-end-line="34" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="371">
+          <caret line="73" column="16" lean-forward="true" selection-start-line="73" selection-start-column="16" selection-end-line="73" selection-end-column="16" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/config.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="359">
+          <caret line="47" column="9" lean-forward="true" selection-start-line="47" selection-start-column="9" selection-end-line="47" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-879">
+          <caret line="162" selection-start-line="162" selection-end-line="162" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
           </folding>
         </state>
       </provider>

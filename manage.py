@@ -5,12 +5,7 @@ from flask_script import Manager, Shell,Command
 # from app.models import Student, Teacher, Subject
 # from app import app,db
 
-from app import app
-
-
-
-
-
+from app import app, Schuduler
 
 # basedir = os.path.abspath(os.path.dirname(__file__))
 # migrate = Migrate(app, db)
@@ -29,9 +24,12 @@ from app import app
 #
 # manager.add_command("shell", Shell(make_context=make_shell_context))
 
-
+def haha(i,j):
+    print(i,j)
 if __name__ == '__main__':
     #manager.run()
+    Schuduler.start()
     app.run(debug=True)
-    a=1
+
+
 

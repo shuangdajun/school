@@ -7,6 +7,7 @@ from flask_login import login_required, login_user, logout_user
 from werkzeug.utils import secure_filename
 
 from app import app, db
+from app.db_service.prices import search_price_db, editor_price_db
 from app.db_service.students import editor_student_db, delete_student_db, search_student_db, paginate_html_db, \
     add_student_db, search_stduent
 from app.db_service.subjects import delete_subject_db, search_subject_db, add_subject_db, editor_subject_db
@@ -366,15 +367,29 @@ def Price_info():
         return render_template("school_tem/prices.html", prices_modellist=prices_modellistAll,
                                pagination=pagination)
     elif "search_Price" in request.args.to_dict():
-        result = search_subject_db(request.args, params_dict)
+        result = search_price_db(request.args, params_dict)
         if result == None:
             return redirect(url_for("Price_info") + "?page=1")
-        return render_template('school_tem/prices.html', subjects_modellist=result[1], pagination=result[0])
+        return render_template('school_tem/prices.html', prices_modellist=result[1], pagination=result[0])
     elif "delete_Price" in params_dict and params_dict["delete_Price"] != "":
         delete_subject_db(request.args)
         return redirect("/Price_info" + "?page=1")
     return redirect(request.url + "?page=1")
 
+
+
+
+# 编辑缴费信息
+@app.route("/editor_Price", methods=["GET", "POST"])
+def editor_Price():
+    if request.method == "POST":
+        editor_price_db(request.args, request.form)
+        return redirect("/Price_info")
+    prices_modelSelect = Prices.query.filter_by(price_id=request.args.get("search")).first()
+
+    pagination, subjects_modellistAll = paginate_html_db(Students, 6)
+    return render_template("school_tem/editor_prices.html", prices_modelSelect=prices_modelSelect,
+                           pagination=pagination)
 
 # 上传缴费信息
 @app.route("/upload_Price", methods=["GET", "POST"])

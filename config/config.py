@@ -38,7 +38,16 @@ class TestingConfig(Config):
     PRESERVE_CONTEXT_ON_EXCEPTION = False
     #SQLALCHEMY_ECHO = True
     UPLOAD_FOLDER='C:\\flask-school-app-and-api-master\\app\\export'
+    JOBS=[{
+        "id":"job1",
+        "func":"app:WarnPrices",
+        "args":"",
+        "trigger":{
+            "type":"interval",
+            "days":1
+        }
 
+    }]
 
 app_config = {
     'development': DevelopmentConfig,

@@ -43,7 +43,6 @@ def delete_subject_db(args):
 
 def search_subject_db(args, params_dict):
     if params_dict["search_Subject"] == "":
-        result = Subjects.query.all()
         pagination, user = paginate_html_db(Subjects)
         return pagination, user
     if Subjects.query.filter_by(subject_name=args.get("search_Subject")).all() == []:
@@ -61,3 +60,5 @@ def editor_subject_db(args,form):
         result.sub_stu=student_list
 
     db.session.commit()
+
+
