@@ -7,7 +7,7 @@ from flask_login import login_required, login_user, logout_user
 from werkzeug.utils import secure_filename
 
 from app import app, db
-from app.db_service.prices import search_price_db, editor_price_db
+from app.db_service.prices import search_price_db, editor_price_db, delete_price_db, add_price_db
 from app.db_service.students import editor_student_db, delete_student_db, search_student_db, paginate_html_db, \
     add_student_db, search_stduent
 from app.db_service.subjects import delete_subject_db, search_subject_db, add_subject_db, editor_subject_db
@@ -358,6 +358,17 @@ def forms_info():
     print(request.method)
     return render_template('school_tem/forms.html')
 
+# 添加费用
+@app.route("/add_Price", methods=["GET", "POST"])
+def add_Price():
+    if request.method == "POST":
+        add_price_db(request.form.to_dict().items())
+        return redirect("/Price_info")
+    pagination = paginate_html_db(Students, 6)[0]
+    prices_modellistAll=Prices.query.all()
+    return render_template("school_tem/add_prices.html", pagination=pagination,prices_modellist=prices_modellistAll)
+
+
 
 @app.route("/Price_info",methods=["POST","GET"])
 def Price_info():
@@ -372,7 +383,7 @@ def Price_info():
             return redirect(url_for("Price_info") + "?page=1")
         return render_template('school_tem/prices.html', prices_modellist=result[1], pagination=result[0])
     elif "delete_Price" in params_dict and params_dict["delete_Price"] != "":
-        delete_subject_db(request.args)
+        delete_price_db(request.args)
         return redirect("/Price_info" + "?page=1")
     return redirect(request.url + "?page=1")
 
@@ -387,9 +398,8 @@ def editor_Price():
         return redirect("/Price_info")
     prices_modelSelect = Prices.query.filter_by(price_id=request.args.get("search")).first()
 
-    pagination, subjects_modellistAll = paginate_html_db(Students, 6)
-    return render_template("school_tem/editor_prices.html", prices_modelSelect=prices_modelSelect,
-                           pagination=pagination)
+    # pagination, subjects_modellistAll = paginate_html_db(Students, 6)
+    return render_template("school_tem/editor_prices.html", prices_modelSelect=prices_modelSelect)
 
 # 上传缴费信息
 @app.route("/upload_Price", methods=["GET", "POST"])
@@ -400,3 +410,54 @@ def upload_Price():
         return "文件未上传"
     xlsx_excel(path, Prices)
     return "文件上传成功"
+
+
+
+@app.route("/comboSelectStu",methods=["POST"])
+def comboSelectStu():
+
+    studentList=[]
+    student_list=Students.query.all()
+    flag=1
+    for student in student_list:
+        student_dict = {}
+        student_dict["desc"]=student.student_name
+        student_dict["name"]=student.student_name
+        student_dict["id"]=flag
+
+        studentList.append(student_dict)
+        flag = flag + 1
+
+    return jsonify(studentList)
+@app.route("/comboSelectTea",methods=["POST"])
+def comboSelectTea():
+
+    teacherList=[]
+    teacher_list=Teachers.query.all()
+    flag=1
+    for teacher in teacher_list:
+        teacher_dict = {}
+        teacher_dict["desc"]=teacher.teacher_name
+        teacher_dict["name"]=teacher.teacher_name
+        teacher_dict["id"]=flag
+
+        teacherList.append(teacher_dict)
+        flag = flag + 1
+
+    return jsonify(teacherList)
+@app.route("/comboSelectSub",methods=["POST"])
+def comboSelectSub():
+
+    subjectList=[]
+    subject_list=Subjects.query.all()
+    flag=1
+    for subject in subject_list:
+        subject_dict = {}
+        subject_dict["desc"]=subject.subject_name
+        subject_dict["name"]=subject.subject_name
+        subject_dict["id"]=flag
+
+        subjectList.append(subject_dict)
+        flag = flag + 1
+
+    return jsonify(subjectList)

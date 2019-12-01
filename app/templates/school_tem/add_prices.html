@@ -1,0 +1,314 @@
+{% extends "school_tem/layout.html" %}
+{% block header %}
+    <link href="static/school_static/css/artific.css" ,rel="stylesheet">
+
+    <link href="static/school_static/css/component-chosen.css" rel="stylesheet">
+    <link rel="stylesheet" href="static/school_static/css/comboselect.css" type="text/css">
+    <link rel="stylesheet" href="static/school_static/css/demo.css"/>
+    <style>
+        .chosen-container-multi .chosen-choices .search-field input[type="text"] {
+            height: calc(2.25rem + 9px);
+        }
+
+        .chosen-container-single .chosen-single {
+            height: calc(2.25rem + 9px);
+        }
+
+        .chosen-single > span {
+            margin-top: 4px;
+
+        }
+
+        .cs_container {
+            width: 97%;
+            height: 100%;
+        }
+
+        .cs_input {
+            width: 100%;
+            height: 100%;
+            min-height: 26px;
+        }
+
+        .cs_result_area {
+            width: 796px;
+        }
+
+        .cs_results {
+            height: 300px;
+        }
+
+        .cs_results > li {
+            height: 10%;
+            line-height: 1;
+            margin: 0;
+            overflow: hidden;
+            padding: 10px 5px;
+            position: relative;
+            text-align: left;
+            white-space: nowrap;
+            font-size: 12px;
+            color: black;
+            cursor: pointer;
+        }
+
+        .pagination {
+            margin: 20px 0
+        }
+
+        .pagination ul {
+            display: inline-block;
+            *display: inline;
+            margin-bottom: 0;
+            margin-left: 0;
+            -webkit-border-radius: 4px;
+            -moz-border-radius: 4px;
+            border-radius: 4px;
+            *zoom: 1;
+            -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            padding-inline-start: 0px;
+
+        }
+
+        .pagination ul > li {
+            display: inline
+        }
+
+        .pagination ul > li > a, .pagination ul > li > span {
+            float: left;
+            padding: 4px 12px;
+            line-height: 20px;
+            text-decoration: none;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-left-width: 0;
+            height: 30px;
+        }
+
+        .pagination ul > li > a:hover, .pagination ul > li > a:focus, .pagination ul > .active > a, .pagination ul > .active > span {
+            background-color: #f5f5f5
+        }
+
+        .pagination ul > .active > a, .pagination ul > .active > span {
+            color: #999;
+            cursor: default
+        }
+
+        .pagination ul > .disabled > span, .pagination ul > .disabled > a, .pagination ul > .disabled > a:hover, .pagination ul > .disabled > a:focus {
+            color: #999;
+            cursor: default;
+            background-color: transparent
+        }
+
+        .pagination ul > li:first-child > a, .pagination ul > li:first-child > span {
+            border-left-width: 1px;
+            -webkit-border-bottom-left-radius: 4px;
+            border-bottom-left-radius: 4px;
+            -webkit-border-top-left-radius: 4px;
+            border-top-left-radius: 4px;
+            -moz-border-radius-bottomleft: 4px;
+            -moz-border-radius-topleft: 4px
+        }
+
+        .pagination ul > li:last-child > a, .pagination ul > li:last-child > span {
+            -webkit-border-top-right-radius: 4px;
+            border-top-right-radius: 4px;
+            -webkit-border-bottom-right-radius: 4px;
+            border-bottom-right-radius: 4px;
+            -moz-border-radius-topright: 4px;
+            -moz-border-radius-bottomright: 4px
+        }
+
+        .pagination-centered {
+            text-align: center
+        }
+
+        .pagination-right {
+            text-align: right
+        }
+
+        .pagination-large ul > li > a, .pagination-large ul > li > span {
+            padding: 11px 19px;
+            font-size: 17.5px
+        }
+
+        .pagination-large ul > li:first-child > a, .pagination-large ul > li:first-child > span {
+            -webkit-border-bottom-left-radius: 6px;
+            border-bottom-left-radius: 6px;
+            -webkit-border-top-left-radius: 6px;
+            border-top-left-radius: 6px;
+            -moz-border-radius-bottomleft: 6px;
+            -moz-border-radius-topleft: 6px
+        }
+
+        .pagination-large ul > li:last-child > a, .pagination-large ul > li:last-child > span {
+            -webkit-border-top-right-radius: 6px;
+            border-top-right-radius: 6px;
+            -webkit-border-bottom-right-radius: 6px;
+            border-bottom-right-radius: 6px;
+            -moz-border-radius-topright: 6px;
+            -moz-border-radius-bottomright: 6px
+        }
+
+        .pagination-mini ul > li:first-child > a, .pagination-small ul > li:first-child > a, .pagination-mini ul > li:first-child > span, .pagination-small ul > li:first-child > span {
+            -webkit-border-bottom-left-radius: 3px;
+            border-bottom-left-radius: 3px;
+            -webkit-border-top-left-radius: 3px;
+            border-top-left-radius: 3px;
+            -moz-border-radius-bottomleft: 3px;
+            -moz-border-radius-topleft: 3px
+        }
+
+        .pagination-mini ul > li:last-child > a, .pagination-small ul > li:last-child > a, .pagination-mini ul > li:last-child > span, .pagination-small ul > li:last-child > span {
+            -webkit-border-top-right-radius: 3px;
+            border-top-right-radius: 3px;
+            -webkit-border-bottom-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+            -moz-border-radius-topright: 3px;
+            -moz-border-radius-bottomright: 3px
+        }
+
+        .pagination-small ul > li > a, .pagination-small ul > li > span {
+            padding: 2px 10px;
+            font-size: 11.9px
+        }
+
+        .pagination-mini ul > li > a, .pagination-mini ul > li > span {
+            padding: 0 6px;
+            font-size: 10.5px
+        }
+
+        div.cs_result_area div.pagination > ul > li > a {
+            line-height: 32px;
+        }
+
+        div.cs_result_area div.pagination li.csFirstPage a, div.cs_result_area div.pagination li.csPreviousPage a, div.cs_result_area div.pagination li.csNextPage a, div.cs_result_area div.pagination li.csLastPage a {
+            width: 5.5%;
+        }
+
+        div.cs_result_area div.pagination > ul > li.pageInfoBox > a {
+            width: 78%;
+        }
+
+        div.cs_button {
+            top: 3px;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="col-lg-12" style="margin-top: 5%;">
+        <h2 style="margin-bottom: 2%">创建缴费信息</h2>
+        <div class="panel panel-default panel-body panel-body-nopadding" style="margin-top: 55px">
+            <form class="form-horizontal form-bordered" action="{{ url_for(".add_Price") }}" method="POST">
+                <div class="form-group" style="margin-top: 45px">
+                    <label class="col-sm-3 control-label"
+                           style="font-size: 24px;font-weight: normal;font-family: FangSong;">学生姓名</label>
+                    <div class="col-sm-6">
+                        <input type="text" id="comboSelectStudent" class="" placeholder="请输入学生姓名" name="student_name">
+                    </div>
+                </div>
+
+
+                <div class="form-group" style="margin-top: 55px">
+                    <label class="col-sm-3 control-label"
+                           style="font-size:  24px;font-weight: normal;font-family: FangSong">教师姓名</label>
+                    <div class="col-sm-6">
+
+                        <input type="text" id="comboSelectTeacher" class="" placeholder="请输入教师姓名" name="teacher_name">
+
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-top: 55px">
+                    <label class="col-sm-3 control-label"
+                           style="font-size:  24px;font-weight: normal;font-family: FangSong">学科</label>
+                    <div class="col-sm-6">
+                        <!--需要核对数据类型，数字就可以 -->
+                        <input type="text" id="comboSelectSubject" class="" placeholder="请输入学科姓名" name="subject_name">
+
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-top: 55px">
+                    <label class="col-sm-3 control-label"
+                           style="font-size:  24px;font-weight: normal;font-family: FangSong">开始时间</label>
+                    <div class="col-sm-6">
+                        <input type="date" class="form-control" name="startTime"
+                               value=""/>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-top: 55px">
+                    <label class="col-sm-3 control-label"
+                           style="font-size:  24px;font-weight: normal;font-family: FangSong">结束时间</label>
+                    <div class="col-sm-6">
+                        <input type="date" class="form-control" name="stopTime"
+                               value=""/>
+                    </div>
+                </div>
+                <div class="form-group" style="margin-top: 55px">
+                    <label class="col-sm-3 control-label"
+                           style="font-size:  24px;font-weight: normal;font-family: FangSong">学时</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" name="ClassHours"
+                               value=""/>
+                    </div>
+                </div>
+                <div class="form-group" style="margin-top: 55px">
+                    <label class="col-sm-3 control-label"
+                           style="font-size:  24px;font-weight: normal;font-family: FangSong">费用</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" name="prices"
+                               value=""/>
+                    </div>
+                </div>
+
+
+                <input type="hidden" name="page" value="">
+
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-sm-6 col-sm-offset-3">
+                            <button class="btn btn-primary" id="btn" type="submit" disabled="true">提交</button>&nbsp;
+                            <a href="/cmdb/physical_assets?idc_id=&amp;status=&amp;page="
+                               class="btn btn-default ">返回</a>
+                        </div>
+                    </div>
+                </div><!-- panel-footer -->
+
+
+            </form>
+        </div>
+    </div>
+    </div><!-- /.row -->
+{% endblock %}
+{% block foot %}
+    <script>
+        $("#btn").attr("disabled", "true");
+        $("#btn").attr("disabled", "disabled");
+        $("#btn").attr("disabled", "false");
+        $("#btn").removeAttr("disabled", "disabled");
+
+    </script>
+
+    {#    <script type="text/javascript" src="static/school_static/js/jquery-1.11.0.min.js"></script>#}
+    <script type="text/javascript" src="static/school_static/js/chosen.jquery.js"></script>
+    <script type="text/javascript">
+        $('.form-control-chosen').chosen({
+            search_contains: true,
+            allow_single_deselect: true,
+            width: '100%',
+        });
+    </script>
+    {#    	<script src="static/school_static/js/jquery-1.10.2.js" type="text/javascript"></script>#}
+
+    <script type="text/javascript" src="static/school_static/js/comboselect.min.js"></script>
+    <script type="text/javascript" src="static/school_static/js/b.comboselect.js"></script>
+    <script type="text/javascript" src="static/school_static/js/demo.js"></script>
+    <script>
+
+    </script>
+
+{% endblock %}

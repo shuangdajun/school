@@ -8,7 +8,7 @@ from flask_sqlalchemy import SQLAlchemy
 class Prices(base):
     __tablename__ = "Prices"
     price_id=Column(Integer,primary_key=True,autoincrement=True)
-    stu_id=Column(Integer,ForeignKey("Students.student_id"))
+    stu_id=Column(Integer,ForeignKey("Students.student_id"),unique=True)
 
     tea_id = Column(Integer,ForeignKey("Teachers.teacher_id"))
     sub_id = Column(Integer, ForeignKey("Subjects.subject_id"))

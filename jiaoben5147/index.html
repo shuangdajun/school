@@ -11,7 +11,10 @@
 	<link rel="stylesheet" href="css/demo.css" />
 </head>
 <body>
-
+		<div class="container" style="margin-top: 50px;">
+		<h1 class="heading">下拉分页控件 <small>支持下拉，分页，键盘操作等功能</small></h1>
+		<div class="row-fluid">
+			<h4 class="heading">基本初始化 <small></small></h4>
 			<input type="text" id="comboSelect" class="" placeholder="请输入查询关键字" >
 <pre>
 //表单声明元素
@@ -34,13 +37,29 @@ $('#comboSelect').bComboSelect({
 });
 ]]>
 </pre>
+		</div>
 
+		</div>
+	</div>
 
 	<script src="js/jquery-1.11.0.min.js" type="text/javascript"></script>
 	<script type="text/javascript" src="js/comboselect.min.js" ></script>
 	<script type="text/javascript" src="js/b.comboselect.js" ></script>
 	<script type="text/javascript" src="js/demo.js" ></script>
+    <script>
+        var tag_data = [
+	{id:1 ,name:'Chicago Bulls',desc:'芝加哥公牛'},
+	{id:2 ,name:'Cleveland Cavaliers',desc:'克里夫兰骑士'},
+	{id:3 ,name:'Detroit Pistons',desc:'底特律活塞'},
+	{id:4 ,name:'Indiana Pacers',desc:'印第安纳步行者'}
+];
+$('#comboSelect').bComboSelect({
+	showField : 'desc',
+	keyField : 'id',
+	data : tag_data
+});
+    </script>
 
-
+</div>
 </body>
 </html>

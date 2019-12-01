@@ -71,9 +71,8 @@ def create_app(configuration):
 
 
 app = create_app(os.getenv('ENVIRONMENT'))
-Schuduler = APScheduler()
+Schuduler = APScheduler()  #定时任务
 Schuduler.init_app(app)
 
 api = Api(app=app, prefix="/api/v1")
 from app import views
-#app.run(host="172.18.24.17",port="5000",debug=

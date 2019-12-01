@@ -36,6 +36,32 @@ $(function(){
 		keyField : 'id',
 		data : tag_data
 	});
-
-
+	$('#comboSelect1').bComboSelect({
+		showField : 'desc',
+		keyField : 'id',
+		data : tag_data
+	});
+	$('#comboSelect2').bComboSelect({
+		showField : 'name',
+		keyField : 'id',
+		data : tag_data,
+		formatItem : function(data){
+			return data.desc + '(' + data.name + ')';
+		}
+	});
+	$('#comboSelect3').bComboSelect({
+		showField : 'name',
+		keyField : 'id',
+		data : tag_data,
+		multiple : true
+	});
+	$('#comboSelect4').bComboSelect({
+		showField : 'name',
+		keyField : 'id',
+		data : tag_data,
+		multiple : true,
+		callback : function(data){
+			$('#callbackLog').append(data.desc + '(' + data.name + ')<br/>');
+		}
+	});
 });

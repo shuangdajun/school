@@ -5,24 +5,27 @@ from app.model.Subjects import Subjects
 from app.model.Teachers import Teachers
 from app.model.Prices import Prices
 import re
+price_attr=["startTime","stopTime","ClassHours","prices"]
 
 
 def add_price_db(form_dict):
-    subject = Subjects()
+    price = Prices()
     student_list = []
     for key, value in form_dict:
 
-        if hasattr(subject, key):
-            setattr(subject, key, value)
-        elif key == "teacher_name":
-            teacher = Teachers.query.filter_by(teacher_name=value).all()
-            subject.sub_tea = teacher
-        elif key == "student_name":
-            for student in value.split(","):
-                student_list.append(Students.query.filter_by(student_name=student).first())
-            subject.sub_stu = student_list
+        if hasattr(price, key):
+            setattr(price, key, value)
+        elif key == "teacher_name_text":
+            teacher = Teachers.query.filter_by(teacher_name=value).first()
+            price.pri_tea = teacher
+        elif key == "student_name_text":
+            student=Students.query.filter_by(student_name=value).first()
+            price.pri_stu=student
+        elif key == "subject_name_text":
+            subject=Subjects.query.filter_by(subject_name=value).first()
+            price.pri_sub=subject
     try:
-        db.session.add(subject)
+        db.session.add(price)
         db.session.commit()
     except Exception as e:
         db.session.rollback()
@@ -33,9 +36,9 @@ def delete_price_db(args):
     try:
         # db.session.execute('delete from fisher.Subjects where subject_name="{}"'.format(args["delete_Subject"]))
 
-        subjects = Subjects.query.filter_by(subject_name=args["delete_Subject"]).all()
+        price = Prices.query.filter_by(price_id=int(args["delete_Price"])).first()
 
-        [db.session.delete(subject) for subject in subjects]
+        db.session.delete(price)
         db.session.commit()
     except Exception as e:
         db.session.rollback()
@@ -53,13 +56,9 @@ def search_price_db(args, params_dict):
 
 
 def editor_price_db(args, form):
-    subject_name = args["search"]
-    result = Subjects.query.filter_by(subject_name=subject_name).first()
-    result.sub_tea.teacher_name = form["teacher_name"]
-    student_list = []
-    for student in form["student_name"].strip(",").split(","):
-        student_list.append(Students.query.filter_by(student_name=student).first())
-    if student_list != result.sub_stu:
-        result.sub_stu = student_list
+    price_id = args["search"]
+    result = Prices.query.filter_by(price_id=int(price_id)).first()
+    for attr in price_attr:
+        setattr(result,attr,form[attr])
 
     db.session.commit()
