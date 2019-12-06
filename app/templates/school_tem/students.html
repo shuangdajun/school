@@ -113,9 +113,18 @@
 
                 {#alert(name)#}
                 if (del_student==true) {
-                    alert("{{ request.url }}")
-                    window.location.href = "?delete_student=" + name
-                    {#alert(window.location.href)#}
+
+                    $.ajax({
+                        url:"deleteStudent",
+                        data:{"delete_student":name},
+                        type:"post",
+                        success:function () {
+                            console.log("hehe")
+                            window.location.reload()
+                        }
+
+
+                    })
                 }
         }
         {#编辑学生信息#}

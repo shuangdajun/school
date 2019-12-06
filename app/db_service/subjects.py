@@ -31,9 +31,10 @@ def delete_subject_db(args):
     try:
         # db.session.execute('delete from fisher.Subjects where subject_name="{}"'.format(args["delete_Subject"]))
 
-        subjects=Subjects.query.filter_by(subject_name=args["delete_Subject"]).all()
-
-        [db.session.delete(subject) for subject in subjects]
+        result=Subjects.query.filter_by(subject_name=args["delete_Subject"]).first()
+        for value in result.sub_pri:
+            db.session.delete(value)
+        db.session.delete(result)
         db.session.commit()
     except Exception as e:
         db.session.rollback()

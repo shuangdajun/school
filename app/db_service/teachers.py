@@ -25,6 +25,8 @@ def delete_teacher_db(args):
 
     try:
         result=db.session.query(Teachers).filter_by(teacher_name=args["delete_teacher"]).first()
+        for value in result.tea_pri:
+            db.session.delete(value)
         db.session.delete(result)
         db.session.commit()
     except Exception as e:

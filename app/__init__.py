@@ -2,18 +2,21 @@ import datetime
 import os
 
 from flask import Flask
-from flask_login import LoginManager
+
 from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
-
+from  flask_login import LoginManager
 from app.model.Base import db
 
 
 from app.model.Students import Students
 from app.model.Subjects import Subjects
 from app.model.Teachers import Teachers
+from app.model.Permission import Permission
+from app.model.Role import Role
 from app.model.Prices import Prices
 from app.model.Prices_warning import PricesWarn
+from app.model.User import User
 from config.config import app_config
 from flask_apscheduler import APScheduler
 import re
@@ -50,11 +53,13 @@ def accept_pattern(content,pattern_str):
 
 #db = SQLAlchemy()
 
-login_manager = LoginManager()
+
 
 
 def create_app(configuration):
-    app = Flask(__name__)
+    # static_url_path表示前端必须就这个前缀开头才能访问static
+    #static_folder表示后端static的工作目录
+    app = Flask(__name__,static_folder="static/school_static",static_url_path="")
 
     app.config.from_object(app_config[configuration])
 
@@ -63,11 +68,16 @@ def create_app(configuration):
     db.init_app(app)
     #创建所有表
     db.create_all(app=app)
-
+    login_manager = LoginManager()
     login_manager.init_app(app)
-    login_manager.login_view = "login"
-
+    login_manager.login_view="login"
+    #配置self.user_callback()回调函数，绑定user到当前请求上下文
+    @login_manager.user_loader
+    def load_user(id):
+        return User.query.get(int(id))
     return app
+
+
 
 
 app = create_app(os.getenv('ENVIRONMENT'))

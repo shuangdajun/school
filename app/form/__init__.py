@@ -1,6 +1,7 @@
-from wtforms import Form,StringField,validators,IntegerField,SelectField
+from flask_wtf import Form as Formwtf
+from wtforms import  StringField, validators, IntegerField, SelectField, PasswordField, TextAreaField, SubmitField,BooleanField
 from wtforms.validators import Length, DataRequired, NumberRange, ValidationError
-
+from wtforms import Form
 from app.model.Students import Students
 from app.model.Subjects import Subjects
 from app.model.Teachers import Teachers
@@ -49,3 +50,10 @@ class judgeSubjectForm(Form):
         if len(Subjects.query.filter_by(subject_name=field.data).all()) !=0:
             raise ValidationError("学科重复输入")
 
+
+
+class LoginForm(Formwtf):
+    user=StringField(validators=[Length(min=1,max=20),DataRequired("账号不能为空")],default="")
+    password=PasswordField(validators=[Length(min=1),DataRequired("密码不能为空")],default="")
+    # remember_me=BooleanField(validators=[DataRequired()],default=False)
+    login=SubmitField("login")

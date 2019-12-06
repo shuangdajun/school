@@ -46,8 +46,8 @@ class TestingConfig(Config):
             "type":"interval",
             "days":1
         }
-
     }]
+    SESSION_PROTECTION="strong"
 
 app_config = {
     'development': DevelopmentConfig,

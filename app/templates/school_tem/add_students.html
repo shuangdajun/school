@@ -1,8 +1,8 @@
 {% extends "school_tem/layout.html" %}
 {% block header %}
-    <link href="static/school_static/css/artific.css",rel="stylesheet">
+    <link href="css/artific.css",rel="stylesheet">
 
-    <link href="static/school_static/css/component-chosen.css" rel="stylesheet">
+    <link href="css/component-chosen.css" rel="stylesheet">
     <style>
         .chosen-container-multi .chosen-choices .search-field input[type="text"] {
             height: calc(2.25rem + 9px);
@@ -23,6 +23,7 @@
             <h2 style="margin-bottom: 2%">创建学生信息</h2>
             <div class="panel panel-default panel-body panel-body-nopadding" style="margin-top: 55px">
                 <form class="form-horizontal form-bordered" action="{{ url_for(".add_Student") }}" method="POST">
+{#                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">#}
                 <div class="form-group"style="margin-top: 55px">
                   <label class="col-sm-3 control-label" style="font-size: 24px;font-weight: normal;font-family: FangSong;">学生姓名</label>
                   <div class="col-sm-6">
@@ -120,8 +121,9 @@
     </script>
 
     {#    <script type="text/javascript" src="static/school_static/js/jquery-1.11.0.min.js"></script>#}
-    <script type="text/javascript" src="static/school_static/js/chosen.jquery.js"></script>
+    <script type="text/javascript" src="js/chosen.jquery.js"></script>
     <script type="text/javascript">
+
         $('.form-control-chosen').chosen({
             search_contains: true,
             allow_single_deselect: true,

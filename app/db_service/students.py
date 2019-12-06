@@ -24,7 +24,11 @@ def add_student_db(form_dict,subjectList):
 def delete_student_db(args):
     try:
         result=db.session.query(Students).filter_by(student_name=args["delete_student"]).first()
+
+        for value in result.stu_pri:
+            db.session.delete(value)
         db.session.delete(result)
+
         db.session.commit()
     except Exception as e:
         db.session.rollback()

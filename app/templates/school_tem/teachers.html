@@ -106,8 +106,17 @@
 
                 {#alert(name)#}
                 if (delete_teacher==true) {
-                    window.location.href = "?delete_teacher=" + name
-                    {#alert(window.location.href)#}
+                    $.ajax({
+                        url:"deleteTeacher",
+                        data:{"delete_teacher":name},
+                        type:"post",
+                        success:function () {
+                            console.log("hehe")
+                            window.location.reload()
+                        }
+
+
+                    })
                 }
         }
         {#编辑学生信息#}

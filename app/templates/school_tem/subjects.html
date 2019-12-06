@@ -68,7 +68,7 @@
 
                                     <input type="button" value="编辑" onclick=editor_Subject("{{ url }}")>
 
-                                    <input type="button" value="删除" onclick="deleteStudent('{{ subject_name }}')"/>
+                                    <input type="button" value="删除" onclick="deleteSubject('{{ subject_name }}')"/>
 
                                     <input type="hidden" value="submit" onclick="getText();"/>
                                 </td>
@@ -104,21 +104,30 @@
 
         {#删除学生#}
 
-        function deleteStudent(name) {
+        function deleteSubject(name) {
             {#console.log("haha")#}
             var delete_Subject = confirm("请确认是否删除")
 
             if (delete_Subject == true) {
-                window.location.href = "?delete_Subject=" + name
+
+                $.ajax({
+                    url: "deleteSubject",
+                    data: {"delete_Subject": name},
+                    type: "post",
+                    success: function () {
+                        console.log("hehe")
+                        window.location.reload()
+                    }
+
+
+                })
+
             }
         }
-
         {#编辑学生信息#}
 
         function editor_Subject(url) {
             window.location.href = url
-
-
         }
         {#button触发input 上传#}
         $("#upload_subject_button").click(

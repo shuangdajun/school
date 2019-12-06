@@ -6,14 +6,14 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Tables - SB Admin</title>
+    <title>星泉艺校学生管理系统</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="static/school_static/css/bootstrap.css" rel="stylesheet">
+    <link href="css/bootstrap.css" rel="stylesheet">
 
     <!-- Add custom CSS here -->
-    <link href="static/school_static/css/sb-admin.css" rel="stylesheet">
-    <link rel="stylesheet" href="static/school_static/font-awesome/css/font-awesome.min.css">
+    <link href="css/sb-admin.css" rel="stylesheet">
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
       {% block header %}
       {% endblock %}
   </head>
@@ -32,19 +32,19 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="index.html">SB Admin</a>
+          <a class="navbar-brand" href="index.html">星泉艺校学生管理系统</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
           <ul class="nav navbar-nav side-nav">
-            <li><a href="index.html"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-            <li><a href="charts.html"><i class="fa fa-bar-chart-o"></i> Charts</a></li>
+            <li><a href="index.html"><i class="fa fa-dashboard"></i> 控制台</a></li>
+
             <li ><a href="Student_info?page=1"><i class="fa fa-table"></i> 学生信息</a></li>
             <li ><a href="Teacher_info?page=1"><i class="fa fa-table"></i> 教师信息</a></li>
             <li ><a href="Subject_info?page=1"><i class="fa fa-table"></i> 学科信息</a></li>
             <li ><a href="Price_info?page=1"><i class="fa fa-table"></i> 缴费信息</a></li>
-            <li><a href="typography.html"><i class="fa fa-font"></i> Typography</a></li>
+            <li><a href="/user_pwd"><i class="fa fa-font"></i> 用户管理</a></li>
             <li><a href="bootstrap-elements.html"><i class="fa fa-desktop"></i> Bootstrap Elements</a></li>
             <li><a href="bootstrap-grid.html"><i class="fa fa-wrench"></i> Bootstrap Grid</a></li>
             <li><a href="blank-page.html"><i class="fa fa-file"></i> Blank Page</a></li>
@@ -61,13 +61,13 @@
 
           <ul class="nav navbar-nav navbar-right navbar-user">
             <li class="dropdown messages-dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> Messages <span class="badge">7</span> <b class="caret"></b></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> 信息 <span class="badge">7</span> <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li class="dropdown-header">7 New Messages</li>
                 <li class="message-preview">
                   <a href="#">
                     <span class="avatar"><img src="http://placehold.it/50x50"></span>
-                    <span class="name">John Smith:</span>
+                    <span class="name">{{ user.username }}</span>
                     <span class="message">Hey there, I wanted to ask you something...</span>
                     <span class="time"><i class="fa fa-clock-o"></i> 4:34 PM</span>
                   </a>
@@ -76,7 +76,7 @@
                 <li class="message-preview">
                   <a href="#">
                     <span class="avatar"><img src="http://placehold.it/50x50"></span>
-                    <span class="name">John Smith:</span>
+                    <span class="name">{{ user.username }}</span>
                     <span class="message">Hey there, I wanted to ask you something...</span>
                     <span class="time"><i class="fa fa-clock-o"></i> 4:34 PM</span>
                   </a>
@@ -85,7 +85,7 @@
                 <li class="message-preview">
                   <a href="#">
                     <span class="avatar"><img src="http://placehold.it/50x50"></span>
-                    <span class="name">John Smith:</span>
+                    <span class="name">{{ user.username }}</span>
                     <span class="message">Hey there, I wanted to ask you something...</span>
                     <span class="time"><i class="fa fa-clock-o"></i> 4:34 PM</span>
                   </a>
@@ -95,7 +95,7 @@
               </ul>
             </li>
             <li class="dropdown alerts-dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> Alerts <span class="badge">3</span> <b class="caret"></b></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> 告警 <span class="badge">3</span> <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li><a href="#">Default <span class="label label-default">Default</span></a></li>
                 <li><a href="#">Primary <span class="label label-primary">Primary</span></a></li>
@@ -108,13 +108,13 @@
               </ul>
             </li>
             <li class="dropdown user-dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b class="caret"></b></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{ user.username }} <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li><a href="#"><i class="fa fa-user"></i> Profile</a></li>
                 <li><a href="#"><i class="fa fa-envelope"></i> Inbox <span class="badge">7</span></a></li>
-                <li><a href="#"><i class="fa fa-gear"></i> Settings</a></li>
+                <li><a href="/user_pwd"><i class="fa fa-gear"></i> 修改密码</a></li>
                 <li class="divider"></li>
-                <li><a href="#"><i class="fa fa-power-off"></i> Log Out</a></li>
+                <li><a href="{{ url_for("logout") }}"><i class="fa fa-power-off"></i> 退出</a></li>
               </ul>
             </li>
           </ul>
@@ -127,13 +127,14 @@
     </div><!-- /#wrapper -->
 
     <!-- JavaScript -->
-    <script src="static/school_static/js/jquery-1.10.2.js"></script>
+    <script src="js/jquery-1.10.2.js"></script>
 
-    <script src="static/school_static/js/bootstrap.js"></script>
+    <script src="js/bootstrap.js"></script>
 
     <!-- Page Specific Plugins -->
-    <script src="static/school_static/js/tablesorter/jquery.tablesorter.js"></script>
-    <script src="static/school_static/js/tablesorter/tables.js"></script>
+    <script src="js/tablesorter/jquery.tablesorter.js"></script>
+
+    <script src="js/tablesorter/tables.js"></script>
     {% block foot %}
   {% endblock %}
 
