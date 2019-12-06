@@ -134,6 +134,13 @@ def user_modify():
         return redirect("/index.html")
     return render_template("school_tem/password_modify.html",user=current_user)
 
+@app.route('/', methods=['GET', 'POST'])
+@login_required
+@permission_required(1005)
+def index_dash():
+    return redirect("/index.html")
+
+
 @app.route('/index.html', methods=['GET', 'POST'])
 @login_required
 @permission_required(1005)
