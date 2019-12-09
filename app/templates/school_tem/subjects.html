@@ -67,8 +67,13 @@
                                     {% set url=request.url | accept_pattern("(.*)/(.*)")+"/editor_Subject?search="+subject_name %}
 
                                     <input type="button" value="编辑" onclick=editor_Subject("{{ url }}")>
+                                    {% if user.role_id!=1 %}
+                                        <input type="button" value="删除" onclick="deleteSubject('{{ subject_name }}')"
+                                               disabled="disabled"/>
+                                    {% else %}
+                                        <input type="button" value="删除" onclick="deleteSubject('{{ subject_name }}')"/>
 
-                                    <input type="button" value="删除" onclick="deleteSubject('{{ subject_name }}')"/>
+                                    {% endif %}
 
                                     <input type="hidden" value="submit" onclick="getText();"/>
                                 </td>
@@ -124,11 +129,13 @@
 
             }
         }
+
         {#编辑学生信息#}
 
         function editor_Subject(url) {
             window.location.href = url
         }
+
         {#button触发input 上传#}
         $("#upload_subject_button").click(
             function () {
@@ -139,18 +146,29 @@
     </script>
     <script>
         //首先监听input框的变动，选中一个新的文件会触发change事件
-                document.querySelector("#upload_subject_input").addEventListener("change",function () {
+        document.querySelector("#upload_subject_input").addEventListener("change", function () {
 
-                    //获取到选中的文件
-                    var file = document.querySelector("#upload_subject_input").files[0];
-                    //创建formdata对象
-                    var formdata = new FormData();
-                    formdata.append("file",file);
-                    //创建xhr，使用ajax进行文件上传
-                    var xhr = new XMLHttpRequest();
-                    xhr.open("post","/upload_Subject?"+file);
+            //获取到选中的文件
+            var file = document.querySelector("#upload_subject_input").files[0];
+            //创建formdata对象
+            var formdata = new FormData();
+            formdata.append("file", file);
+            //创建xhr，使用ajax进行文件上传
+            var xhr = new XMLHttpRequest();
+            xhr.open("post", "/upload_Subject?" + file);
 
-                    xhr.send(formdata);
-                });
+            xhr.send(formdata);
+        });
+    </script>
+    <script type="text/javascript">
+
+        window.onload = function () {
+
+            {% if user.role_id!=1 %}
+                document.getElementById("export_subject_button").disabled = true;
+                document.getElementById("upload_subject_button").disabled = true;
+            {% endif %}
+
+        }
     </script>
 {% endblock %}

@@ -59,16 +59,16 @@
                                     {{ prices.pri_sub.subject_name }}
                                 </td>
                                 <td>
-                                     {{ prices.startTime}}
+                                    {{ prices.startTime }}
                                 </td>
-                                 <td>
-                                     {{ prices.stopTime}}
+                                <td>
+                                    {{ prices.stopTime }}
                                 </td>
-                                  <td>
-                                     {{ prices.ClassHours}}
+                                <td>
+                                    {{ prices.ClassHours }}
                                 </td>
-                                  <td>
-                                     {{ prices.prices}} 元
+                                <td>
+                                    {{ prices.prices }} 元
                                 </td>
                                 <td>
                                     {% set price_id=prices.price_id|string %}
@@ -76,8 +76,15 @@
                                     {% set url=request.url | accept_pattern("(.*)/(.*)")+"/editor_Price?search="+price_id %}
 
                                     <input type="button" value="编辑" onclick=editor_Price("{{ url }}")>
+                                    {% if user.role_id!=1 %}
+                                        <input type="button" value="删除" onclick="deletePrice('{{ price_id }}')"
+                                               disabled="disabled"/>
 
-                                    <input type="button" value="删除" onclick="deletePrice('{{ price_id }}')"/>
+
+                                    {% else %}
+                                        <input type="button" value="删除" onclick="deletePrice('{{ price_id }}')"/>
+
+                                    {% endif %}
 
                                     <input type="hidden" value="submit" onclick="getText();"/>
                                 </td>
@@ -137,6 +144,7 @@
         function editor_Price(url) {
             window.location.href = url
         }
+
         {#button触发input 上传#}
         $("#upload_Price_button").click(
             function () {
@@ -147,18 +155,29 @@
     </script>
     <script>
         //首先监听input框的变动，选中一个新的文件会触发change事件
-                document.querySelector("#upload_Price_input").addEventListener("change",function () {
+        document.querySelector("#upload_Price_input").addEventListener("change", function () {
 
-                    //获取到选中的文件
-                    var file = document.querySelector("#upload_Price_input").files[0];
-                    //创建formdata对象
-                    var formdata = new FormData();
-                    formdata.append("file",file);
-                    //创建xhr，使用ajax进行文件上传
-                    var xhr = new XMLHttpRequest();
-                    xhr.open("post","/upload_Price?"+file);
+            //获取到选中的文件
+            var file = document.querySelector("#upload_Price_input").files[0];
+            //创建formdata对象
+            var formdata = new FormData();
+            formdata.append("file", file);
+            //创建xhr，使用ajax进行文件上传
+            var xhr = new XMLHttpRequest();
+            xhr.open("post", "/upload_Price?" + file);
 
-                    xhr.send(formdata);
-                });
+            xhr.send(formdata);
+        });
+    </script>
+    <script type="text/javascript">
+
+        window.onload = function () {
+
+            {% if user.role_id!=1 %}
+                document.getElementById("export_Price_button").disabled = true;
+                document.getElementById("upload_Price_button").disabled = true;
+            {% endif %}
+
+        }
     </script>
 {% endblock %}

@@ -20,6 +20,16 @@ field_student=["student_name","student_sex","student_age","student_phone","stude
 field_teacher=["teacher_name","teacher_address","teacher_phone"]
 field_subject=["subject_name","sub_stu","sub_tea"]
 field_prices=["student_name","teacher_name","subject_name","startTime","stopTime","ClassHours","prices"]
+
+def if_time(time,wb):
+    if time==None:
+        return  ""
+    return  datetime(*xldate_as_tuple(time, wb.datemode)).strftime("%Y-%m-%d")
+def if_str(Object,str):
+    if Object==None:
+        return ""
+    return getattr(Object,str)
+
 def judge_add_student_form(form_dict):
     judge_formclass = judgeStuentForm(form_dict)
     judge = judge_formclass.validate()
@@ -114,14 +124,6 @@ def xlsx_upload_subject(path):
     except Exception as e:
         print(e)
 
-def if_time(time,wb):
-    if time==None:
-        return  ""
-    return  datetime(*xldate_as_tuple(time, wb.datemode)).strftime("%Y-%m-%d")
-def if_str(Object,str):
-    if Object==None:
-        return ""
-    return getattr(Object,str)
 def xlsx_upload_price(path):
     wb=xlrd.open_workbook(path)
     sheet=wb.sheet_by_name("Sheet1")
@@ -145,36 +147,6 @@ def xlsx_upload_price(path):
     except Exception as e:
         print(e)
 
-def xlsx_excel(path, Object):
-    workbook = xlrd.open_workbook(path)
-    sheet = workbook.sheet_by_name("Sheet1")
-    field = [sheet.cell_value(0, i) for i in range(sheet.ncols)]
-
-    result=sheet_operator_price(Object, field, sheet)
-    resultNew = []
-
-    if Object==Students:
-        stuNameDict={value.student_name:value for value in result}
-        stuNameList=[value.student_name for value in Students.query.all()]
-        for key,value in stuNameDict.items():
-            if key not in stuNameList:
-                resultNew.append(value)
-    elif Object==Teachers:
-        teaNameDict={value.teacher_name:value for value in result}
-        teaNameList=[value.teacher_name for value in Teachers.query.all()]
-        for key,value in teaNameDict.items():
-            if key not in teaNameList:
-                resultNew.append(value)
-    else:
-        resultNew=result
-    try:
-        db.session.add_all(resultNew)
-        db.session.commit()
-    except Exception as e:
-        db.session.rollback()
-        print(e)
-
-    pass
 
 
 def export_file(filename):

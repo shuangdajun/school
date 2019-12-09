@@ -1,129 +1,141 @@
-    {% extends "school_tem/layout.html" %}
-    {% import "school_tem/_macros.html" as macros %}
-    {% block content %}
-      <div id="page-wrapper">
+{% extends "school_tem/layout.html" %}
+{% import "school_tem/_macros.html" as macros %}
+{% block content %}
+    <div id="page-wrapper">
 
         <div class="row">
-          <div class="col-lg-12">
-            <h2 >教师信息</h2>
-            <div class="table-responsive">
-                <div class="form-group " style="margin-bottom: 1%;margin-top: 1%;margin-left: 4%;">
+            <div class="col-lg-12">
+                <h2>教师信息</h2>
+                <div class="table-responsive">
+                    <div class="form-group " style="margin-bottom: 1%;margin-top: 1%;margin-left: 4%;">
 
-                    <input id="search_teacher" style="width: 35%;font-size: 24px; border: 1px solid #cccccc;
+                        <input id="search_teacher" style="width: 35%;font-size: 24px; border: 1px solid #cccccc;
                     border-radius: 2px;padding: 18px 20px;margin-right:2%;" placeholder="请输入教师姓名">
-                    <button id="search_teacher_button" type="submit" style="width: 13%;font-size: 23px; border: 1px solid #cccccc;
-                    border-radius: 2px;padding: 18px 20px;margin-right:2%;margin-top:auto"  >搜索</button>
-                    <a href="add_Teacher">
-                        <button id="add_student_button" type="submit" style="width: 13%;font-size: 23px; border: 1px solid #cccccc;
-                    border-radius: 2px;padding: 18px 20px;margin-right:2%;margin-top:auto" name="ti" >添加</button>
-                    </a>
-                    <input id="upload_teacher_input" type="file" style="display: none;">
-                    <button id="upload_teacher_button" type="file" style="width: 13%;font-size: 23px; border: 1px solid #cccccc;
-                    border-radius: 2px;padding: 18px 20px;margin-right:2%;margin-top:auto" >导入</button>
-                    <a href="export_Teacher/Teachers_info" download="教师表.xlsx">
-                        <button id="export_teacher_button" type="file" style="width: 13%;font-size: 23px; border: 1px solid #cccccc;
-                    border-radius: 2px;padding: 18px 20px;margin-right:2%;margin-top:auto" >导出</button>
-                    </a>
+                        <button id="search_teacher_button" type="submit" style="width: 13%;font-size: 23px; border: 1px solid #cccccc;
+                    border-radius: 2px;padding: 18px 20px;margin-right:2%;margin-top:auto">搜索
+                        </button>
+                        <a href="add_Teacher">
+                            <button id="add_student_button" type="submit" style="width: 13%;font-size: 23px; border: 1px solid #cccccc;
+                    border-radius: 2px;padding: 18px 20px;margin-right:2%;margin-top:auto" name="ti">添加
+                            </button>
+                        </a>
+                        <input id="upload_teacher_input" type="file" style="display: none;">
+                        <button id="upload_teacher_button" type="file" style="width: 13%;font-size: 23px; border: 1px solid #cccccc;
+                    border-radius: 2px;padding: 18px 20px;margin-right:2%;margin-top:auto">导入
+                        </button>
+                        <a href="export_Teacher/Teachers_info" download="教师表.xlsx">
+                            <button id="export_teacher_button" type="file" style="width: 13%;font-size: 23px; border: 1px solid #cccccc;
+                    border-radius: 2px;padding: 18px 20px;margin-right:2%;margin-top:auto">导出
+                            </button>
+                        </a>
 
 
+                    </div>
+                    <table class="table table-bordered table-hover table-striped tablesorter">
+                        <thead>
+                        <tr>
+                            <th style="width:11%;">教师姓名 <i class="fa fa-sort"></i></th>
+                            <th style="width:6%;">住址 <i class="fa fa-sort"></i></th>
+                            <th style="width:11%;">手机号码 <i class="fa fa-sort"></i></th>
+                            <th style="width:11%;">学科<i class="fa fa-sort"></i></th>
+                            {#                      <th>课程<i class="fa fa-sort"></i></th>#}
+                            <th style="width:20%;">选择<i class="fa fa-sort"></i></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for teacher in teachers_modellist %}
 
+                            <tr class="active">
+                                <td>{{ teacher.teacher_name }}</td>
+                                <td>{{ teacher.teacher_address }}</td>
+                                <td>{{ teacher.teacher_phone }}</td>
+                                <td>
+                                    {% for subject in teacher.tea_sub %}
+                                        {{ subject.subject_name }}&nbsp;
+
+                                    {% endfor %}
+
+                                </td>
+                                <td>
+
+
+                                    {% set teacher_name=teacher.teacher_name %}
+                                    {% set url=request.url | accept_pattern("(.*)/(.*)")+"/editor_Teacher?search="+teacher_name %}
+
+                                    <input type="button" value="编辑" onclick=editor_teacher("{{ url }}")>
+                                    {% if user.role_id %}
+                                        <input type="button" value="删除" onclick="deleteTeacher('{{ teacher_name }}')" disabled="disabled"/>
+
+                                    {% else %}
+                                        <input type="button" value="删除" onclick="deleteTeacher('{{ teacher_name }}')"
+                                              />
+
+                                    {% endif %}
+
+                                    <input type="hidden" value="submit" onclick="getText();"/>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div id="page">
 
                 </div>
-              <table class="table table-bordered table-hover table-striped tablesorter">
-                <thead>
-                  <tr>
-                    <th style="width:11%;">教师姓名  <i class="fa fa-sort"></i></th>
-                    <th style="width:6%;">住址 <i class="fa fa-sort"></i></th>
-                    <th style="width:11%;">手机号码 <i class="fa fa-sort"></i></th>
-                    <th style="width:11%;">学科<i class="fa fa-sort"></i></th>
-{#                      <th>课程<i class="fa fa-sort"></i></th>#}
-                      <th style="width:20%;">选择<i class="fa fa-sort"></i></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {% for teacher in teachers_modellist %}
-
-                      <tr class="active" >
-                        <td >{{ teacher.teacher_name }}</td>
-                        <td>{{ teacher.teacher_address }}</td>
-                        <td>{{ teacher.teacher_phone }}</td>
-                                                  <td>
-                              {% for subject in teacher.tea_sub %}
-                                  {{ subject.subject_name }}&nbsp;
-
-                              {% endfor %}
-
-                          </td>
-                      <td>
-
-
-
-                          {% set teacher_name=teacher.teacher_name %}
-                          {% set url=request.url | accept_pattern("(.*)/(.*)")+"/editor_Teacher?search="+teacher_name%}
-
-                          <input type="button" value="编辑" onclick=editor_teacher("{{ url }}")>
-                          <input type="button" value="删除"  onclick="deleteTeacher('{{ teacher_name }}')"/>
-
-                          <input type="hidden" value="submit" onclick="getText();"/>
-                      </td>
-                      </tr>
-                  {% endfor %}
-                </tbody>
-              </table>
+                {#                分页#}
+                {{ macros.pagination_widget(pagination, '.Teacher_info') }}
             </div>
-            <div id="page">
-
-            </div>
-{#                分页#}
-            {{ macros.pagination_widget(pagination, '.Teacher_info') }}
-          </div>
 
         </div><!-- /.row -->
 
-      </div><!-- /#page-wrapper -->
+    </div><!-- /#page-wrapper -->
 
 
-    {% endblock %}
-    {% block foot %}
+{% endblock %}
+{% block foot %}
 
     <script>
         {#搜索学生#}
         $("#search_teacher_button").click(
             function () {
-                var search_teacher=$("#search_teacher").val()
-                console.log("?search_teacher="+search_teacher)
+                var search_teacher = $("#search_teacher").val()
+                console.log("?search_teacher=" + search_teacher)
 
-                window.location.href="?search_teacher="+search_teacher
+                window.location.href = "?search_teacher=" + search_teacher
 
             });
 
 
-            {#删除教师#}
-        function deleteTeacher(name){
-                {#console.log("haha")#}
-                var delete_teacher=confirm("请确认是否删除")
-                {#console.log(del_student)#}
+        {#删除教师#}
 
-                {#alert(name)#}
-                if (delete_teacher==true) {
-                    $.ajax({
-                        url:"deleteTeacher",
-                        data:{"delete_teacher":name},
-                        type:"post",
-                        success:function () {
-                            console.log("hehe")
-                            window.location.reload()
-                        }
+        function deleteTeacher(name) {
+            {#console.log("haha")#}
+            var delete_teacher = confirm("请确认是否删除")
+            {#console.log(del_student)#}
+
+            {#alert(name)#}
+            if (delete_teacher == true) {
+                $.ajax({
+                    url: "deleteTeacher",
+                    data: {"delete_teacher": name},
+                    type: "post",
+                    success: function () {
+                        console.log("hehe")
+                        window.location.reload()
+                    }
 
 
-                    })
-                }
+                })
+            }
         }
+
         {#编辑学生信息#}
+
         function editor_teacher(url) {
-            window.location.href=url
+            window.location.href = url
 
         }
+
         {#button触发input 上传#}
         $("#upload_teacher_button").click(
             function () {
@@ -135,31 +147,42 @@
     </script>
     <script>
         //首先监听input框的变动，选中一个新的文件会触发change事件
-                document.querySelector("#upload_teacher_input").addEventListener("change",function () {
+        document.querySelector("#upload_teacher_input").addEventListener("change", function () {
 
-                    //获取到选中的文件
-                    var file = document.querySelector("#upload_teacher_input").files[0];
-                    //创建formdata对象
-                    var formdata = new FormData();
-                    formdata.append("file",file);
-                    //创建xhr，使用ajax进行文件上传
-                    var xhr = new XMLHttpRequest();
-                    xhr.open("post","/upload_Teacher?"+file);
-                    {#//回调#}
-                    {#xhr.onreadystatechange = function () {#}
-                    {#    if (xhr.readyState==4 && xhr.status==200){#}
-                    {#        document.querySelector("#callback").innerText = xhr.responseText;#}
-                    {#    }#}
-                    {##}
-                    {#//获取上传的进度#}
-                    {#xhr.upload.onprogress = function (event) {#}
-                    {#    if(event.lengthComputable){#}
-                    {#        var percent = event.loaded/event.total *100;#}
-                    {#        document.querySelector("#progress .progress-item").style.width = percent+"%";#}
-                    {#    }#}
-                    {##}
-                    //将formdata上传
-                    xhr.send(formdata);
-                });
+            //获取到选中的文件
+            var file = document.querySelector("#upload_teacher_input").files[0];
+            //创建formdata对象
+            var formdata = new FormData();
+            formdata.append("file", file);
+            //创建xhr，使用ajax进行文件上传
+            var xhr = new XMLHttpRequest();
+            xhr.open("post", "/upload_Teacher?" + file);
+            {#//回调#}
+            {#xhr.onreadystatechange = function () {#}
+            {#    if (xhr.readyState==4 && xhr.status==200){#}
+            {#        document.querySelector("#callback").innerText = xhr.responseText;#}
+            {#    }#}
+            {##}
+            {#//获取上传的进度#}
+            {#xhr.upload.onprogress = function (event) {#}
+            {#    if(event.lengthComputable){#}
+            {#        var percent = event.loaded/event.total *100;#}
+            {#        document.querySelector("#progress .progress-item").style.width = percent+"%";#}
+            {#    }#}
+            {##}
+            //将formdata上传
+            xhr.send(formdata);
+        });
     </script>
-  {% endblock %}
+    <script type="text/javascript">
+
+        window.onload = function () {
+
+            {% if user.role_id!=1 %}
+                document.getElementById("export_teacher_button").disabled = true;
+                document.getElementById("upload_teacher_button").disabled = true;
+            {% endif %}
+
+        }
+    </script>
+{% endblock %}

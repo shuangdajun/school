@@ -23,7 +23,7 @@ from app.model.Students import Students
 from app.model.User import User
 
 from app.service.detail_students import judge_add_student_form, judge_add_teacher_form, judge_add_subject_form, \
-    xlsx_upload, xlsx_excel, export_file, xlsx_upload_student, xlsx_upload_teacher, xlsx_upload_subject, \
+    xlsx_upload, export_file, xlsx_upload_student, xlsx_upload_teacher, xlsx_upload_subject, \
     xlsx_upload_price
 from flask_login import logout_user
 from app.model.User import permission_required
@@ -222,7 +222,7 @@ def editor_student():
 # 上传学生信息
 @app.route("/upload_Student", methods=["GET", "POST"])
 @login_required
-# @permission_required(1003)
+@permission_required(1003)
 def upload_Student():
     path = "app/upload/" + request.files["file"].filename
     result = xlsx_upload(request.files["file"], path)  # 格式化并存储数据
