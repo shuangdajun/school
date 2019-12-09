@@ -66,7 +66,6 @@
 # print (test2.__name__)
 # print (test2.__doc__)
 #
-import xlrd
-num=43709.0
-date=xlrd.xldate_as_datetime(num,0)
-print(date)
+import openpyxl
+from openpyxl import load_workbook
+load_workbook('C:\\flask-school-app-and-api-master\\app\\upload\\Students_info.xlsx')

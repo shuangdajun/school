@@ -23,7 +23,8 @@ from app.model.Students import Students
 from app.model.User import User
 
 from app.service.detail_students import judge_add_student_form, judge_add_teacher_form, judge_add_subject_form, \
-    xlsx_upload, xlsx_excel, export_file
+    xlsx_upload, xlsx_excel, export_file, xlsx_upload_student, xlsx_upload_teacher, xlsx_upload_subject, \
+    xlsx_upload_price
 from flask_login import logout_user
 from app.model.User import permission_required
 from urllib.parse import urljoin,urlparse
@@ -171,9 +172,7 @@ def Student_info():
             return redirect(url_for("Student_info") + "?page=1")
 
         return render_template('school_tem/students.html', students_modellist=result[1], pagination=result[0],user=current_user)
-    # elif "delete_student" in params_dict and params_dict["delete_student"] != "":
-    #     delete_student_db(request.args)
-    #     return redirect("/Student_info")
+
     return redirect(request.url + "?page=1")
 
 #删除学生
@@ -223,13 +222,13 @@ def editor_student():
 # 上传学生信息
 @app.route("/upload_Student", methods=["GET", "POST"])
 @login_required
-@permission_required(1003)
+# @permission_required(1003)
 def upload_Student():
     path = "app/upload/" + request.files["file"].filename
     result = xlsx_upload(request.files["file"], path)  # 格式化并存储数据
     if result is None:
         return "文件未上传"
-    xlsx_excel(path, Students)
+    xlsx_upload_student(path)
     return "文件上传成功"
 
 
@@ -265,7 +264,7 @@ def Teacher_info():
     #     delete_teacher_db(request.args)
     #     return redirect("/Teacher_info")
 
-    return redirect(request.url + "?page=1",user=current_user)
+    return redirect(request.url + "?page=1")
 
 
 #删除教师
@@ -320,7 +319,7 @@ def upload_Teacher():
     result = xlsx_upload(request.files["file"], path)  # 格式化并存储数据
     if result is None:
         return "文件未上传"
-    xlsx_excel(path, Teachers)
+    xlsx_upload_teacher(path)
     return "文件上传成功"
 
 
@@ -424,7 +423,7 @@ def upload_Subject():
     result = xlsx_upload(request.files["file"], path)  # 格式化并存储数据
     if result is None:
         return "文件未上传"
-    xlsx_excel(path, Subjects)
+    xlsx_upload_subject(path)
     return "文件上传成功"
 
 
@@ -512,10 +511,19 @@ def upload_Price():
     result = xlsx_upload(request.files["file"], path)  # 格式化并存储数据
     if result is None:
         return "文件未上传"
-    xlsx_excel(path, Prices)
+    xlsx_upload_price(path)
     return "文件上传成功"
 
-
+# 下载学科信息
+@app.route("/export_Price/<path:filename>", methods=["POST", "GET"])
+@login_required
+@permission_required(1011)
+def export_Price(filename):
+    path = "app/export/" + filename
+    result = export_file(path)
+    if result is False:
+        return False
+    return send_from_directory(app.config["UPLOAD_FOLDER"], filename + ".xlsx", as_attachment=True)
 
 @app.route("/comboSelectStu",methods=["POST"])
 @login_required
