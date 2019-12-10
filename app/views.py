@@ -15,6 +15,7 @@ from app.db_service.teachers import search_teacher_db, delete_teacher_db, editor
     search_teacher
 from app.form import LoginForm
 from app.model.Prices import Prices
+from app.model.Prices_warning import PricesWarn
 from app.model.Subjects import Subjects
 
 from app.model.Teachers import Teachers
@@ -149,8 +150,9 @@ def dashboard():
     studentlist=Students.query.all()
     teacherlist=Teachers.query.all()
     subjectlist = Subjects.query.all()
+    pricewarn=PricesWarn.query.all()
     return render_template('school_tem/index.html', title='星泉艺校', user=current_user, studentlist=studentlist,
-                           teacherlist=teacherlist, subjectlist=subjectlist)
+                           teacherlist=teacherlist, subjectlist=subjectlist,pricewarn=pricewarn)
 
 
 

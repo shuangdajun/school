@@ -12,14 +12,16 @@
 
         <div class="row">
           <div class="col-lg-12">
-            <h1>控制台 <small>Statistics Overview</small></h1>
-            <ol class="breadcrumb">
-              <li class="active"><i class="fa fa-dashboard"></i> Dashboard</li>
-            </ol>
-            <div class="alert alert-success alert-dismissable">
-              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-              Welcome to SB Admin by <a class="alert-link" href="http://startbootstrap.com">Start Bootstrap</a>! Feel free to use this template for your admin needs! We are using a few different plugins to handle the dynamic tables and charts, so make sure you check out the necessary documentation links provided.
-            </div>
+            <h1>控制台
+{#                <small>Statistics Overview</small>#}
+            </h1>
+{#            <ol class="breadcrumb">#}
+{#              <li class="active"><i class="fa fa-dashboard"></i> Dashboard</li>#}
+{#            </ol>#}
+{#            <div class="alert alert-success alert-dismissable">#}
+{#              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>#}
+{#              Welcome to SB Admin by <a class="alert-link" href="http://startbootstrap.com">Start Bootstrap</a>! Feel free to use this template for your admin needs! We are using a few different plugins to handle the dynamic tables and charts, so make sure you check out the necessary documentation links provided.#}
+{#            </div>#}
           </div>
         </div><!-- /.row -->
 
@@ -148,27 +150,29 @@
         </div><!-- /.row -->
 
         <div class="row">
+{#          <div class="col-lg-4">#}
+{#            <div class="panel panel-primary">#}
+{#              <div class="panel-heading">#}
+{#                <h3 class="panel-title"><i class="fa fa-long-arrow-right"></i> Traffic Sources: October 1, 2013 - October 31, 2013</h3>#}
+{#              </div>#}
+{#              <div class="panel-body">#}
+{#                <div id="morris-chart-donut"></div>#}
+{#                <div class="text-right">#}
+{#                  <a href="#">View Details <i class="fa fa-arrow-circle-right"></i></a>#}
+{#                </div>#}
+{#              </div>#}
+{#            </div>#}
+{#          </div>#}
           <div class="col-lg-4">
+
             <div class="panel panel-primary">
               <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-long-arrow-right"></i> Traffic Sources: October 1, 2013 - October 31, 2013</h3>
-              </div>
-              <div class="panel-body">
-                <div id="morris-chart-donut"></div>
-                <div class="text-right">
-                  <a href="#">View Details <i class="fa fa-arrow-circle-right"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="panel panel-primary">
-              <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-clock-o"></i> Recent Activity</h3>
+                <h3 class="panel-title"><i class="fa fa-clock-o"></i> 缴费告警</h3>
               </div>
               <div class="panel-body">
                 <div class="list-group">
                   <a href="#" class="list-group-item">
+
                     <span class="badge">just now</span>
                     <i class="fa fa-calendar"></i> Calendar updated
                   </a>
@@ -207,71 +211,45 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-4">
+          <div class="col-lg-5">
             <div class="panel panel-primary">
               <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-money"></i> Recent Transactions</h3>
+                <h3 class="panel-title"><i class="fa fa-money"></i> 缴费告警</h3>
               </div>
               <div class="panel-body">
                 <div class="table-responsive">
                   <table class="table table-bordered table-hover table-striped tablesorter">
                     <thead>
                       <tr>
-                        <th>Order # <i class="fa fa-sort"></i></th>
-                        <th>Order Date <i class="fa fa-sort"></i></th>
-                        <th>Order Time <i class="fa fa-sort"></i></th>
-                        <th>Amount (USD) <i class="fa fa-sort"></i></th>
+                        <th> 学生姓名 <i class="fa fa-sort"></i></th>
+                        <th>教师姓名 <i class="fa fa-sort"></i></th>
+                        <th>学科名称 <i class="fa fa-sort"></i></th>
+                        <th>开始时间 <i class="fa fa-sort"></i></th>
+                         <th>截止时间 <i class="fa fa-sort"></i></th>
+                        <th>课时 <i class="fa fa-sort"></i></th>
+                        <th>费用 (USD) <i class="fa fa-sort"></i></th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>3326</td>
-                        <td>10/21/2013</td>
-                        <td>3:29 PM</td>
-                        <td>$321.33</td>
-                      </tr>
-                      <tr>
-                        <td>3325</td>
-                        <td>10/21/2013</td>
-                        <td>3:20 PM</td>
-                        <td>$234.34</td>
-                      </tr>
-                      <tr>
-                        <td>3324</td>
-                        <td>10/21/2013</td>
-                        <td>3:03 PM</td>
-                        <td>$724.17</td>
-                      </tr>
-                      <tr>
-                        <td>3323</td>
-                        <td>10/21/2013</td>
-                        <td>3:00 PM</td>
-                        <td>$23.71</td>
-                      </tr>
-                      <tr>
-                        <td>3322</td>
-                        <td>10/21/2013</td>
-                        <td>2:49 PM</td>
-                        <td>$8345.23</td>
-                      </tr>
-                      <tr>
-                        <td>3321</td>
-                        <td>10/21/2013</td>
-                        <td>2:23 PM</td>
-                        <td>$245.12</td>
-                      </tr>
-                      <tr>
-                        <td>3320</td>
-                        <td>10/21/2013</td>
-                        <td>2:15 PM</td>
-                        <td>$5663.54</td>
-                      </tr>
-                      <tr>
-                        <td>3319</td>
-                        <td>10/21/2013</td>
-                        <td>2:13 PM</td>
-                        <td>$943.45</td>
-                      </tr>
+                    {% set flag=1 %}
+
+                    {% for warn in pricewarn %}
+
+                        <tr id="danger{{ loop.index }}">
+
+                        <td name="student_name">{{ warn.student_name }}</td>
+                         <td name="student_name">{{ warn.student_name }}</td>
+                         <td name="subject_name">{{ warn.subject_name }}</td>
+                         <td name="startTime">{{ warn.startTime }}</td>
+                         <td name="stopTime">{{ warn.stopTime }}</td>
+                         <td name="ClassHours">{{ warn.ClassHours }}</td>
+                         <td name="prices">{{ warn.prices }}</td>
+
+                        </tr>
+
+                    {% endfor %}
+
+
                     </tbody>
                   </table>
                 </div>
@@ -285,4 +263,25 @@
 
       </div><!-- /#page-wrapper -->
 
+{% endblock %}
+{% block foot %}
+    <script>
+        $(document).ready(function () {
+
+
+            var timeclock = window.setInterval(tr_warn,1500);
+            function tr_warn() {
+                for (var i=1;i<={{ pricewarn|count }};i++){
+                    if (document.getElementById("danger"+i).className != "danger") {
+                        document.getElementById("danger"+i).className = "danger"
+                    } else {
+                        document.getElementById("danger"+i).className = ""
+                    }
+                }
+            }
+
+
+        })
+
+    </script>
 {% endblock %}

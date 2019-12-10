@@ -63,7 +63,7 @@
                                     {% set url=request.url | accept_pattern("(.*)/(.*)")+"/editor_Teacher?search="+teacher_name %}
 
                                     <input type="button" value="编辑" onclick=editor_teacher("{{ url }}")>
-                                    {% if user.role_id %}
+                                    {% if user.role_id !=1%}
                                         <input type="button" value="删除" onclick="deleteTeacher('{{ teacher_name }}')" disabled="disabled"/>
 
                                     {% else %}
