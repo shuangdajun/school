@@ -1,37 +1,58 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <script src="../../static/school_static/js/jquery-1.10.2.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="external nofollow"
-          rel="stylesheet"/>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
 </head>
 <body>
 
-<select class="js-example-basic-single content-input" name="circleId"  id="circleId"></select>
-<table>
-    <tr id="hehe">
-        <td>haha</td>
-    </tr>
-</table>
-</body>
 
-<script type="text/javascript">
-$('#circleId').select2({
-  ajax: {
-    url: 'http://127.0.0.1:5000/comboSelect',
-    data: function (params) {
-      var query = {
-        search: params.term,
-        page: params.page || 1
-      }
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
 
-      // Query parameters will be ?search=[term]&page=[page]
-      return query;
-    }
-  }
-
-
-})
+<div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+<script>
+    Highcharts.chart('container', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: 'Browser market shares in January, 2018'
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}</b>: {point.student_count:.1f} %'
+            }
+        }
+    },
+    series: [{
+        name: 'Brands',
+        colorByPoint: true,
+        data: [{
+            name: 'Chrome',
+            student_count:12,
+            y: 61.41,
+            sliced: true,
+            selected: true
+        }, {
+            name: 'Internet Explorer',
+            student_count:222,
+            y: 11.84
+        }]
+    }]
+});
 </script>
+</body>
 </html>

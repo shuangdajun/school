@@ -49,6 +49,15 @@ class TestingConfig(Config):
     }]
     SESSION_PROTECTION="strong"
 
+
+
+class CeleryConfig:
+    BROKER_URL="redis://:1qaz@WSX@172.18.1.101:6379/0"
+    CELERY_RESULT_BACKEND="redis://:1qaz@WSX@172.18.1.101:6379/1"
+
+    CELERY_TASK_RESULT_EXPIRES = 60 #后端任务执行超时时间
+
+
 app_config = {
     'development': DevelopmentConfig,
     'production': ProductionConfig,

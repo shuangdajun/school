@@ -25,7 +25,7 @@ from app.model.User import User
 
 from app.service.detail_students import judge_add_student_form, judge_add_teacher_form, judge_add_subject_form, \
     xlsx_upload, export_file, xlsx_upload_student, xlsx_upload_teacher, xlsx_upload_subject, \
-    xlsx_upload_price
+    xlsx_upload_price, SubStuCountDict, SubStuCountFilter
 from flask_login import logout_user
 from app.model.User import permission_required
 from urllib.parse import urljoin,urlparse
@@ -578,3 +578,14 @@ def comboSelectSub():
         flag = flag + 1
 
     return jsonify(subjectList)
+
+
+@app.route("/SubStuCount",methods=["POST"])
+def SubStuCount():
+    subjectsAll=list(filter(lambda x : len(x.sub_stu)>0,Subjects.query.all()))
+    stuCount=Students.query.count()
+
+    result=list(map(lambda x:{"subject_name":x.subject_name,"x":len(x.sub_stu),"y":len(x.sub_stu)*100/stuCount,"sliced":"true","selected":"true"},subjectsAll))
+
+
+    return jsonify(result)

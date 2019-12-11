@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="https://www.jq22.com/jquery/font-awesome.4.7.0.css">
+		<style type="text/less">
+			*{margin: 0;}
+			
+			#svg{
+				path{
+					transition: transform .2s;
+					color:white;
+					cursor: pointer;
+				}
+				
+				.center{
+					border-radius: 50%;
+					border: 1px solid #fff;
+					
+					img{
+						width: 100%;
+						height: 100%;
+					}
+				}
+				
+				.list{
+					transition: transform .2s;
+					cursor: pointer;
+					
+					div{
+						text-align: center;color:#fff
+					}
+				}
+			}
+		</style>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.5.3/less.min.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<svg id="svg" xmlns="http://www.w3.org/2000/svg" version="1.1" width="400px" height="400px">
+				<path class="paths" stroke="#fff" stroke-width="1" fill="#1bbc9d" />
+				<path class="paths" stroke="#fff" stroke-width="1" fill="#2fcc71" />
+				<path class="paths" stroke="#fff" stroke-width="1" fill="#3598dc" />
+				<path class="paths" stroke="#fff" stroke-width="1" fill="#9c59b8" />
+				<path class="paths" stroke="#fff" stroke-width="1" fill="#34495e" />
+				<path class="paths" stroke="#fff" stroke-width="1" fill="#16a086" />
+				<path class="paths" stroke="#fff" stroke-width="1" fill="#27ae61" />
+				<path class="paths" stroke="#fff" stroke-width="1" fill="#2a80b9" />
+				
+				<foreignObject class='center'>
+					<a href="">
+			    		<img src="t.png"/>
+					</a>
+				</foreignObject>
+				
+				<foreignObject class='list'>
+					<div>
+						<i class="fa fa-calendar" aria-hidden="true"></i>
+						<p>信息1</p>
+					</div>
+				</foreignObject>
+				
+				<foreignObject class='list'>
+					<div>
+						<i class="fa fa-bell-o" aria-hidden="true"></i>
+						<p>信息2</p>
+					</div>
+				</foreignObject>
+				
+				<foreignObject class='list'>
+					<div>
+						<i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
+						<p>信息3</p>
+					</div>
+				</foreignObject>
+				
+				<foreignObject class='list'>
+					<div>
+						<i class="fa fa-bus" aria-hidden="true"></i>
+						<p>信息4</p>
+					</div>
+				</foreignObject>
+				
+				<foreignObject class='list'>
+					<div>
+						<i class="fa fa-desktop" aria-hidden="true"></i>
+						<p>信息5</p>
+					</div>
+				</foreignObject>
+				
+				<foreignObject class='list'>
+					<div>
+						<i class="fa fa-edit" aria-hidden="true"></i>
+						<p>信息6</p>
+					</div>
+				</foreignObject>
+				
+				<foreignObject class='list'>
+					<div>
+						<i class="fa fa-hdd-o" aria-hidden="true"></i>
+						<p>信息7</p>
+					</div>
+				</foreignObject>
+				
+				<foreignObject class='list'>
+					<div>
+						<i class="fa fa-image" aria-hidden="true"></i>
+						<p>信息8</p>
+					</div>
+				</foreignObject>
+			</svg>
+		</div>
+	</body>
+	<script type="text/javascript">
+		Object.defineProperties(window,{
+			El: {
+				value: function(el) {
+					return document.querySelector(el)
+				},
+				enumerable: false
+			},
+			Els: {
+				value: function(el) {
+					return document.querySelectorAll(el)
+				},
+				enumerable: false
+			}
+		})
+		
+		init();
+		
+		window.onresize = function(){
+			init();
+		}
+		
+		function init(){
+			//宽高为当前页面的40%
+			El(".container").style.width = document.body.clientWidth*.4 + 'px';
+			El(".container").style.height = document.body.clientWidth*.4 + 'px';
+			
+			var contW = El(".container").style.width,
+				contH = El(".container").style.height;
+			
+			//svg自适应
+			El("#svg").setAttribute('width',contW)
+			El("#svg").setAttribute('height',contH)
+			
+			//中间图形自适应
+			El(".center").setAttribute('x',contW.split('px')[0]/2 - contW.split('px')[0]/8)
+			El(".center").setAttribute('y',contW.split('px')[0]/2 - contW.split('px')[0]/8)
+			El(".center").setAttribute('width',contW.split('px')[0]/4)
+			El(".center").setAttribute('height',contW.split('px')[0]/4)
+			
+			mkChart();
+		}
+		
+		
+		function mkChart(){
+			//配置各种宽高
+			var svgWsm = El("#svg").clientWidth-100,
+				svgHsm = El("#svg").clientHeight-100,
+				svgW2 = svgWsm/2,
+				svgH2 = svgWsm/2,
+				svgW = El("#svg").clientWidth,
+				svgH = El("#svg").clientHeight,
+				djx = Math.sqrt(Math.pow(svgW2,2)+Math.pow(svgH2,2)),
+				djxW = Math.sqrt(Math.pow(djx-svgW2,2)/2);
+				
+			var ds = `M${svgW2+50} ${svgH2+50} L${svgW2+50} 50 A ${svgW2} ${svgH2} 0 0 0 ${djxW+50} ${djxW+50} Z`;
+			
+			//循环扇形
+			Els(".paths").forEach((item,index)=>{
+				item.setAttribute("d",ds);
+				//自己旋转
+				item.style.transform = `rotate(${45*index}deg)`;
+				item.style.transformOrigin = `${svgW2+50}px ${svgH2+50}px`;
+				//触碰
+				item.onmouseenter = () => {
+					//扇形放大
+					item.style.transform = `rotate(${45*index}deg) scale(1.1)`;
+					//里面内容同步放大
+					Els('.list')[index].style.transform = `rotate(${45*index}deg) scale(1.05)`;
+				}
+				item.onmouseleave = () => {
+					//还原
+					item.style.transform = `rotate(${45*index}deg)`;
+					Els('.list')[index].style.transform = `rotate(${45*index}deg)`;
+				}
+			})
+			
+			//循环扇形内容
+			Els('.list').forEach((item,index)=>{
+				//自己旋转
+				item.style.transform = `rotate(${45*index}deg)`;
+				item.style.transformOrigin = `${svgW2+50}px ${svgH2+50}px`;
+				//子元素反旋转显示正位
+				item.children[0].style.transform = `rotate(-${45*index}deg)`;
+				//触碰
+				item.onmouseenter = () => {
+					//外层同步放大
+					Els('.paths')[index].style.transform = `rotate(${45*index}deg) scale(1.1)`;
+					//内层放大
+					item.style.transform = `rotate(${45*index}deg) scale(1.05)`;
+				}
+				item.onmouseleave = () => {
+					//还原
+					Els('.paths')[index].style.transform = `rotate(${45*index}deg)`;
+					item.style.transform = `rotate(${45*index}deg)`;
+				}
+				//里面的位置
+				item.setAttribute('x',svgW/2 - svgW/6);
+				item.setAttribute('y',svgH/5);
+				item.setAttribute('width',svgW/6);
+				item.setAttribute('height',svgH/6);
+			})
+			
+			//中间事件
+			El(".center>a").onclick = () => {
+				alert("中间事件")
+			}
+		}
+		
+		
+		
+	</script>
+</html>

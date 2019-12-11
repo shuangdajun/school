@@ -1,18 +1,100 @@
-# -*- coding:utf-8
-import functools
-def log(permission):
-    def hehe(func):
-        @functools.wraps(func)
-        def wrapper(*args,**kwargs):
-            print('call %s():' % func.__name__)
-            print('args = {}'.format(*args))
-            return func(*args,**kwargs)
-        return wrapper
-    return hehe
+# # def test1():
+# #     '''test1...'''
+# #     print('test1')
+# #
+# # def test2():
+# #     '''test2...'''
+# #     print('test2')
+# #
+# #
+# # print (test1.__doc__)
+# # print (test1.__name__)
+# # print (test2.__doc__)
+# # print (test2.__name__)
+#
+#
+# # coding:utf8
+# from functools import wraps
+#
+# def login_required(view_func):
+#     """hehe"""
+#     def wrapper(*args,**kwargs):
+#         """haha"""
+#         pass
+#     return wrapper
+#
+# @login_required
+# def test1():
+#     '''test1...'''
+#     print('test1')
+#
+# @login_required
+# def test2():
+#     '''test2...'''
+#     print('test2')
+#
+#
+# print (test1.__doc__)
+# print (test1.__name__)
+# print (test2.__doc__)
+# print (test2.__name__)
+#
+#
+#
+# # coding:utf8
+# # from functools import wraps
+# #
+# # def login_required(view_func):
+# #     @wraps(view_func)
+# #     def wrapper(*args,**kwargs):
+# #         pass
+# #     return wrapper
+# #
+# # @login_required
+# # def test1():
+# #     '''test1...'''
+# #     print('test1')
+# #
+# # @login_required
+# # def test2():
+# #     '''test2...'''
+# #     print('test2')
+# #
+# # print (test1.__name__)
+# # print (test1.__doc__)
+#
+# print (test2.__name__)
+# print (test2.__doc__)
+#
 
 
-@log(1001)
-def test(p):
-    print(test.__name__ + " param: " + p)
+# !/usr/bin/env python
+# -*- coding:utf-8 -*-
+# from celery import Celery
+#
+# from config.config import CeleryConfig
+#
+# app = Celery("haha")
+# app.config_from_object(CeleryConfig)
+# #app.config_from_object(CeleryConfig)  # 指定配置文件
+#
+#
+# @app.task(bind=True)
+# def taskA(self,x, y):
+#     return x + y,self.id
 
-test("I'm a param")
+#
+# @app.task
+# def taskB(x, y, z):
+#     return x + y + z
+#
+#
+# @app.task
+# def add(x, y):
+#     return x-y
+
+def haha(x,y):
+    return x/y
+
+
+map(haha,[1,2,3],[3])

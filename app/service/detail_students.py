@@ -253,3 +253,8 @@ def getObjList(ObjList, attr):
     return ObjAttrList
 
 
+def SubStuCountDict(subjects,stuCount):
+    stuCount=len(subjects.sub_stu)
+    return {"subject_name":subjects.subject_name,"student_count":stuCount,"percentage":stuCount/stuCount}
+def SubStuCountFilter(data):
+    return data["student_count"]!=0
