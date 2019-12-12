@@ -1,4 +1,4 @@
-from flask import render_template
+from flask import render_template, jsonify
 from flask_login import logout_user, current_user, login_user, login_required
 from werkzeug.utils import redirect
 
