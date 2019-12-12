@@ -3,8 +3,7 @@ import os
 
 from flask import Flask
 
-from flask_restful import Api
-from flask_sqlalchemy import SQLAlchemy
+
 from  flask_login import LoginManager
 from app.model.Base import db #db只是在views中生效
 
@@ -69,18 +68,22 @@ def create_app(configuration):
 
     env=app.jinja_env
     env.filters["accept_pattern"]=accept_pattern  #定义jinja模板
+    registry_blueprint(app)
     db.init_app(app)
     #创建所有表
-    db.create_all(app=app)
+    # db.create_all(app=app)
     login_manager = LoginManager()
     login_manager.init_app(app)
-    login_manager.login_view="login"
+    login_manager.login_view="web.login"
     #配置self.user_callback()回调函数，绑定user到当前请求上下文
     @login_manager.user_loader
     def load_user(id):
         return User.query.get(int(id))
     return app
 
+def registry_blueprint(app):
+    from app.BlueprintView import web
+    app.register_blueprint(web)
 
 
 

@@ -93,8 +93,9 @@
 # def add(x, y):
 #     return x-y
 
-def haha(x,y):
-    return x/y
-
-
-map(haha,[1,2,3],[3])
+def haha(N):
+    for i in N:
+        yield i
+        print("wori")
+G=haha([1,2,3,4])
+print(next(G))

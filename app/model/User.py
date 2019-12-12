@@ -1,5 +1,7 @@
+
 from flask_login import UserMixin, current_user
-from sqlalchemy import Column,String,Integer,Boolean,ForeignKey
+from sqlalchemy import Column,String,Integer,Boolean,ForeignKey,Date
+from werkzeug.security import generate_password_hash, check_password_hash
 
 from app.model import Permission
 from app.model.Base import base, db
@@ -24,6 +26,8 @@ class User(UserMixin,base):
     user=Column(String(20),unique=True)
     username=Column(String(20),unique=True)
     password=Column(String(20))
+    startTime=Column(Date)
+    stopTime=Column(Date)
     role_id=Column(Integer,ForeignKey("Role.role_id"))
     user_role=db.relationship("Role",backref="role_user")
 
@@ -35,6 +39,10 @@ class User(UserMixin,base):
             if permission.perm_id==permiss:
                 return True
         return  False
+    def set_password(self,password):
+        self.password=generate_password_hash(password)
+    def check_password(self,password):
+        return check_password_hash(self.password,password)
 
 
 

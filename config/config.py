@@ -11,6 +11,7 @@ class Config(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SECRET_KEY = os.getenv('SECRET_KEY')
     SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URI')
+    # JSON_AS_ASCII=False   #在blueprint中的蓝图，数据前后台传输时会转换为ascii编码，如果想要显示中文，需要禁止转换
 
 
 class DevelopmentConfig(Config):

@@ -1,0 +1,123 @@
+{% extends "school_tem/layout.html" %}
+{% import "school_tem/_macros.html" as macros %}
+{% block content %}
+    <div id="page-wrapper">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>用户管理</h2>
+                <div class="table-responsive">
+                    {#                    <div class="form-group " style="margin-bottom: 1%;margin-top: 1%;margin-left: 4%;">#}
+                    {##}
+                    {#                        <input id="search_student" style="width: 35%;font-size: 24px; border: 1px solid #cccccc;#}
+                    {#                    border-radius: 2px;padding: 18px 20px;margin-right:2%;" placeholder="请输入学生姓名">#}
+                    {#                        <button id="search_student_button" type="submit" style="width: 13%;font-size: 23px; border: 1px solid #cccccc;#}
+                    {#                    border-radius: 2px;padding: 18px 20px;margin-right:2%;margin-top:auto">搜索#}
+                    {#                        </button>#}
+                    {#                        <a href="add_Student">#}
+                    {##}
+                    {#                            <button id="add_student_button" type="submit" style="width: 13%;font-size: 23px; border: 1px solid #cccccc;#}
+                    {#                    border-radius: 2px;padding: 18px 20px;margin-right:2%;margin-top:auto" name="ti">添加#}
+                    {#                            </button>#}
+                    {#                        </a>#}
+                    {#                        <input id="upload_student_input" type="file" style="display: none;">#}
+                    {#                        <button id="upload_student_button" type="file" style="width: 13%;font-size: 23px; border: 1px solid #cccccc;#}
+                    {#                    border-radius: 2px;padding: 18px 20px;margin-right:2%;margin-top:auto">导入#}
+                    {#                        </button>#}
+                    {#                        <a href="export_Student/Students_info" download="学生表.xlsx">#}
+                    {#                            <button id="export_student_button" type="file" style="width: 13%;font-size: 23px; border: 1px solid #cccccc;#}
+                    {#                    border-radius: 2px;padding: 18px 20px;margin-right:2%;margin-top:auto">导出#}
+                    {#                            </button>#}
+                    {##}
+                    {#                        </a>#}
+                    {##}
+                    {##}
+                    {#                    </div>#}
+                    <table class="table table-bordered table-hover table-striped tablesorter">
+                        <thead>
+                        <tr>
+
+                            <th style="width:6%;">账号 <i class="fa fa-sort"></i></th>
+                            <th style="width:6%;">姓名 <i class="fa fa-sort"></i></th>
+                            <th style="width:6%;">开始时间 <i class="fa fa-sort"></i></th>
+                            <th style="width:6%;">截止时间<i class="fa fa-sort"></i></th>
+                            <th style="width:6%;">用户权限 <i class="fa fa-sort"></i></th>
+                            <th style="width:11%;">描述 <i class="fa fa-sort"></i></th>
+                            <th style="width:20%;">选择<i class="fa fa-sort"></i></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for value in result %}
+                            <tr class="active">
+                                <td>{{ value["user"] }}</td>
+                                <td>{{ value["username"] }}</td>
+                                <td>{{ value["startTime"] }}</td>
+                                <td>{{ value["stopTime"] }}</td>
+                                <td>{{ value["role"] }}</td>
+                                <td>{{ value["description"] }}</td>
+                                <td>
+                                    <input type="button" value="编辑" onclick='editor_user("{{ url_for(".user_modify") }}")'>
+                                    {% if user.role_id!=1 %}
+                                        <input type="button" value="删除" id="deleteStudent"
+                                               onclick="deleteUser('{{ student_name }}')" disabled="disabled"/>
+                                    {% else %}
+                                        <input type="button" value="删除" id="deleteStudent"
+                                               onclick="deleteUser('{{ student_name }}')"/>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+
+
+                        </tbody>
+                    </table>
+                </div>
+                <div id="page">
+
+                </div>
+                {#                分页#}
+                                {{ macros.pagination_widget(pagination, '.user_Manager') }}
+            </div>
+
+        </div><!-- /.row -->
+
+    </div><!-- /#page-wrapper -->
+
+
+{% endblock %}
+{% block foot %}
+
+    <script>
+
+
+        {#删除学生#}
+
+        function deleteUser(name) {
+            var delete_user = confirm("请确认是否删除")
+
+            if (delete_user == true) {
+
+                $.ajax({
+                    url: "deleteUser",
+                    data: {"delete_user": name},
+                    type: "post",
+                    success: function () {
+                        window.location.reload()
+                    }
+
+
+                })
+            }
+        }
+
+        {#编辑学生信息#}
+
+        function editor_user(url) {
+            console.log(url)
+            window.location.href = url
+
+        }
+
+
+
+{% endblock %}
