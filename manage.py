@@ -27,8 +27,8 @@ manager.add_command("runserver", Server(use_debugger=True,use_reloader=True)) #S
 
 if __name__ == '__main__':
     Schuduler.start()
-    manager.run()
-    # app.run(debug=True)
+    # manager.run()
+    app.run(debug=True)
 
 
 
