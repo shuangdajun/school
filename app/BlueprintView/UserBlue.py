@@ -24,6 +24,7 @@ def user_modify():
         current_user.user=request.form["user"]
         current_user.username=request.form["username"]
         current_user.password=request.form["password"]
+
         try:
             db.session.commit()
         except Exception as e:

@@ -1,5 +1,5 @@
 # 搜索、学科信息初始页面等
-from flask import send_from_directory, request, jsonify, redirect, render_template, url_for
+from flask import send_from_directory, request, jsonify, redirect, render_template, url_for, app
 from flask_login import login_required, current_user
 
 from app.BlueprintView import web

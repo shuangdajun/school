@@ -43,7 +43,6 @@
                             <th style="width:6%;">截止时间<i class="fa fa-sort"></i></th>
                             <th style="width:6%;">用户权限 <i class="fa fa-sort"></i></th>
                             <th style="width:11%;">描述 <i class="fa fa-sort"></i></th>
-                            <th style="width:20%;">选择<i class="fa fa-sort"></i></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -55,16 +54,7 @@
                                 <td>{{ value["stopTime"] }}</td>
                                 <td>{{ value["role"] }}</td>
                                 <td>{{ value["description"] }}</td>
-                                <td>
-                                    <input type="button" value="编辑" onclick='editor_user("{{ url_for(".user_modify") }}")'>
-                                    {% if user.role_id!=1 %}
-                                        <input type="button" value="删除" id="deleteStudent"
-                                               onclick="deleteUser('{{ student_name }}')" disabled="disabled"/>
-                                    {% else %}
-                                        <input type="button" value="删除" id="deleteStudent"
-                                               onclick="deleteUser('{{ student_name }}')"/>
-                                    {% endif %}
-                                </td>
+
                             </tr>
                         {% endfor %}
 

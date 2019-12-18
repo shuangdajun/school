@@ -19,7 +19,8 @@
   </div>
     <div class="login">
       <h1>星泉艺校学生管理系统</h1>
-      <form method="post" action="{{ url_for("login")}}">
+
+      <form method="post" action="{{ url_for("web.login")}}">
           {{ form.csrf_token }}
         <p><input type="text" name="user" value="{{ form.user.data }}" placeholder="用户名"></p>
           <p><input type="password" name="password" value="{{ form.password.data }}" placeholder="密码"></p>
@@ -39,7 +40,7 @@
     window.onload = function () {
         reme_m = document.getElementById("remember_me");
         reme_m.value = reme_m.checked
-        console.log(reme_m.value)
+
     }
 
 

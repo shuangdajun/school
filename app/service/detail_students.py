@@ -11,7 +11,6 @@ from app.model.Prices import Prices
 from app.model.Students import Students, to_stu_sub
 from app.model.Subjects import Subjects
 from app.model.Teachers import Teachers
-from app.view_models.Students import StudentViewModel
 
 
 from app.form import judgeStuentForm, judgeTeacherForm, judgeSubjectForm

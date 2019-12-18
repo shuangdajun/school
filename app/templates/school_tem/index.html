@@ -302,7 +302,7 @@
             }
 
             $.ajax({
-                url: "{{ url_for(".SubStuCount") }}",
+                url: "{{ url_for("web.SubStuCount") }}",
                 async: false,
                 type: "POST",
                 success: function (result) {

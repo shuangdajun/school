@@ -68,17 +68,18 @@ def create_app(configuration):
 
     env=app.jinja_env
     env.filters["accept_pattern"]=accept_pattern  #定义jinja模板
-    registry_blueprint(app)
+
     db.init_app(app)
     #创建所有表
-    # db.create_all(app=app)
+    db.create_all(app=app)
+    registry_blueprint(app)
     login_manager = LoginManager()
     login_manager.init_app(app)
     login_manager.login_view="web.login"
     #配置self.user_callback()回调函数，绑定user到当前请求上下文
     @login_manager.user_loader
-    def load_user(id):
-        return User.query.get(int(id))
+    def load_user(csrf_token):
+        return User.query.filter_by(token=csrf_token).first()
     return app
 
 def registry_blueprint(app):
@@ -92,4 +93,4 @@ Schuduler = APScheduler()  #定时任务
 Schuduler.init_app(app)
 
 # api = Api(app=app, prefix="/api/v1")
-from app import views
+# from app import views

@@ -1,12 +1,13 @@
 
-from flask_login import UserMixin, current_user
+from flask_login import UserMixin, current_user, logout_user
 from sqlalchemy import Column,String,Integer,Boolean,ForeignKey,Date
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from app.model import Permission
 from app.model.Base import base, db
-from flask import abort
+from flask import abort, session, render_template, redirect, jsonify
 from functools import wraps
+import requests
 def permission_required(permission):
 
     def wrapfunc(func):
@@ -28,6 +29,7 @@ class User(UserMixin,base):
     password=Column(String(20))
     startTime=Column(Date)
     stopTime=Column(Date)
+    token=Column(String(40))
     role_id=Column(Integer,ForeignKey("Role.role_id"))
     user_role=db.relationship("Role",backref="role_user")
 
@@ -44,6 +46,7 @@ class User(UserMixin,base):
     def check_password(self,password):
         return check_password_hash(self.password,password)
 
-
+    def get_id(self):
+        return self.token
 
 

@@ -15,11 +15,7 @@ class judgeStuentForm(Form):
     student_phone =StringField()
     student_landline = StringField()
     subjectSelect=StringField()
-    # def validate_student_name(self,field):
-    #     print(Students.query.filter_by(student_name=field.data))
-    #
-    #     if len(Students.query.filter_by(student_name=field.data).all()) !=0:
-    #         raise ValidationError("学生重复输入")
+
 
     def validate_student_phone(self,field):
         if not (field.data.isdigit() and len(field.data)==11):
@@ -33,11 +29,7 @@ class judgeTeacherForm(Form):
     teacher_address=StringField(validators=[Length(min=1,max=50),DataRequired("请输入正确的住址信息")])
     teacher_phone=StringField()
     subjectSelect=StringField()
-    # def validate_teacher_name(self,field):
-    #     print(Teachers.query.filter_by(teacher_name=field.data))
-    #
-    #     if len(Teachers.query.filter_by(teacher_name=field.data).all()) !=0:
-    #         raise ValidationError("学生重复输入")
+
     def validate_teacher_phone(self,field):
         if not (field.data.isdigit() and len(field.data)==11):
             raise ValidationError("请输入正确的手机号码")

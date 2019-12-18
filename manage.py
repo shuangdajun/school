@@ -1,35 +1,35 @@
 import os
 
 from flask_migrate import Migrate, MigrateCommand
-from flask_script import Manager, Shell,Command
+from flask_script import Manager, Shell, Command, Server
 # from app.models import Student, Teacher, Subject
 # from app import app,db
 
 from app import app, Schuduler
+from flask_script import Manager
 
-# basedir = os.path.abspath(os.path.dirname(__file__))
-# migrate = Migrate(app, db)
-# manager = Manager(app)
-# manager.add_command("db", MigrateCommand)
+from app.model.Base import db
+from app.model.Role import Role
+from app.model.Students import Students
+from app.model.User import User
+
+manager=Manager(app)
+migrate=Migrate(app,db)
+
+#Shell的回调函数，在shell交互环境中导入dict中的模型
+def make_shell_context():
+    return dict(app=app,db=db,User=User,Role=Role,Students=Students)
 
 
-# def make_shell_context():
-#     """Returns application and database instances
-#     to the shell importing them automatically
-#     on `python manager.py shell`.
-#     """
-#     return dict(app=app, db=db, Student=Student, Teacher=Teacher,
-#                 Subject=Subject)
-#
-#
-# manager.add_command("shell", Shell(make_context=make_shell_context))
+manager.add_command("db",MigrateCommand)
+manager.add_command("shell",Shell(make_context=make_shell_context))
+manager.add_command("runserver", Server(use_debugger=True,use_reloader=True)) #Server()代指主函數
 
-def haha(i,j):
-    print(i,j)
 if __name__ == '__main__':
-    #manager.run()
     Schuduler.start()
+    # manager.run()
     app.run(debug=True)
+
 
 
 

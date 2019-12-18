@@ -29,7 +29,7 @@ class ProductionConfig(Config):
     DEBUG = False
     TESTING = False
 
-
+import datetime
 class TestingConfig(Config):
     """Testing configurations
     """
@@ -38,6 +38,7 @@ class TestingConfig(Config):
     SQLALCHEMY_DATABASE_URI = os.getenv('TEST_DATABASE_URI')
     PRESERVE_CONTEXT_ON_EXCEPTION = False
     #SQLALCHEMY_ECHO = True
+    PERMANENT_SESSION_LIFETIME=datetime.timedelta(minutes=30)
     UPLOAD_FOLDER='C:\\flask-school-app-and-api-master\\app\\export'
     JOBS=[{
         "id":"job1",

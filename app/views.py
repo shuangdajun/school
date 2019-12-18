@@ -102,23 +102,23 @@ def site_map():
 #     return render_template('login.html', title='Login', error=error)
 
 
-@app.route('/logout', methods=['GET', 'POST'])
-def logout():
-    logout_user()
-    return redirect('/login')
-
-
-
-@app.route("/login",methods=["GET","POST"])
-def login():
-    form=LoginForm()
-    if form.validate_on_submit(): # 表示form是POST进来并且已经validate()=true
-        user=User.query.filter_by(user=form.user.data,password=form.password.data).first()
-        if current_user.is_authenticated==False and user is not None:
-            login_user(user,False)
-            return redirect("/index.html")
-
-    return render_template("school_tem/login.html",form=form)
+# @app.route('/logout', methods=['GET', 'POST'])
+# def logout():
+#     logout_user()
+#     return redirect('/login')
+#
+#
+#
+# @app.route("/login",methods=["GET","POST"])
+# def login():
+#     form=LoginForm()
+#     if form.validate_on_submit(): # 表示form是POST进来并且已经validate()=true
+#         user=User.query.filter_by(user=form.user.data,password=form.password.data).first()
+#         if current_user.is_authenticated==False and user is not None:
+#             login_user(user,False)
+#             return redirect("/index.html")
+#
+#     return render_template("school_tem/login.html",form=form)
 
 
 
