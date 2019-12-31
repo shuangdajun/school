@@ -9,23 +9,18 @@
                 <div class="table-responsive">
                     <div class="form-group " style="margin-bottom: 1%;margin-top: 1%;margin-left: 4%;">
 
-                        <input id="search_teacher" style="width: 35%;font-size: 24px; border: 1px solid #cccccc;
-                    border-radius: 2px;padding: 18px 20px;margin-right:2%;" placeholder="请输入教师姓名">
-                        <button id="search_teacher_button" type="submit" style="width: 13%;font-size: 23px; border: 1px solid #cccccc;
-                    border-radius: 2px;padding: 18px 20px;margin-right:2%;margin-top:auto">搜索
+                        <input id="search_teacher" class="form-group-select" placeholder="请输入教师姓名">
+                        <button id="search_teacher_button" type="submit" class="form-group-control">搜索
                         </button>
                         <a href="add_Teacher">
-                            <button id="add_student_button" type="submit" style="width: 13%;font-size: 23px; border: 1px solid #cccccc;
-                    border-radius: 2px;padding: 18px 20px;margin-right:2%;margin-top:auto" name="ti">添加
+                            <button id="add_student_button" type="submit" class="form-group-control" name="ti">添加
                             </button>
                         </a>
                         <input id="upload_teacher_input" type="file" style="display: none;">
-                        <button id="upload_teacher_button" type="file" style="width: 13%;font-size: 23px; border: 1px solid #cccccc;
-                    border-radius: 2px;padding: 18px 20px;margin-right:2%;margin-top:auto">导入
+                        <button id="upload_teacher_button" type="file" class="form-group-control">导入
                         </button>
                         <a href="export_Teacher/Teachers_info" download="教师表.xlsx">
-                            <button id="export_teacher_button" type="file" style="width: 13%;font-size: 23px; border: 1px solid #cccccc;
-                    border-radius: 2px;padding: 18px 20px;margin-right:2%;margin-top:auto">导出
+                            <button id="export_teacher_button" type="file" class="form-group-control">导出
                             </button>
                         </a>
 
@@ -63,12 +58,13 @@
                                     {% set url=request.url | accept_pattern("(.*)/(.*)")+"/editor_Teacher?search="+teacher_name %}
 
                                     <input type="button" value="编辑" onclick=editor_teacher("{{ url }}")>
-                                    {% if user.role_id !=1%}
-                                        <input type="button" value="删除" onclick="deleteTeacher('{{ teacher_name }}')" disabled="disabled"/>
+                                    {% if user.role_id !=1 %}
+                                        <input type="button" value="删除" onclick="deleteTeacher('{{ teacher_name }}')"
+                                               disabled="disabled"/>
 
                                     {% else %}
                                         <input type="button" value="删除" onclick="deleteTeacher('{{ teacher_name }}')"
-                                              />
+                                        />
 
                                     {% endif %}
 

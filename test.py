@@ -92,10 +92,22 @@
 # @app.task
 # def add(x, y):
 #     return x-y
-
-def haha(N):
-    for i in N:
-        yield i
-        print("wori")
-G=haha([1,2,3,4])
-print(next(G))
+import datetime
+class showTime:
+    def __init__(self):
+        self.time=datetime.date.today()
+        self.haha=""
+    @property
+    def show(self):
+        return self.haha
+    @show.setter
+    def show(self,wori):
+        # self.haha=wori
+        print("pp")
+    def __repr__(self):
+        return '<user_name %r>' % self.time
+    # def __str__(self):
+    #     return '<user_name %r>' % self.time
+timer=showTime()
+timer.show="1232"
+print(timer.show)

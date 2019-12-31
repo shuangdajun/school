@@ -15,9 +15,8 @@ from app.model.User import User, permission_required
 @web.route('/logout', methods=['GET', 'POST'])
 def logout():
     form = LoginForm()
-
     logout_user()
-    return render_template("school_tem/login.html",form=form,error=get_flashed_messages())
+    return render_template("school_tem/login.html",form=form)
 
 
 
@@ -25,15 +24,18 @@ def logout():
 
 def login():
     form=LoginForm()
-    if form.validate_on_submit(): # 表示form是POST进来并且已经validate()=true
-        user=User.query.filter_by(user=form.user.data,password=form.password.data).first()
 
-        if current_user.is_authenticated==False and user is not None:
-            user.token=session["csrf_token"]
+    if form.validate_on_submit(): # 表示form是POST进来并且已经validate()=true
+        user=User.query.filter(User.user==form.user.data).first()
+
+        if  current_user.is_authenticated==False and user is not None and user.check_password(form.password.data)==True and user.status:
+            user.token=session["csrf_token"]+str(user.id)
             db.session.commit()
             login_user(user,False)
 
             return redirect("/index.html")
+        else:
+            flash("账号或者密码错误")
 
     return render_template("school_tem/login.html",form=form)
 

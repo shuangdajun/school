@@ -10,6 +10,9 @@
         body {
             background: #5e5e5e;
         }
+        .inred{
+            color: red;
+        }
     </style>
 </head>
 <body>
@@ -24,7 +27,7 @@
           {{ form.csrf_token }}
         <p><input type="text" name="user" value="{{ form.user.data }}" placeholder="用户名"></p>
           <p><input type="password" name="password" value="{{ form.password.data }}" placeholder="密码"></p>
-          <p class="submit"><input type="submit" name="login" id="submit" ></p>
+          <p class="submit"><input type="submit" name="login" id="submit" ><span id="warn" class="" style="padding-left: 5px"></span></p>
       </form>
     </div>
 
@@ -34,18 +37,18 @@
   </div>
 
 </body>
-
 <script>
-    var reme_m;
+    var warnObject=document.getElementById("warn")
     window.onload = function () {
-        reme_m = document.getElementById("remember_me");
-        reme_m.value = reme_m.checked
-
+        {% with messages=get_flashed_messages() %}
+            {% if messages %}
+                warnObject.innerText="{{ messages[0]|safe }}"
+                console.log("{{ messages|safe }}")
+                warnObject.className="inred"
+            {% endif %}
+        {% endwith %}
     }
 
-
-    $("#remember_me").click(function () {
-        this.value = this.checked
-    })
 </script>
+
 </html>

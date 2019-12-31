@@ -1,0 +1,155 @@
+{% extends "school_tem/layout.html" %}
+{% block header %}
+    <link href="css/artific.css" ,rel="stylesheet">
+
+    <link href="css/component-chosen.css" rel="stylesheet">
+    <style>
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .chosen-container-multi .chosen-choices .search-field input[type="text"] {
+            height: calc(2.25rem + 9px);
+        }
+
+        .chosen-container-single .chosen-single {
+            height: calc(2.25rem + 9px);
+        }
+
+        .chosen-single > span {
+            margin-top: 4px;
+
+        }
+
+        .ingreen {
+            color: green;
+            font-size: 20px;
+            font-weight: normal;
+            font-family: FangSong;;
+        }
+
+        .inred {
+            color: red;
+            border: none;
+            background: none;
+            font-size: 20px;
+            font-weight: normal;
+            font-family: FangSong;;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="col-lg-12" style="margin-top: 5%;">
+        <h2 style="margin-bottom: 2%">创建用户信息</h2>
+        <div class="panel panel-default panel-body panel-body-nopadding" style="margin-top: 55px">
+            <form class="form-horizontal form-bordered" id="form" action="{{ url_for(".add_User") }}" method="POST"
+                  onsubmit="return false">
+                <ul id="ocheck">
+                    <li class="form-group" style="margin-top: 55px">
+
+                    <span class="col-sm-3 control-label"
+                          style="font-size: 24px;font-weight: normal;font-family: FangSong;">账号</span>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" name="user" id="oChuser" placeholder="请输入用户账号">
+                            <div class="" type="text"></div>
+                        </div>
+
+                    </li>
+
+                    <li class="form-group" style="margin-top: 55px">
+
+                    <span class="col-sm-3 control-label"
+                          style="font-size: 24px;font-weight: normal;font-family: FangSong;">姓名</span>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" name="username" id="oChxm" placeholder="请输入用户姓名">
+                            <div class="" type="text"></div>
+
+                        </div>
+                    </li>
+                    <li class="form-group" style="margin-top: 55px">
+
+                    <span class="col-sm-3 control-label"
+                          style="font-size: 24px;font-weight: normal;font-family: FangSong;">密码</span>
+                        <div class="col-sm-6">
+                            <input type="password" class="form-control" name="password" id="oChpass"
+                                   placeholder="密码中必须包含字母、数字、特称字符，至少8个字符，最多30个字符">
+                            <div class="" type="text"></div>
+
+                        </div>
+                    </li>
+                    <li class="form-group" style="margin-top: 55px">
+
+                    <span class="col-sm-3 control-label"
+                          style="font-size: 24px;font-weight: normal;font-family: FangSong;">截止时间</span>
+                        <div class="col-sm-6">
+                            <input type="date" class="form-control" name="stopTime" id="ostopTime" value="">
+                        </div>
+                        <div class="" type="text"></div>
+                    </li>
+                    <li class="form-group" style="margin-top: 55px">
+
+                    <span class="col-sm-3 control-label"
+                          style="font-size: 24px;font-weight: normal;font-family: FangSong;">账号权限</span>
+                        <div class="col-sm-6">
+                            <select name="userpermission" id="optgroup" class="form-control form-control-chosen"
+                                    data-placeholder="请选择">
+                                <option value="Ordinary" selected>用户权限</option>
+                                <option value="admin">普通管理员权限</option>
+                                <option value="super">超级管理员权限</option>
+
+                            </select>
+                        </div>
+                        <div class="" type="text"></div>
+                    </li>
+                    <li class="form-group" style="margin-top: 55px">
+
+                    <span class="col-sm-3 control-label"
+                          style="font-size: 24px;font-weight: normal;font-family: FangSong;">账号状态</span>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label"
+                                   style="width:120px;font-size:  24px;font-weight: normal;font-family: FangSong"><input
+                                    name="status" type="radio" checked="checked">启用</label>
+                            <label class="col-sm-3 control-label"
+                                   style="width:120px;font-size:  24px;font-weight: normal;font-family: FangSong"><input
+                                    name="status" type="radio" value="0">禁用</label>
+                        </div>
+                    </li>
+                </ul>
+
+                {#                <input type="hidden" name="page" value="">#}
+
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-sm-6 col-sm-offset-3">
+                            <button class="btn btn-primary" id="btn" type="submit" disabled="true">提交</button>&nbsp;
+                            <a href="{{ url_for(".user_Manager") }}" class="btn btn-default ">返回</a>
+                        </div>
+                    </div>
+                </div><!-- panel-footer -->
+
+
+            </form>
+        </div>
+    </div>
+    </div><!-- /.row -->
+{% endblock %}
+{% block foot %}
+    <script>
+        $("#btn").attr("disabled", "true");
+        $("#btn").attr("disabled", "disabled");
+        $("#btn").attr("disabled", "false");
+        $("#btn").removeAttr("disabled", "disabled");
+
+    </script>
+    <script type="text/javascript" src="js/ocheck.js"></script>
+    <script type="text/javascript" src="js/chosen.jquery.js"></script>
+    <script type="text/javascript">
+        $('.form-control-chosen').chosen({
+            search_contains: true,
+            allow_single_deselect: true,
+            width: '100%',
+        });
+    </script>
+{% endblock %}

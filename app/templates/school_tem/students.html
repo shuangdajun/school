@@ -9,24 +9,19 @@
                 <div class="table-responsive">
                     <div class="form-group " style="margin-bottom: 1%;margin-top: 1%;margin-left: 4%;">
 
-                        <input id="search_student" style="width: 35%;font-size: 24px; border: 1px solid #cccccc;
-                    border-radius: 2px;padding: 18px 20px;margin-right:2%;" placeholder="请输入学生姓名">
-                        <button id="search_student_button" type="submit" style="width: 13%;font-size: 23px; border: 1px solid #cccccc;
-                    border-radius: 2px;padding: 18px 20px;margin-right:2%;margin-top:auto">搜索
+                        <input id="search_student" class="form-group-select" placeholder="请输入学生姓名">
+                        <button id="search_student_button" type="submit" class="form-group-control">搜索
                         </button>
                         <a href="add_Student">
 
-                            <button id="add_student_button" type="submit" style="width: 13%;font-size: 23px; border: 1px solid #cccccc;
-                    border-radius: 2px;padding: 18px 20px;margin-right:2%;margin-top:auto" name="ti">添加
+                            <button id="add_student_button" type="submit" class="form-group-control" name="ti">添加
                             </button>
                         </a>
                         <input id="upload_student_input" type="file" style="display: none;">
-                        <button id="upload_student_button" type="file" style="width: 13%;font-size: 23px; border: 1px solid #cccccc;
-                    border-radius: 2px;padding: 18px 20px;margin-right:2%;margin-top:auto">导入
+                        <button id="upload_student_button" type="file" class="form-group-control">导入
                         </button>
                         <a href="export_Student/Students_info" download="学生表.xlsx">
-                            <button id="export_student_button" type="file" style="width: 13%;font-size: 23px; border: 1px solid #cccccc;
-                    border-radius: 2px;padding: 18px 20px;margin-right:2%;margin-top:auto">导出
+                            <button id="export_student_button" type="file" class="form-group-control">导出
                             </button>
 
                         </a>
@@ -71,7 +66,7 @@
 
                                     {% if user.role_id!=1 %}
                                         <input type="button" value="删除" id="deleteStudent"
-                                               onclick="deleteStudent('{{ student_name }}')" disabled="disabled" />
+                                               onclick="deleteStudent('{{ student_name }}')" disabled="disabled"/>
                                     {% else %}
                                         <input type="button" value="删除" id="deleteStudent"
                                                onclick="deleteStudent('{{ student_name }}')"/>
