@@ -98,3 +98,4 @@ def export_Teacher(filename):
     if result is False:
         return False
     return send_from_directory(app.config["UPLOAD_FOLDER"], filename + ".xlsx", as_attachment=True)
+

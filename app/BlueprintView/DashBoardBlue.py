@@ -28,7 +28,7 @@ def login():
     if form.validate_on_submit(): # 表示form是POST进来并且已经validate()=true
         user=User.query.filter(User.user==form.user.data).first()
 
-        if  current_user.is_authenticated==False and user is not None and user.check_password(form.password.data)==True and user.status:
+        if  user is not None and user.check_password(form.password.data)==True and user.status:
             user.token=session["csrf_token"]+str(user.id)
             db.session.commit()
             login_user(user,False)

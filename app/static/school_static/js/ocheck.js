@@ -47,7 +47,7 @@ var oCHCK = function () {
 
                 return;
             } else {
-                console.log(this.nextSibling.nextSibling)
+
                 this.nextSibling.nextSibling.innerHTML = '请输入正确的姓名';
                 this.nextSibling.nextSibling.className = 'inred';
                 chxm = false;

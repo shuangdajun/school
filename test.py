@@ -92,22 +92,34 @@
 # @app.task
 # def add(x, y):
 #     return x-y
-import datetime
-class showTime:
-    def __init__(self):
-        self.time=datetime.date.today()
-        self.haha=""
-    @property
-    def show(self):
-        return self.haha
-    @show.setter
-    def show(self,wori):
-        # self.haha=wori
-        print("pp")
-    def __repr__(self):
-        return '<user_name %r>' % self.time
-    # def __str__(self):
-    #     return '<user_name %r>' % self.time
-timer=showTime()
-timer.show="1232"
-print(timer.show)
+# import datetime
+# class showTime:
+#     def __init__(self):
+#         self.time=datetime.date.today()
+#         self.haha=""
+#     @property
+#     def show(self):
+#         return self.haha
+#     @show.setter
+#     def show(self,wori):
+#         # self.haha=wori
+#         print("pp")
+#     def __repr__(self):
+#         return '<user_name %r>' % self.time
+#     # def __str__(self):
+#     #     return '<user_name %r>' % self.time
+# timer=showTime()
+# timer.show="1232"
+# print(timer.show)
+fdict={}
+
+with open("C:\\haha.txt","r") as f:
+    for line in f.readlines():
+        data=line.strip("\n").split("\t")
+        if data[0] not in fdict.keys():
+            fdict[data[0]]=data[1]
+        else:
+            fdict[data[0]] = fdict[data[0]]+","+data[1]
+for key,value in sorted(fdict.items()):
+    print("%s   %s"%(key,value))
+    # print("%s"%(key))

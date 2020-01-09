@@ -10,6 +10,7 @@ from app.model.User import permission_required
 from app.service.detail_students import export_file, xlsx_upload_student, xlsx_upload, judge_add_student_form
 
 from . import web
+import os
 @web.route("/Student_info", methods=["GET", "POST"])
 @login_required
 @permission_required(1005)
@@ -22,7 +23,7 @@ def Student_info():
     elif "search_student" in request.args.to_dict():
         result = search_student_db(request.args, params_dict)
         if result == None:
-            return redirect(url_for("Student_info") + "?page=1")
+            return redirect(url_for("web.Student_info") + "?page=1")
 
         return render_template('school_tem/students.html', students_modellist=result[1], pagination=result[0],user=current_user)
 
@@ -52,6 +53,7 @@ def add_Student():
 
         return redirect("/Student_info")
     subject_modellist = Subjects.query.all()
+
     return render_template("school_tem/add_students.html",subject_modellist=subject_modellist,user=current_user)
 
 
@@ -66,8 +68,8 @@ def editor_student():
         return redirect("/Student_info")
     students_modelSelect = Students.query.filter_by(student_name=request.args.get("search")).first()
     subject_modellist=Subjects.query.all()
-    subject_modelforce = [value for value in students_modelSelect.stu_sub]
 
+    subject_modelforce=[value for value in students_modelSelect.stu_sub]
     return render_template("school_tem/editor_student.html", students_modelSelect=students_modelSelect,
                             subject_modellist=subject_modellist,subject_modelforce=subject_modelforce,user=current_user)
 
@@ -77,7 +79,7 @@ def editor_student():
 @login_required
 @permission_required(1003)
 def upload_Student():
-    path = "web/upload/" + request.files["file"].filename
+    path = os.getcwd()+os.path.sep+"app"+os.path.sep+"upload"+os.path.sep + request.files["file"].filename
     result = xlsx_upload(request.files["file"], path)  # 格式化并存储数据
     if result is None:
         return "文件未上传"
@@ -97,3 +99,12 @@ def export_Student(filename):
     # response = make_response(send_from_directory(app.config["UPLOAD_FOLDER"], filename, as_attachment=True))
     return send_from_directory(app.config["UPLOAD_FOLDER"], filename + ".xlsx", as_attachment=True)
 
+
+#
+# # select获取subject学科
+# @web.route("/selectSubject",methods=["POST"])
+# @login_required
+# @permission_required(1003)
+# def selectSubject():
+#     result=list(set([value.subject_name for value in Subjects.query.all()]))
+#     return jsonify(result)

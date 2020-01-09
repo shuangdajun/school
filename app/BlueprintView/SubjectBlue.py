@@ -4,7 +4,8 @@ from flask_login import login_required, current_user
 
 from app.BlueprintView import web
 from app.db_service.students import paginate_html_db
-from app.db_service.subjects import editor_subject_db, add_subject_db, delete_subject_db, search_subject_db
+from app.db_service.subjects import editor_subject_db, add_subject_db, delete_subject_db, search_subject_db, \
+    search_student_subject_db
 from app.model.Students import Students
 from app.model.Subjects import Subjects
 from app.model.User import permission_required
@@ -114,3 +115,10 @@ def export_Subject(filename):
     return send_from_directory(app.config["UPLOAD_FOLDER"], filename + ".xlsx", as_attachment=True)
 
 
+@web.route("/searchSubejcts",methods=["GET","POST"])
+def searchSubejcts():
+    result=[]
+    if request.method=="POST" and request.form["search_student"]!="":
+        result=search_student_subject_db(request.form["search_student"])
+    pagination = paginate_html_db(Students, 11)[0]
+    return render_template("school_tem/searchSubejects.html",pagination=pagination,search=result)

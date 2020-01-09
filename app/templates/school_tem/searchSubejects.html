@@ -1,6 +1,6 @@
 {% import "school_tem/_macros.html" as macros %}
 
-<html>
+<html id="html_search">
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
     <link href="css/bootstrap.css" rel="stylesheet">
@@ -10,16 +10,19 @@
     <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
 
     <style>
+
         table th {
 
             width: 33%;
         }
-
-
-
+        span{
+            font-size: 16px;
+            font-family: FangSong;
+        }
         body {
             margin-top: 0px;
         }
+
     </style>
 </head>
 <body>
@@ -28,34 +31,51 @@
         <div class="col-lg-12">
             <div class="table-responsive">
                 <div align="right">
+                    <input type="hidden"id="search_array">
                     <input type="text" class="form-group" placeholder="请输入学生姓名"
                            style="font-size: inherit;font-family: FangSong;" id="searchStudents">
-                    <button class="form-group" style="font-size: inherit;font-family: FangSong;">确认</button>
+                    <button class="form-group" style="font-size: inherit;font-family: FangSong;" onclick="confirm()">
+                        确认
+                    </button>
 
                 </div>
-                <table class="table table-bordered table-hover table-striped tablesorter" style="margin-bottom: 0px">
+                <table name="searchSubjectsTables" class="table table-bordered table-hover table-striped tablesorter" style="margin-bottom: 0px">
                     <thead>
                     <th>
                         <span>选择</span>
                     </th>
-                    <th><span>學生姓名</span></th>
+                    <th><span>学生姓名</span></th>
                     <th><span>描述</span></th>
                     </thead>
                     <tbody>
-                    {% for value in pagination.items %}
-                        <tr>
-                            <td>
-                                <input type="checkbox">
-                            </td>
-                            <td>
-                                <span>{{ value.student_name }}</span>
-                            </td>
-                            <td>
+                    {% if search|length!=0 %}
+                        {% for value in search %}
+                            <tr>
+                                <td>
+                                    <input type="checkbox" value="{{ value.student_name }}">
+                                </td>
+                                <td>
+                                    <span>{{ value.student_name }}</span>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        {% for value in pagination.items %}
 
-                            </td>
-
-                        </tr>
-                    {% endfor %}
+                            <tr>
+                                <td>
+                                    <input type="checkbox" value="{{ value.student_name }}" >
+                                </td>
+                                <td>
+                                    <span>{{ value.student_name }}</span>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
 
 
                     </tbody>
@@ -63,7 +83,7 @@
             </div>
 
             {#                分页#}
-            {{ macros.pagination_widget(pagination, '.test') }}
+            {{ macros.pagination_widget(pagination, '.searchSubejcts') }}
         </div>
     </div>
 </div>
@@ -77,16 +97,33 @@
 
 <script src="js/tablesorter/tables.js"></script>
 <script type="text/javascript">
+
     function confirm() {
-        stuname=document.getElementById("searchStudents").value;
+        stuname = document.getElementById("searchStudents").value;
         $.ajax({
-            url:"test.html",
-            type:"post",
-            data:{"search":stuname},
-            success:function () {
-                window.location.href="test?"
+            url: "searchSubejcts",
+            type: "post",
+            data: {"search_student": stuname},
+            success: function (data) {
+                //保存基础页面的input的数组
+                var result = document.getElementById("search_array").value.split(",")
+
+                document.getElementById("html_search").innerHTML = data
+                //新的页面的数组导入
+                document.getElementById("search_array").value=result
+
+                var tb = document.getElementsByTagName("table")[0];
+                var rows = tb.rows;
+
+                for (var i = 1; i < rows.length; i++) {
+
+                    if (result.indexOf(rows[i].cells[0].getElementsByTagName("input")[0].value)>=0) {
+                        rows[i].cells[0].getElementsByTagName("input")[0].checked = true
+                    }
+                }
             }
         })
     }
+
 </script>
 </html>

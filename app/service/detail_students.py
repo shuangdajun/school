@@ -69,7 +69,7 @@ def xlsx_upload_student(path):
             student.student_sex=sheet.cell_value(row,1)
             student.student_age=sheet.cell_value(row,2)
             student.student_phone = sheet.cell_value(row, 3)
-            student.student_landline=sheet.cell_value(row,4)
+
         except Exception as e:
             print(e)
         db.session.add(student)
@@ -85,8 +85,10 @@ def xlsx_upload_teacher(path):
         teacher = Teachers()
 
         teacher.teacher_name=sheet.cell_value(row,0)
-        teacher.teacher_address=sheet.cell_value(row,1)
+        teacher.position=sheet.cell_value(row,1)
         teacher.teacher_phone=sheet.cell_value(row,2)
+
+        teacher.teacher_address=sheet.cell_value(row,3)
         db.session.add(teacher)
     try:
         db.session.commit()
@@ -101,8 +103,8 @@ def xlsx_upload_subject(path):
     for row in range(1,sheet.nrows):
         subject = Subjects()
         subject.subject_name=sheet.cell_value(row,0)
-
-        stuNameList=sheet.cell_value(row,1).split(",")
+        subject.class_name = sheet.cell_value(row, 1)
+        stuNameList=sheet.cell_value(row,2).split(",")
         studentList=[]
         for student_name in stuNameList:
             student=Students.query.filter_by(student_name=student_name).first()
@@ -110,13 +112,15 @@ def xlsx_upload_subject(path):
                 studentList.append(student)
         subject.sub_stu=studentList
 
-        teaNameList = sheet.cell_value(row,2).split(",")
+        teaNameList = sheet.cell_value(row,3).split(",")
         teacherList = []
         for teacher_name in teaNameList:
             teacher = Teachers.query.filter_by(teacher_name=teacher_name).first()
             if teacher:
                 teacherList.append(teacher)
         subject.sub_tea = teacherList
+
+
         db.session.add(subject)
     try:
         db.session.commit()
@@ -255,5 +259,6 @@ def getObjList(ObjList, attr):
 def SubStuCountDict(subjects,stuCount):
     stuCount=len(subjects.sub_stu)
     return {"subject_name":subjects.subject_name,"student_count":stuCount,"percentage":stuCount/stuCount}
-def SubStuCountFilter(data):
-    return data["student_count"]!=0
+
+
+

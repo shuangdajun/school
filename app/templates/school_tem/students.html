@@ -8,7 +8,14 @@
                 <h2>学生信息</h2>
                 <div class="table-responsive">
                     <div class="form-group " style="margin-bottom: 1%;margin-top: 1%;margin-left: 4%;">
-
+{#                        <select class="form-group-select" >#}
+{#                            <option value="学生姓名">学生姓名</option>#}
+{#                            <option value="性别">性别</option>#}
+{#                            <option value="年龄">年龄</option>#}
+{#                            <option value="手机号码 ">手机号码 </option>#}
+{#                            <option value="课程">课程</option>#}
+{##}
+{#                        </select>#}
                         <input id="search_student" class="form-group-select" placeholder="请输入学生姓名">
                         <button id="search_student_button" type="submit" class="form-group-control">搜索
                         </button>
@@ -35,8 +42,9 @@
                             <th style="width:6%;">性别 <i class="fa fa-sort"></i></th>
                             <th style="width:6%;">年龄 <i class="fa fa-sort"></i></th>
                             <th style="width:11%;">手机号码 <i class="fa fa-sort"></i></th>
-                            <th style="width:11%;">座机号码<i class="fa fa-sort"></i></th>
                             <th>课程<i class="fa fa-sort"></i></th>
+                             <th>描述信息<i class="fa fa-sort"></i></th>
+
                             <th style="width:20%;">选择<i class="fa fa-sort"></i></th>
                         </tr>
                         </thead>
@@ -46,33 +54,31 @@
                             <tr class="active">
                                 <td>{{ student.student_name }}</td>
                                 <td>{{ student.student_sex }}</td>
-                                <td>{{ student.student_age }}</td>
-                                <td>{{ student.student_phone }}</td>
-                                <td>{{ student.student_landline }}</td>
+                                <td>{{ student.student_age | default("",boolean=True)}}</td>
+                                <td>{{ student.student_phone }} </td>
                                 <td>
                                     {% for subject in student.stu_sub %}
-                                        {{ subject.subject_name }}&nbsp
-
+                                        {{ subject.subject_name }}-{{ subject.class_name }}
                                     {% endfor %}
-
                                 </td>
+                                <td>{{ student.description |default("",boolean=True)}}</td>
                                 <td>
 
                                     {% set student_name=student.student_name %}
 
                                     {% set url=request.url | accept_pattern("(.*)/(.*)")+"/editor_student?search="+student_name %}
 
-                                    <input type="button" value="编辑" onclick=editor_student("{{ url }}")>
+                                    <input type="button" value="编辑"
+                                           {% if user.role_id!=1 %}disabled="disabled"{% endif %}
+                                           onclick=editor_student("{{ url }}")>
 
-                                    {% if user.role_id!=1 %}
-                                        <input type="button" value="删除" id="deleteStudent"
-                                               onclick="deleteStudent('{{ student_name }}')" disabled="disabled"/>
-                                    {% else %}
-                                        <input type="button" value="删除" id="deleteStudent"
-                                               onclick="deleteStudent('{{ student_name }}')"/>
-                                    {% endif %}
 
-                                    <input type="hidden" value="submit" onclick="getText();"/>
+                                    <input type="button" value="删除" id="deleteStudent"
+                                           onclick="deleteStudent('{{ student_name }}')"
+                                           {% if user.role_id!=1 %}disabled="disabled"{% endif %}/>
+
+
+
                                 </td>
                             </tr>
                         {% endfor %}
@@ -105,17 +111,10 @@
 
             });
 
-
         {#删除学生#}
-
         function deleteStudent(name) {
-            {#console.log("haha")#}
             var del_student = confirm("请确认是否删除")
-            {#console.log(del_student)#}
-
-            {#alert(name)#}
             if (del_student == true) {
-
                 $.ajax({
                     url: "deleteStudent",
                     data: {"delete_student": name},
@@ -123,30 +122,22 @@
                     success: function () {
                         window.location.reload()
                     }
-
-
                 })
             }
         }
 
         {#编辑学生信息#}
-
         function editor_student(url) {
             window.location.href = url
-
         }
 
         {#button触发input 上传#}
         $("#upload_student_button").click(
             function () {
-                console.log("haha")
                 document.getElementById("upload_student_input").click()
             }
-        )
+        );
 
-
-    </script>
-    <script>
         //首先监听input框的变动，选中一个新的文件会触发change事件
         document.querySelector("#upload_student_input").addEventListener("change", function () {
 
@@ -158,20 +149,18 @@
             //创建xhr，使用ajax进行文件上传
             var xhr = new XMLHttpRequest();
             xhr.open("post", "/upload_Student?" + file);
-            console.log("/upload_Student?" + file.name)
-
+            console.log("/upload_Student?" + file.name);
             xhr.send(formdata);
         });
-    </script>
-    <script type="text/javascript">
-
         window.onload = function () {
 
             {% if user.role_id!=1 %}
                 document.getElementById("export_student_button").disabled = true;
                 document.getElementById("upload_student_button").disabled = true;
             {% endif %}
-
+            {% if user.role_id==3 %}
+                document.getElementById("add_student_button").disabled = true
+            {% endif %}
         }
     </script>
 {% endblock %}

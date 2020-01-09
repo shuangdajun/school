@@ -37,14 +37,15 @@ def editor_teacher_db(args,form):
     teacher=Teachers.query.filter_by(teacher_name=teacher_name).first()
     subject_list=[]
     for subject in form.getlist("subjectSelect"):
-        subject_list.append(Subjects.query.filter_by(subject_name=subject).first())
-    teacher.tea_sub = subject_list
-
-
+        if subject:
+            subject_name,class_name=subject.split("-")
+        subject_list.append(Subjects.query.filter(Subjects.subject_name==subject_name, Subjects.class_name==class_name).first())
     try:
-        teacher.teacher_name=form["teacher_name"]
-        teacher.teacher_address=form["teacher_address"]
-        teacher.teacher_phone=form["teacher_phone"]
+        teacher.tea_sub = subject_list
+
+        for key in form.keys():
+            if hasattr(Teachers,key):
+                setattr(teacher,key,form[key])
         db.session.commit()
     except Exception as e:
         db.session.rollback()

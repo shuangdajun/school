@@ -40,15 +40,15 @@ def editor_student_db(args,form):
     student=Students.query.filter_by(student_name=student_name).first()
     subject_list=[]
     for subject in form.getlist("subjectSelect"):
-        subject_list.append(Subjects.query.filter_by(subject_name=subject).first())
-
+        if subject:
+            subject_name,class_name=subject.split("-")
+        subject_list.append(Subjects.query.filter(Subjects.subject_name==subject_name, Subjects.class_name==class_name).first())
     try:
-        student.student_name=form["student_name"]
-        student.student_age=form["student_age"]
-        student.student_sex=form["student_sex"]
-        student.student_phone=form["student_phone"]
-        student.student_landline=form["student_landline"]
         student.stu_sub = subject_list
+
+        for key in form.keys():
+            if hasattr(Students,key):
+                setattr(student,key,form[key])
 
         db.session.commit()
     except Exception as e:
@@ -57,7 +57,6 @@ def editor_student_db(args,form):
 
 def search_student_db(args,params_dict):
     if params_dict["search_student"]=="":
-        result = Students.query.all()
         pagination, user = paginate_html_db(Students)
         return pagination, user
     if Students.query.filter_by(student_name=args.get("search_student")).all()==[]:

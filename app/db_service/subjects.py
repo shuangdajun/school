@@ -62,4 +62,9 @@ def editor_subject_db(args,form):
 
     db.session.commit()
 
+def search_student_subject_db(data):
+
+    return Students.query.filter_by(student_name=data).all()
+
+
 

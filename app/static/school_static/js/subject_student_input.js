@@ -61,7 +61,7 @@ function createdialog(width, height, bodycontent, title, search, removeable) {
         dialogsearchbutton.innerHTML = "确定"
         dialogsearchbutton.id = "search_button"
         dialogclose.style.cssText = "float:right;display:block;margin:4px;line-height:20px;";
-        closeaction.style.cssText = "height:20px;width:24px;border-width:1px;" + "background-image:url(images/close.png);cursor:pointer;";
+        // closeaction.style.cssText = "height:20px;width:24px;border-width:1px;" + "background-image:url(images/close.png);cursor:pointer;";
         closeaction.id = "close"
         /*为窗口元素注册事件*/
         var dialogleft = parseInt(dialog.style.left);

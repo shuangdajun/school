@@ -16,7 +16,7 @@ class Students(base):
     student_sex=Column(String(10))
     student_age=Column(Integer)
     student_phone=Column(String(25))
-    student_landline=Column(String(25))
+    description=Column(String(100))
     stu_sub=db.relationship("Subjects",secondary=to_stu_sub,backref="sub_stu",lazy="dynamic")
 
 

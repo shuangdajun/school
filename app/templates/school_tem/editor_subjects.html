@@ -5,7 +5,16 @@
     <style>
         table tr td {
             background: white;
-            border: 1px solid cornflowerblue;
+        {#border: 1px solid cornflowerblue;#}
+        }
+
+        #_Title_0, .buttonStyle {
+            font-size: 16px;
+            font-family: FangSong;
+        }
+
+        #titleImg {
+            display: none;
         }
 
         th {
@@ -16,6 +25,7 @@
             border-width: thin;
         }
     </style>
+
 {% endblock %}
 {% block content %}
     <div id="here">
@@ -31,7 +41,13 @@
                                    value={{ subjects_modelSelect.subject_name }}>
                         </div>
                     </div>
-
+                    <div class="form-group" style="margin-top: 55px">
+                        <label class="col-sm-3 control-label"
+                               style="font-size: 24px;font-weight: normal;font-family: FangSong;">班级</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" name="class_name" value={{ subjects_modelSelect.class_name }}>
+                        </div>
+                    </div>
 
                     <div class="form-group" style="margin-top: 55px">
                         <label class="col-sm-3 control-label"
@@ -54,8 +70,8 @@
                         <label class="col-sm-3 control-label"
                                style="font-size:  24px;font-weight: normal;font-family: FangSong">学生</label>
                         <div class="col-sm-6">
-                            <input id="StuChoice" type="text" class="form-control" name="student_name"
-                                   value={{ student_list }}/>
+                            <input id="StuChoice" type="text" class="form-control" name="student_name" onclick="open1()"
+                                   value=""/>
                         </div>
                     </div>
 
@@ -65,7 +81,7 @@
                         <div class="row">
                             <div class="col-sm-6 col-sm-offset-3">
                                 <button class="btn btn-primary" id="btn" type="submit" disabled="true">提交</button>&nbsp;
-                                <a href="{{ url_for(".Subject_info") }}" class="btn btn-default ">返回</a>
+                                <a href="{{ url_for("web.Subject_info") }}" class="btn btn-default ">返回</a>
                             </div>
                         </div>
                     </div><!-- panel-footer -->
@@ -79,289 +95,7 @@
 {% endblock %}
 
 {% block foot %}
-    <script type="text/javascript">
-        //全局变量
-        var numCount;       //数据总数量
-        var columnsCounts;  //数据列数量
-        var pageCount;      //每页显示的数量
-        var pageNum;        //总页数
-        var currPageNum;   //当前页数
-        var paginate;
-        //页面标签变量
-        var blockTable;
-        var preSpan;
-        var firstSpan;
-        var nextSpan;
-        var lastSpan;
-        var pageNumSpan;
-        var currPageSpan;
-        var student_list = new Array();
-        var student_new=""
-        var clickstudent = document.getElementById("StuChoice");
-        window.onload = function () {
-            //页面标签变量
-            blockTable = document.getElementById("blocks");
-            preSpan = document.getElementById("spanPre");
-            firstSpan = document.getElementById("spanFirst");
-            nextSpan = document.getElementById("spanNext");
-            lastSpan = document.getElementById("spanLast");
-            pageNumSpan = document.getElementById("spanTotalPage");
-            currPageSpan = document.getElementById("spanPageNum");
-            numCount = {{ pagination.total }};
 
-            columnsCounts = blockTable.rows[0].cells.length;//列数
-            pageCount = 6;
-            pageNum =
-            {{ pagination.pages }}
-
-
-            if ("{{ pagination.has_prev }}" == "True") {
-                if ("{{ pagination.has_next }}" == "True") {
-                    firstLast();
-                }
-            }
-            else {
-                firstPage();
-            }
-
-            {% for student in studentlist %}
-                student_list.push("{{ student }}")
-
-            {% endfor %}
-
-            clickstudent.value = student_list.join(",");
-
-        };
-
-    </script>
-    <script>
-        function firstLast() {
-
-            hide();
-            currPageNum = 1;
-            showCurrPage(currPageNum);
-            showTotalPage();
-            $.ajax({
-                url: "paginate_Subejct?page=" + String(currPageNum),
-                type: "POST",
-                async: false,
-                success: function (result) {
-                    paginate = result
-                }
-            });
-            for (i = 1; i <= paginate.length; i++) {
-                blockTable.rows[i].cells[0].innerHTML = "<input  type=\"checkbox\" value=\"" + paginate[i - 1] + "\"/>" + paginate[i - 1]
-            }
-            checkbox_enable()
-            firstText();
-            preText();
-            nextText();
-            lastText();
-        }
-
-        function firstPage() {
-            hide();
-            currPageNum = 1;
-            showCurrPage(currPageNum);
-            showTotalPage();
-
-            $.ajax({
-                url: "paginate_Subejct?page=" + String(currPageNum),
-                type: "POST",
-                async: false,
-                success: function (result) {
-                    paginate = result
-                }
-            });
-            for (i = 1; i <= paginate.length; i++) {
-
-                blockTable.rows[i].cells[0].innerHTML = "<input name=\"link.name\" type=\"checkbox\" value=\"" + paginate[i - 1] + "\"/>" + paginate[i - 1]
-            }
-            checkbox_enable()
-            firstText();
-            preText();
-            nextLink();
-            lastLink();
-        }
-
-        function prePage() {
-            hide();
-            currPageNum--;
-
-            showCurrPage(currPageNum);
-            showTotalPage();
-            $.ajax({
-                url: "paginate_Subejct?page=" + String(currPageNum),
-                type: "POST",
-                async: false,
-                success: function (result) {
-                    paginate = result
-                }
-            });
-            for (i = 1; i <= paginate.length; i++) {
-
-                blockTable.rows[i].cells[0].innerHTML = "<input name=\"link.name\" type=\"checkbox\" value=\"" + paginate[i - 1] + "\"/>" + paginate[i - 1]
-            }
-            checkbox_enable()
-
-            if (1 == currPageNum) {
-                firstText();
-                preText();
-                nextLink();
-                lastLink();
-            } else if (pageNum == currPageNum) {
-                preLink();
-                firstLink();
-                nextText();
-                lastText();
-            } else {
-                firstLink();
-                preLink();
-                nextLink();
-                lastLink();
-            }
-
-        }
-
-        function nextPage() {
-            hide();
-            currPageNum++;
-            showCurrPage(currPageNum);
-            showTotalPage();
-
-
-            $.ajax({
-                url: "paginate_Subejct?page=" + String(currPageNum),
-                type: "POST",
-                async: false,
-                success: function (result) {
-                    paginate = result
-                }
-            });
-
-            for (i = 1; i <= paginate.length; i++) {
-
-                blockTable.rows[i].cells[0].innerHTML = "<input name=\"link.name\" type=\"checkbox\" value=\"" + paginate[i - 1] + "\"/>" + paginate[i - 1]
-            }
-            checkbox_enable()
-            if (1 == currPageNum) {
-                firstText();
-                preText();
-                nextLink();
-                lastLink();
-            } else if (pageNum == currPageNum) {
-                preLink();
-                firstLink();
-                nextText();
-                lastText();
-            } else {
-                firstLink();
-                preLink();
-                nextLink();
-                lastLink();
-            }
-        }
-
-        function lastPage() {
-            hide();
-            currPageNum = pageNum;
-            showCurrPage(currPageNum);
-            showTotalPage();
-
-            $.ajax({
-                url: "paginate_Subejct?page=" + String(currPageNum),
-                type: "POST",
-                async: false,
-                success: function (result) {
-                    paginate = result
-                }
-            });
-
-            for (i = 1; i <= paginate.length; i++) {
-
-                blockTable.rows[i].cells[0].innerHTML = "<input name=\"link.name\" type=\"checkbox\" value=\"" + paginate[i - 1] + "\"/>" + paginate[i - 1]
-            }
-            checkbox_enable()
-            firstLink();
-            preLink();
-            nextText();
-            lastText();
-        }
-
-        function checkbox_enable() {
-            var student_list = document.getElementById("StuChoice").value;
-            if (student_list != "") {
-
-                var student_list_new = student_list.split(",")
-                for (var i = 1; i < pageCount + 1; i++) {
-                    if (student_list_new.indexOf(blockTable.rows[i].cells[0].children[0].value) >= 0) {
-                        blockTable.rows[i].cells[0].children[0].checked = true
-                    }
-
-
-                }
-
-            }
-        }
-
-        function showCurrPage(cpn) {
-            currPageSpan.innerHTML = cpn;
-
-        }
-
-        function showTotalPage() {
-            pageNumSpan.innerHTML = pageNum;
-        }
-
-        function hide() {
-
-            for (var i = 1; i < pageCount + 1; i++) {
-                blockTable.rows[i].cells[0].innerHTML = ""
-            }
-        }
-
-        function searchPage(result) {
-            hide();
-
-            if (result != "False") {
-                blockTable.rows[1].cells[0].innerHTML = "<input type=\"checkbox\" value=\"" + result + "\"/>" + result
-            }
-            ;
-        }
-
-        //控制首页等功能的显示与不显示
-        function firstLink() {
-            firstSpan.innerHTML = "<a href='javascript:firstPage();'>首页</a>";
-        }
-
-        function firstText() {
-            firstSpan.innerHTML = "首页";
-        }
-
-        function preLink() {
-            preSpan.innerHTML = "<a href='javascript:prePage();'>前一页</a>";
-        }
-
-        function preText() {
-            preSpan.innerHTML = "前一页";
-        }
-
-        function nextLink() {
-            nextSpan.innerHTML = "<a href='javascript:nextPage();'>下一页</a>";
-        }
-
-        function nextText() {
-            nextSpan.innerHTML = "下一页";
-        }
-
-        function lastLink() {
-            lastSpan.innerHTML = "<a href='javascript:lastPage();'>最后一页</a>";
-        }
-
-        function lastText() {
-            lastSpan.innerHTML = "最后一页";
-        }
-    </script>
     <script type="text/javascript" src="js/subject_student_input.js"></script>
 
     <script>
@@ -370,67 +104,163 @@
         $("#btn").attr("disabled", "false");
         $("#btn").removeAttr("disabled", "disabled");
     </script>
+    {#    <script src="js/jquery-1.10.2.js"></script>#}
+    <script type="text/javascript" src="js/zDrag.js"></script>
+    <script type="text/javascript" src="js/zDialog.js"></script>
     <script type="text/javascript">
-        var here = document.getElementById("here");
-        var login = document.getElementById("login");
-
-
-        var clickteacher = document.getElementById("TeaChoice");
-        clickstudent.onclick = function () {
-            clickstudent.disabled = true;
-            here.appendChild(createdialog(800, 200, login, "关联学生信息", "搜索", true));
-        }
-
-
-    </script>
-    <script>
-        function unique(array) {
+        function uniqe(arr) {
             var temp = []
-            for (var i = 0; i < array.length; i++) {
-                if (temp.indexOf(array[i]) < 0) {
-                    temp.push(array[i]);
+            for (var i = 0; i < arr.length; i++) {
+                if (arr[i] != "" && arr.indexOf(arr[i]) == i) {
+                    temp.push(arr[i]);
                 }
             }
-            return temp
+            return temp;
         }
 
-        function deletelist(array, data) {
-            for (var i = 0; i < array.length; i++) {
-                if (data == array[i]) {
-                    delete array[i]
-                }
-            }
-            return array
-        }
 
-        $("#table_button").click(
-            function () {
-                var student_list = document.getElementById("StuChoice").value;
-                if (student_list == "") {
-                    var student_list_new = new Array();
-                }
+        function open1() {
 
-                else {
+            var diag = new Dialog();
+            diag.Modal = false;
+            diag.Width = 800;
+            diag.Height = 600;
+            diag.Left = 600;
+            diag.Top = 100;
 
-                    var student_list_new = student_list.split(",")
-                }
+            diag.Title = "关联学生信息";
 
-                for (var i = 1; i < pageCount + 1; i++) {
-                    if (blockTable.rows[i].cells[0].innerHTML != "" && blockTable.rows[i].cells[0].children[0].checked == true) {
-                        student_list_new.push(blockTable.rows[i].cells[0].children[0].value)
+            diag.URL = "searchSubejcts";
+            diag.ShowButtonRow = true;
+            //弹出框点击确认时执行的函数
+            diag.OKEvent = function () {
+                var tb = diag.innerFrame.contentWindow.document.getElementsByTagName("table")[0];
+                var rows = tb.rows;
+                var arry = new Array();
+                var arrynew = []
+                var arryold = document.getElementById("StuChoice").value.split(",");
+                for (var i = 1; i < rows.length; i++) {
+                    if (rows[i].cells[0].getElementsByTagName("input")[0].checked == true) {
+                        arry.push(rows[i].cells[0].getElementsByTagName("input")[0].value)
                     }
-                    else if (blockTable.rows[i].cells[0].innerHTML != "" && blockTable.rows[i].cells[0].children[0].checked == false) {
-                        if (student_list_new.indexOf(blockTable.rows[i].cells[0].children[0].value) >= 0) {
-                            student_list_new = deletelist(student_list_new, blockTable.rows[i].cells[0].children[0].value)
+
+                    else if (arryold.indexOf(rows[i].cells[0].getElementsByTagName("input")[0].value) >= 0) {
+                        delete arryold[arryold.indexOf(rows[i].cells[0].getElementsByTagName("input")[0].value)]
+                    }
+                }
+
+                //合并数组
+                arrynew = arrynew.concat(arry).concat(arryold);
+                //数组去掉空值
+                arrynew = uniqe(arrynew);
+                document.getElementById("StuChoice").value = arrynew;
+
+                diag.close()
+            };
+            //弹出框加载完成时执行的函数
+            diag.OnLoad = function () {
+
+                var tb = diag.innerFrame.contentWindow.document.getElementsByTagName("table")[0];
+                var search=diag.innerFrame.contentWindow.document.getElementById("search_array");
+                var rows = tb.rows;
+                var arry = document.getElementById("StuChoice").value.split(",");
+
+                arry = uniqe(arry);
+                for (var i = 1; i < rows.length; i++) {
+                    for (var j = 0; j < arry.length; j++) {
+                        if (rows[i].cells[0].getElementsByTagName("input")[0].value == arry[j]) {
+                            rows[i].cells[0].getElementsByTagName("input")[0].checked = true
                         }
                     }
                 }
+                search.value=arry
+                console.log(search)
+            };
+
+            diag.show();
+            diag.okButton.value = "确认"
+            diag.cancelButton.value = "关闭"
+            document.getElementById("_DialogBGDiv").style.display = "block"
 
 
-                document.getElementById("StuChoice").value = unique(student_list_new)
-                document.getElementById("close").click()
-            }
-        )
+        }
+        function open1() {
 
+            var diag = new Dialog();
+            diag.Modal = false;
+            diag.Width = 800;
+            diag.Height = 600;
+            diag.Left = 600;
+            diag.Top = 100;
+
+            diag.Title = "关联学生信息";
+
+            diag.URL = "searchSubejcts";
+            diag.ShowButtonRow = true;
+            //弹出框点击确认时执行的函数
+            diag.OKEvent = function () {
+                var tb = diag.innerFrame.contentWindow.document.getElementsByTagName("table")[0];
+                var rows = tb.rows;
+                var arry = new Array();
+                var arrynew = []
+                var arryold = document.getElementById("StuChoice").value.split(",");
+                for (var i = 1; i < rows.length; i++) {
+                    if (rows[i].cells[0].getElementsByTagName("input")[0].checked == true) {
+                        arry.push(rows[i].cells[0].getElementsByTagName("input")[0].value)
+                    }
+
+                    else if (arryold.indexOf(rows[i].cells[0].getElementsByTagName("input")[0].value) >= 0) {
+                        delete arryold[arryold.indexOf(rows[i].cells[0].getElementsByTagName("input")[0].value)]
+                    }
+                }
+
+                //合并数组
+                arrynew = arrynew.concat(arry).concat(arryold);
+                //数组去掉空值
+                arrynew = uniqe(arrynew);
+                document.getElementById("StuChoice").value = arrynew;
+
+                diag.close()
+            };
+            //弹出框加载完成时执行的函数
+            diag.OnLoad = function () {
+
+                var tb = diag.innerFrame.contentWindow.document.getElementsByTagName("table")[0];
+                var search=diag.innerFrame.contentWindow.document.getElementById("search_array");
+                var rows = tb.rows;
+                var arry = document.getElementById("StuChoice").value.split(",");
+
+                arry = uniqe(arry);
+                for (var i = 1; i < rows.length; i++) {
+                    for (var j = 0; j < arry.length; j++) {
+                        if (rows[i].cells[0].getElementsByTagName("input")[0].value == arry[j]) {
+                            rows[i].cells[0].getElementsByTagName("input")[0].checked = true
+                        }
+                    }
+                }
+                search.value=arry
+                console.log(search)
+            };
+
+            diag.show();
+            diag.okButton.value = "确认"
+            diag.cancelButton.value = "关闭"
+            document.getElementById("_DialogBGDiv").style.display = "block"
+
+
+        }
+    </script>
+    <script>
+        $("#btn").attr("disabled", "true");
+        $("#btn").attr("disabled", "disabled");
+        $("#btn").attr("disabled", "false");
+        $("#btn").removeAttr("disabled", "disabled");
+    </script>
+    <script type="text/javascript">
+        window.onload=function () {
+            var data={{ studentlist|tojson }}
+
+            document.getElementById("StuChoice").value=data
+        }
     </script>
 {% endblock %}

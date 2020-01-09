@@ -1,6 +1,6 @@
 {% extends "school_tem/layout.html" %}
 {% block header %}
-    <link href="css/artific.css",rel="stylesheet">
+    <link href="css/artific.css" ,rel="stylesheet">
 
     <link href="css/component-chosen.css" rel="stylesheet">
     <style>
@@ -19,104 +19,101 @@
     </style>
 {% endblock %}
 {% block content %}
-<div class="col-lg-12" style="margin-top: 5%;">
-            <h2 style="margin-bottom: 2%">创建学生信息</h2>
-            <div class="panel panel-default panel-body panel-body-nopadding" style="margin-top: 55px">
-                <form class="form-horizontal form-bordered" action="{{ url_for(".add_Student") }}" method="POST">
-{#                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">#}
-                <div class="form-group"style="margin-top: 55px">
-                  <label class="col-sm-3 control-label" style="font-size: 24px;font-weight: normal;font-family: FangSong;">学生姓名</label>
-                  <div class="col-sm-6">
-                      <input type="text" class="form-control" name="student_name" value="">
-                  </div>
-                </div>
-
-
-                <div class="form-group"style="margin-top: 55px">
-                  <label class="col-sm-3 control-label" style="font-size:  24px;font-weight: normal;font-family: FangSong">性&nbsp&nbsp&nbsp&nbsp别</label>
-                  <div class="col-sm-6">
-
-                      <select class="form-control" name="student_sex" value="" >
-
-                          <option value="男" >男</option>
-
-                          <option value="女" >女</option>
-
-
-                      </select>
-                  </div>
-                </div>
-
-                <div class="form-group"style="margin-top: 55px">
-                  <label class="col-sm-3 control-label"style="font-size:  24px;font-weight: normal;font-family: FangSong">年&nbsp&nbsp&nbsp&nbsp龄</label>
-                  <div class="col-sm-6">
-                      <!--需要核对数据类型，数字就可以 -->
-                    <input type="text"  class="form-control" name="student_age" value=""/>
-                  </div>
-                </div>
-
-                <div class="form-group"style="margin-top: 55px">
-                  <label class="col-sm-3 control-label"style="font-size:  24px;font-weight: normal;font-family: FangSong">手机号码</label>
-                  <div class="col-sm-6">
-                    <input type="text" class="form-control"name="student_phone" value=""/>
-                  </div>
-                </div>
-
-                <div class="form-group"style="margin-top: 55px">
-                  <label class="col-sm-3 control-label"style="font-size:  24px;font-weight: normal;font-family: FangSong">座机号码</label>
-                  <div class="col-sm-6">
-                    <input type="text" class="form-control"name="student_landline" value=""/>
-                  </div>
-                </div>
-
-
- 
+    <div class="col-lg-12" style="margin-top: 5%;">
+        <h2 style="margin-bottom: 2%">创建学生信息</h2>
+        <div class="panel panel-default panel-body panel-body-nopadding" style="margin-top: 55px">
+            <form class="form-horizontal form-bordered" action="{{ url_for("web.add_Student") }}" method="POST">
+                {#                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">#}
                 <div class="form-group" style="margin-top: 55px">
                     <label class="col-sm-3 control-label"
-                           style="font-size:  24px;font-weight: normal;font-family: FangSong">学&nbsp&nbsp&nbsp&nbsp科</label>
-                    <div class="col-sm-6" style="height: 40px;">
+                           style="font-size: 24px;font-weight: normal;font-family: FangSong;">学生姓名</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" name="student_name" value="">
+                    </div>
+                </div>
 
-                        <select name="subjectSelect" id="optgroup" class="form-control form-control-chosen"
-                                data-placeholder="请选择" multiple>
 
-                            {% for subject in subject_modellist %}
-                                {% if subject in subject_modelforce %}
-                                    <option selected
-                                            value="{{ subject.subject_name }}">{{ subject.subject_name }}</option>
+                <div class="form-group" style="margin-top: 55px">
+                    <label class="col-sm-3 control-label"
+                           style="font-size:  24px;font-weight: normal;font-family: FangSong">性&nbsp&nbsp&nbsp&nbsp别</label>
+                    <div class="col-sm-6">
 
-                                {% else %}
-                                    <option value="{{ subject.subject_name }}">{{ subject.subject_name }}</option>
-                                {% endif %}
-                            {% endfor %}
+                        <select class="form-control" name="student_sex" value="">
+
+                            <option value="男">男</option>
+
+                            <option value="女">女</option>
 
 
                         </select>
                     </div>
                 </div>
 
-                <input type="hidden" name="page" value="">
+                <div class="form-group" style="margin-top: 55px">
+                    <label class="col-sm-3 control-label"
+                           style="font-size:  24px;font-weight: normal;font-family: FangSong">年&nbsp&nbsp&nbsp&nbsp龄</label>
+                    <div class="col-sm-6">
+                        <!--需要核对数据类型，数字就可以 -->
+                        <input type="text" class="form-control" name="student_age" value=""/>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-top: 55px">
+                    <label class="col-sm-3 control-label"
+                           style="font-size:  24px;font-weight: normal;font-family: FangSong">手机号码</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" name="student_phone" value=""/>
+                    </div>
+                </div>
+
+
+                <div class="form-group" style="margin-top: 55px">
+                    <label class="col-sm-3 control-label"
+                           style="font-size:  24px;font-weight: normal;font-family: FangSong">学&nbsp&nbsp&nbsp&nbsp科</label>
+                    <div class="col-sm-6" style="height: 40px;"  onclick="getvalue()">
+
+                        <select name="subjectSelect" id="optgroup" class="form-control form-control-chosen"
+                                data-placeholder="请选择" multiple>
+
+                            {% for subject in subject_modellist %}
+                                    <option value="{{ subject.subject_name }}-{{ subject.class_name }}">{{ subject.subject_name }}-{{ subject.class_name }}</option>
+                            {% endfor %}
+
+
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="form-group" style="margin-top: 55px">
+                    <label class="col-sm-3 control-label"
+                           style="font-size:  24px;font-weight: normal;font-family: FangSong">备注信息</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" name="description" value=""/>
+                    </div>
+                </div>
 
                 <div class="panel-footer">
-                     <div class="row">
+                    <div class="row">
                         <div class="col-sm-6 col-sm-offset-3">
-                          <button class="btn btn-primary" id ="btn" type="submit" disabled="true">提交</button>&nbsp;
-                            <a href="{{ url_for(".Student_info") }}" class="btn btn-default ">返回</a>
+                            <button class="btn btn-primary" id="btn" type="submit" disabled="true">提交</button>&nbsp;
+                            <a href="{{ url_for("web.Student_info") }}" class="btn btn-default ">返回</a>
                         </div>
-                     </div>
+                    </div>
                 </div><!-- panel-footer -->
 
 
             </form>
-            </div>
-          </div>
-        </div><!-- /.row -->
+        </div>
+    </div>
+    </div><!-- /.row -->
 {% endblock %}
 {% block foot %}
     <script>
-        $("#btn").attr("disabled","true");
-        $("#btn").attr("disabled","disabled");
-        $("#btn").attr("disabled","false");
-        $("#btn").removeAttr("disabled","disabled");
+        $("#btn").attr("disabled", "true");
+        $("#btn").attr("disabled", "disabled");
+        $("#btn").attr("disabled", "false");
+        $("#btn").removeAttr("disabled", "disabled");
 
     </script>
 
@@ -129,5 +126,6 @@
             allow_single_deselect: true,
             width: '100%',
         });
+
     </script>
 {% endblock %}
