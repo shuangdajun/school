@@ -1,5 +1,12 @@
 {% extends "school_tem/layout.html" %}
 {% import "school_tem/_macros.html" as macros %}
+{% block header %}
+    <style type="text/css">
+        option {
+            font-weight: lighter;
+        }
+    </style>
+{% endblock %}
 {% block content %}
     <div id="page-wrapper">
 
@@ -8,15 +15,41 @@
                 <h2>学生信息</h2>
                 <div class="table-responsive">
                     <div class="form-group " style="margin-bottom: 1%;margin-top: 1%;margin-left: 4%;">
-{#                        <select class="form-group-select" >#}
-{#                            <option value="学生姓名">学生姓名</option>#}
-{#                            <option value="性别">性别</option>#}
-{#                            <option value="年龄">年龄</option>#}
-{#                            <option value="手机号码 ">手机号码 </option>#}
-{#                            <option value="课程">课程</option>#}
-{##}
-{#                        </select>#}
-                        <input id="search_student" class="form-group-select" placeholder="请输入学生姓名">
+
+                        <select class="form-group-select" id="select1">
+                            <option value="">请输入关键字1</option>
+                            <option value="student_name">学生姓名</option>
+                            <option value="student_sex">性别</option>
+                            <option value="student_age">年龄</option>
+                            <option value="student_phone">手机号码</option>
+                            <option value="stu_sub">课程</option>
+                            <option value="description">描述信息</option>
+                        </select>
+                        <input type="text" id="search_student1" class="form-group-select" style="width: 180px;"
+                               value="">
+                        <select class="form-group-select" id="select2">
+                            <option value="">请输入关键字2</option>
+                            <option value="student_name">学生姓名</option>
+                            <option value="student_sex">性别</option>
+                            <option value="student_age">年龄</option>
+                            <option value="student_phone">手机号码</option>
+                            <option value="stu_sub">课程</option>
+                            <option value="description">描述信息</option>
+                        </select>
+                        <input type="text" id="search_student2" class="form-group-select" style="width: 180px;"
+                               value="">
+                        <select class="form-group-select" id="select3">
+                            <option value="">请输入关键字3</option>
+                            <option value="student_name">学生姓名</option>
+                            <option value="student_sex">性别</option>
+                            <option value="student_age">年龄</option>
+                            <option value="student_phone">手机号码</option>
+                            <option value="stu_sub">课程</option>
+                            <option value="description">描述信息</option>
+                        </select>
+                        <input type="text" id="search_student3" class="form-group-select" style="width: 180px;"
+                               value="">
+
                         <button id="search_student_button" type="submit" class="form-group-control">搜索
                         </button>
                         <a href="add_Student">
@@ -43,7 +76,7 @@
                             <th style="width:6%;">年龄 <i class="fa fa-sort"></i></th>
                             <th style="width:11%;">手机号码 <i class="fa fa-sort"></i></th>
                             <th>课程<i class="fa fa-sort"></i></th>
-                             <th>描述信息<i class="fa fa-sort"></i></th>
+                            <th>描述信息<i class="fa fa-sort"></i></th>
 
                             <th style="width:20%;">选择<i class="fa fa-sort"></i></th>
                         </tr>
@@ -54,14 +87,14 @@
                             <tr class="active">
                                 <td>{{ student.student_name }}</td>
                                 <td>{{ student.student_sex }}</td>
-                                <td>{{ student.student_age | default("",boolean=True)}}</td>
+                                <td>{{ student.student_age | default("",boolean=True) }}</td>
                                 <td>{{ student.student_phone }} </td>
                                 <td>
                                     {% for subject in student.stu_sub %}
                                         {{ subject.subject_name }}-{{ subject.class_name }}
                                     {% endfor %}
                                 </td>
-                                <td>{{ student.description |default("",boolean=True)}}</td>
+                                <td>{{ student.description |default("",boolean=True) }}</td>
                                 <td>
 
                                     {% set student_name=student.student_name %}
@@ -78,7 +111,6 @@
                                            {% if user.role_id!=1 %}disabled="disabled"{% endif %}/>
 
 
-
                                 </td>
                             </tr>
                         {% endfor %}
@@ -89,7 +121,8 @@
 
                 </div>
                 {#                分页#}
-                {{ macros.pagination_widget(pagination, '.Student_info') }}
+
+                {{ macros.pagination_widget(pagination, '.Student_info',pagination_url ) }}
             </div>
 
         </div><!-- /.row -->
@@ -104,14 +137,13 @@
         {#搜索学生#}
         $("#search_student_button").click(
             function () {
-                var search_student = $("#search_student").val()
-                console.log("?search_student=" + search_student)
 
-                window.location.href = "?search_student=" + search_student
-
+                var result = "?select1=" + $("#select1").val() + "&" + "search_student1=" + $("#search_student1").val() + "&" + "select2=" + $("#select2").val() + "&" + "search_student2=" + $("#search_student2").val() + "&" + "select3=" + $("#select3").val() + "&" + "search_student3=" + $("#search_student3").val();
+                window.location.href = result
             });
 
         {#删除学生#}
+
         function deleteStudent(name) {
             var del_student = confirm("请确认是否删除")
             if (del_student == true) {
@@ -127,6 +159,7 @@
         }
 
         {#编辑学生信息#}
+
         function editor_student(url) {
             window.location.href = url
         }

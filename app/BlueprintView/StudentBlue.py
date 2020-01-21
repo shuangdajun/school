@@ -15,17 +15,19 @@ import os
 @login_required
 @permission_required(1005)
 def Student_info():
-    params_dict = request.args.to_dict()
-    if "page" in params_dict and params_dict["page"] != "":
-        pagination, students_modellistAll = paginate_html_db(Students, 14)
-        return render_template("school_tem/students.html", students_modellist=students_modellistAll,
-                               pagination=pagination,user=current_user)
-    elif "search_student" in request.args.to_dict():
-        result = search_student_db(request.args, params_dict)
+    params_dict=request.args.to_dict()
+    if "search_student1" in request.args.to_dict():
+        params_dict.pop("page", "")
+        result = search_student_db( params_dict)
         if result == None:
             return redirect(url_for("web.Student_info") + "?page=1")
 
-        return render_template('school_tem/students.html', students_modellist=result[1], pagination=result[0],user=current_user)
+        return render_template('school_tem/students.html', students_modellist=result[1], pagination=result[0],user=current_user,pagination_url=params_dict)
+
+    elif "page" in params_dict and params_dict["page"] != "":
+        pagination, students_modellistAll = paginate_html_db(Students, 14)
+        return render_template("school_tem/students.html", students_modellist=students_modellistAll,
+                               pagination=pagination,user=current_user,pagination_url={})
 
     return redirect(request.url + "?page=1")
 
@@ -38,7 +40,6 @@ def deleteStudent():
     return jsonify("True")
 
 # 添加学生
-
 @web.route("/add_Student", methods=["GET", "POST"])
 @login_required
 @permission_required(1002)

@@ -1,5 +1,12 @@
 {% extends "school_tem/layout.html" %}
 {% import "school_tem/_macros.html" as macros %}
+{% block header %}
+    <style type="text/css">
+        option {
+            font-weight: lighter;
+        }
+    </style>
+{% endblock %}
 {% block content %}
     <div id="page-wrapper">
 
@@ -9,7 +16,37 @@
                 <div class="table-responsive">
                     <div class="form-group " style="margin-bottom: 1%;margin-top: 1%;margin-left: 4%;">
 
-                        <input id="search_teacher" class="form-group-select" placeholder="请输入教师姓名">
+                        {#                        <input id="search_teacher" class="form-group-select" placeholder="请输入教师姓名">#}
+                        <select class="form-group-select" id="select1">
+                            <option value="">请输入关键字1</option>
+                            <option value="teacher_name">教师姓名</option>
+                            <option value="position">职务</option>
+                            <option value="teacher_phone">手机号码</option>
+                            <option value="tea_sub">课程</option>
+                            <option value="description">描述信息</option>
+                        </select>
+                        <input type="text" id="search_teacher1" class="form-group-select" style="width: 180px;"
+                               value="">
+                        <select class="form-group-select" id="select2">
+                            <option value="">请输入关键字2</option>
+                            <option value="teacher_name">教师姓名</option>
+                            <option value="position">职务</option>
+                            <option value="teacher_phone">手机号码</option>
+                            <option value="tea_sub">课程</option>
+                            <option value="description">描述信息</option>
+                        </select>
+                        <input type="text" id="search_teacher2" class="form-group-select" style="width: 180px;"
+                               value="">
+                        <select class="form-group-select" id="select3">
+                            <option value="">请输入关键字3</option>
+                            <option value="teacher_name">教师姓名</option>
+                            <option value="position">职务</option>
+                            <option value="teacher_phone">手机号码</option>
+                            <option value="tea_sub">课程</option>
+                            <option value="description">描述信息</option>
+                        </select>
+                        <input type="text" id="search_teacher3" class="form-group-select" style="width: 180px;"
+                               value="">
                         <button id="search_teacher_button" type="submit" class="form-group-control">搜索
                         </button>
                         <a href="add_Teacher">
@@ -37,8 +74,8 @@
 
                             <th style="width:11%;">手机号码 <i class="fa fa-sort"></i></th>
                             <th style="width:6%;">住址 <i class="fa fa-sort"></i></th>
-                            <th style="width:11%;">学科<i class="fa fa-sort"></i></th>
-                            <th>备注信息<i class="fa fa-sort"></i></th>
+                            <th style="width:11%;">课程<i class="fa fa-sort"></i></th>
+                            <th>描述信息<i class="fa fa-sort"></i></th>
                             <th style="width:20%;">选择<i class="fa fa-sort"></i></th>
                         </tr>
                         </thead>
@@ -46,11 +83,11 @@
                         {% for teacher in teachers_modellist %}
 
                             <tr class="active">
-                                <td>{{ teacher.teacher_name | default("",boolean=True)}}</td>
+                                <td>{{ teacher.teacher_name | default("",boolean=True) }}</td>
                                 <td>{{ teacher.position| default("",boolean=True) }}</td>
 
                                 <td>{{ teacher.teacher_phone | default("",boolean=True) }}</td>
-                                <td>{{ teacher.teacher_address | default("",boolean=True)}}</td>
+                                <td>{{ teacher.teacher_address | default("",boolean=True) }}</td>
 
                                 <td>
                                     {% for subject in teacher.tea_sub %}
@@ -58,8 +95,8 @@
 
                                     {% endfor %}
 
-                                </td >
-                                    <td>{{ teacher.description | default("",boolean=True)}}</td>
+                                </td>
+                                <td>{{ teacher.description | default("",boolean=True) }}</td>
                                 <td>
 
 
@@ -89,7 +126,7 @@
 
                 </div>
                 {#                分页#}
-                {{ macros.pagination_widget(pagination, '.Teacher_info') }}
+                {{ macros.pagination_widget(pagination, '.Teacher_info',pagination_url) }}
             </div>
 
         </div><!-- /.row -->
@@ -101,13 +138,11 @@
 {% block foot %}
 
     <script>
-        {#搜索学生#}
+        {#搜索教师#}
         $("#search_teacher_button").click(
             function () {
-                var search_teacher = $("#search_teacher").val()
-                console.log("?search_teacher=" + search_teacher)
-
-                window.location.href = "?search_teacher=" + search_teacher
+                var result = "?select1=" + $("#select1").val() + "&" + "search_teacher1=" + $("#search_teacher1").val() + "&" + "select2=" + $("#select2").val() + "&" + "search_teacher2=" + $("#search_teacher2").val() + "&" + "select3=" + $("#select3").val() + "&" + "search_teacher3=" + $("#search_teacher3").val();
+                window.location.href = result
 
             });
 
@@ -126,7 +161,7 @@
                     data: {"delete_teacher": name},
                     type: "post",
                     success: function () {
-                        console.log("hehe")
+
                         window.location.reload()
                     }
 

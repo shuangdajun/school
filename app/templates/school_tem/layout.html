@@ -16,23 +16,25 @@
     <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
       <style>
         .form-group-control{
-            width: 13%;
-            height: 50px;
+            width: 5%;
+            height: 40px;
             font-size: 23px;
             border: 1px solid #cccccc;
             border-radius: 2px;
             {#padding: 18px 20px;#}
-            margin-right:2%;
+            margin-right:1%;
             margin-top:auto
         }
-        .form-group-select{
-            width: 35%;
-            padding: 18px;
+
+        .form-group-select {
+            font-weight: lighter;
+            text-align: center;
+            text-align-last: center;
+            height: 40px;
             font-size: 23px;
             border: 1px solid #cccccc;
             border-radius: 2px;
-            height: 50px;
-            margin-right:2%;
+            margin-top: auto;
         }
 
     </style>
@@ -87,7 +89,7 @@
                 <li class="dropdown-header">7 New Messages</li>
                 <li class="message-preview">
                   <a href="#">
-                    <span class="avatar"><img src="http://placehold.it/50x50"></span>
+{#                    <span class="avatar"><img src="http://placehold.it/50x50"></span>#}
                     <span class="name">{{ user.username }}</span>
                     <span class="message">Hey there, I wanted to ask you something...</span>
                     <span class="time"><i class="fa fa-clock-o"></i> 4:34 PM</span>
@@ -96,7 +98,7 @@
                 <li class="divider"></li>
                 <li class="message-preview">
                   <a href="#">
-                    <span class="avatar"><img src="http://placehold.it/50x50"></span>
+{#                    <span class="avatar"><img src="http://placehold.it/50x50"></span>#}
                     <span class="name">{{ user.username }}</span>
                     <span class="message">Hey there, I wanted to ask you something...</span>
                     <span class="time"><i class="fa fa-clock-o"></i> 4:34 PM</span>
@@ -105,7 +107,7 @@
                 <li class="divider"></li>
                 <li class="message-preview">
                   <a href="#">
-                    <span class="avatar"><img src="http://placehold.it/50x50"></span>
+{#                    <span class="avatar"><img src="http://placehold.it/50x50"></span>#}
                     <span class="name">{{ user.username }}</span>
                     <span class="message">Hey there, I wanted to ask you something...</span>
                     <span class="time"><i class="fa fa-clock-o"></i> 4:34 PM</span>
@@ -133,7 +135,7 @@
               <ul class="dropdown-menu">
                 <li><a href="#"><i class="fa fa-user"></i> Profile</a></li>
                 <li><a href="#"><i class="fa fa-envelope"></i> Inbox <span class="badge">7</span></a></li>
-                <li><a href="/user_pwd"><i class="fa fa-gear"></i> 修改密码</a></li>
+                <li><a href="/user_pwd?user={{ user.user }}"><i class="fa fa-gear"></i> 修改密码</a></li>
                 <li class="divider"></li>
                 <li><a href="{{ url_for("web.logout") }}"><i class="fa fa-power-off"></i> 退出</a></li>
               </ul>

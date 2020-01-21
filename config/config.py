@@ -1,7 +1,7 @@
 import os
 
 from dotenv import load_dotenv
-
+import redis
 load_dotenv(dotenv_path='.env')
 
 
@@ -38,7 +38,7 @@ class TestingConfig(Config):
     SQLALCHEMY_DATABASE_URI = os.getenv('TEST_DATABASE_URI')
     PRESERVE_CONTEXT_ON_EXCEPTION = False
     #SQLALCHEMY_ECHO = True
-    PERMANENT_SESSION_LIFETIME=datetime.timedelta(minutes=30)
+    PERMANENT_SESSION_LIFETIME=datetime.timedelta(minutes=30) #会话保持时间
     UPLOAD_FOLDER='C:\\flask-school-app-and-api-master\\app\\export'
     JOBS=[{
         "id":"job1",
@@ -50,6 +50,12 @@ class TestingConfig(Config):
         }
     }]
     SESSION_PROTECTION="strong"
+    SESSION_PERMANENT = True  # 关闭浏览器session失效
+    SESSION_TYPE="redis" #session存储方式
+    SESSION_REDIS=redis.Redis(host="172.18.1.101",port=6379,db=1)
+    USER_STATUS_REDISPOOL=redis.ConnectionPool(host="172.18.1.101", port=6379, db=2)
+    USER_STATUS_REDIS=redis.Redis(connection_pool=USER_STATUS_REDISPOOL)
+
 
 
 

@@ -2,7 +2,8 @@
 from flask_login import UserMixin, current_user, logout_user
 from sqlalchemy import Column,String,Integer,Boolean,ForeignKey,Date
 from werkzeug.security import generate_password_hash, check_password_hash
-
+import redis
+from flask import current_app
 from app.model.Role import Role
 from app.model.Base import base, db
 from flask import abort, session, render_template, redirect, jsonify
@@ -15,7 +16,8 @@ def permission_required(permission):
         def decorated(*args,**kwargs):
             if current_user.can(permission)==False:
                 abort(403)
-
+            current_app.config["USER_STATUS_REDIS"].sadd("user_online",current_user.user)
+            current_app.config["USER_STATUS_REDIS"].expire("user_online",300)
             return func(*args,**kwargs)
         return  decorated
 
@@ -26,7 +28,7 @@ class User(UserMixin,base):
     id=Column(Integer,primary_key=True,autoincrement=True)
     user=Column(String(20),unique=True)
     username=Column(String(20),unique=True)
-    password=Column(String(20))
+    password=Column(String(100))
     stopTime=Column(Date)
     status=Column(Boolean)
     token=Column(String(40))

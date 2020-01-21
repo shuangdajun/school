@@ -17,15 +17,16 @@ from app.service.detail_students import export_file, xlsx_upload_subject, xlsx_u
 @permission_required(1013)
 def Subject_info():
     params_dict = request.args.to_dict()
-    if "page" in params_dict and params_dict["page"] != "":
+    if "search_subject1" in request.args.to_dict():
+        params_dict.pop("page", "")
+        result = search_subject_db( params_dict)
+        if result == None:
+            return redirect(url_for("web.Subject_info") + "?page=1")
+        return render_template('school_tem/subjects.html', subjects_modellist=result[1], pagination=result[0],user=current_user,pagination_url=params_dict)
+    elif "page" in params_dict and params_dict["page"] != "":
         pagination, subjects_modellistAll = paginate_html_db(Subjects, 14)
         return render_template("school_tem/subjects.html", subjects_modellist=subjects_modellistAll,
-                               pagination=pagination,user=current_user)
-    elif "search_Subject" in request.args.to_dict():
-        result = search_subject_db(request.args, params_dict)
-        if result == None:
-            return redirect(url_for("Subject_info") + "?page=1")
-        return render_template('school_tem/subjects.html', subjects_modellist=result[1], pagination=result[0],user=current_user)
+                               pagination=pagination,user=current_user,pagination_url={})
     # elif "delete_Subject" in params_dict and params_dict["delete_Subject"] != "":
     #     delete_subject_db(request.args)
     #     return redirect("/Subject_info" + "?page=1")
@@ -68,7 +69,8 @@ def editor_Subject():
     if request.method == "POST":
         editor_subject_db(request.args, request.form)
         return redirect("/Subject_info")
-    subjects_modelSelect = Subjects.query.filter_by(subject_name=request.args.get("search")).first()
+
+    subjects_modelSelect = Subjects.query.filter(Subjects.subject_name==request.args.get("search").split("-")[0],Subjects.class_name==request.args.get("search").split("-")[1]).first()
     studentlist = []
     for student in subjects_modelSelect.sub_stu:
         studentlist.append(student.student_name)

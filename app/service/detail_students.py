@@ -28,7 +28,12 @@ def if_str(Object,str):
     if Object==None:
         return ""
     return getattr(Object,str)
-
+#bytes转换为字符串数组
+def bytes_str_set(data):
+    data_new=[]
+    for value in data:
+        data_new.append(value.decode("utf-8"))
+    return data_new
 def judge_add_student_form(form_dict):
     judge_formclass = judgeStuentForm(form_dict)
     judge = judge_formclass.validate()
@@ -262,3 +267,12 @@ def SubStuCountDict(subjects,stuCount):
 
 
 
+def dict_if(param_dict):
+    result={}
+    keyslist=list(param_dict.keys())
+
+    for i in range((len(param_dict)//2)):
+        if param_dict[keyslist[i*2]] and param_dict[keyslist[i*2+1]]:
+            result[param_dict[keyslist[i*2]]]=param_dict[keyslist[i*2+1]]
+
+    return result

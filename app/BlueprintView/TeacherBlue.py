@@ -16,22 +16,17 @@ from app.service.detail_students import xlsx_upload_teacher, xlsx_upload, export
 @permission_required(1009)
 def Teacher_info():
     params_dict = request.args.to_dict()
-    if "page" in params_dict and params_dict["page"] != "":
+    if "search_teacher1" in request.args.to_dict():
+        params_dict.pop("page", "")
+        result = search_teacher_db(params_dict)
+        if result == None:
+            return redirect(url_for("web.Teacher_info") + "?page=1")
+        return render_template('school_tem/teachers.html', teachers_modellist=result[1], pagination=result[0],user=current_user,pagination_url=params_dict)
+    elif "page" in params_dict and params_dict["page"] != "":
         pagination, teachers_modellistAll = paginate_html_db(Teachers, 14)
         return render_template("school_tem/teachers.html", teachers_modellist=teachers_modellistAll,
-                               pagination=pagination,user=current_user)
-    elif "search_teacher" in request.args.to_dict():
-        result = search_teacher_db(request.args, params_dict)
-        if result == None:
-            return redirect(url_for("Teacher_info") + "?page=1")
-        return render_template('school_tem/teachers.html', teachers_modellist=result[1], pagination=result[0],user=current_user)
-    # elif "delete_teacher" in params_dict and params_dict["delete_teacher"] != "":
-    #     delete_teacher_db(request.args)
-    #     return redirect("/Teacher_info")
-
+                               pagination=pagination,user=current_user,pagination_url={})
     return redirect(request.url + "?page=1")
-
-
 #删除教师
 @web.route("/deleteTeacher",methods=["POST"])
 @login_required

@@ -6,7 +6,7 @@ from flask import Flask
 
 from  flask_login import LoginManager
 from app.model.Base import db #db只是在views中生效
-
+from flask_session import Session
 
 from app.model.Students import Students
 from app.model.Subjects import Subjects
@@ -22,8 +22,8 @@ import re
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 db_connect=create_engine("mysql+pymysql://root:1qaz@WSX@172.18.1.101/fisher?charset=utf8",echo=True)
-Session = sessionmaker(bind=db_connect)
-session=Session()
+Sessiondb = sessionmaker(bind=db_connect)
+session=Sessiondb()
 def WarnPriceAtrr(pricesList):
 
     prilist=[]
@@ -65,7 +65,7 @@ def create_app(configuration):
     app = Flask(__name__,static_folder="static/school_static",static_url_path="")
 
     app.config.from_object(app_config[configuration])
-
+    Session(app)
     env=app.jinja_env
     env.filters["accept_pattern"]=accept_pattern  #定义jinja模板
 

@@ -9,8 +9,38 @@
                 <div class="table-responsive">
                     <div class="form-group " style="margin-bottom: 1%;margin-top: 1%;margin-left: 4%;">
 
-                        <input id="search_User" class="form-group-select" placeholder="请输入用户姓名">
-                        <button id="search_user_button" type="submit" class="form-group-control" >搜索
+                        {#                        <input id="search_User" class="form-group-select" placeholder="请输入用户姓名">#}
+                        <select class="form-group-select" id="select1">
+                            <option value="">请输入关键字1</option>
+                            <option value="user">账号</option>
+                            <option value="username">姓名</option>
+                            <option value="stopTime">截止时间</option>
+                            <option value="description">用户权限</option>
+                            <option value="status">用户状态</option>
+                        </select>
+                        <input type="text" id="search_user1" class="form-group-select" style="width: 180px;"
+                               value="">
+                        <select class="form-group-select" id="select2">
+                            <option value="">请输入关键字2</option>
+                            <option value="user">账号</option>
+                            <option value="username">姓名</option>
+                            <option value="stopTime">截止时间</option>
+                            <option value="description">用户权限</option>
+                            <option value="status">用户状态</option>
+                        </select>
+                        <input type="text" id="search_user2" class="form-group-select" style="width: 180px;"
+                               value="">
+                        <select class="form-group-select" id="select3">
+                            <option value="">请输入关键字3</option>
+                            <option value="user">账号</option>
+                            <option value="username">姓名</option>
+                            <option value="stopTime">截止时间</option>
+                            <option value="description">用户权限</option>
+                            <option value="status">用户状态</option>
+                        </select>
+                        <input type="text" id="search_user3" class="form-group-select" style="width: 180px;"
+                               value="">
+                        <button id="search_user_button" type="submit" class="form-group-control">搜索
                         </button>
                         <a href="add_User">
 
@@ -18,14 +48,14 @@
                                     name="ti">添加
                             </button>
                         </a>
-{#                        <input id="upload_user_input" type="file" style="display: none;">#}
-{#                        <button id="upload_user_button" type="file" class="form-group-control" >导入#}
-{#                        </button>#}
-{#                        <a href="export_Student/Students_info" download="学生表.xlsx">#}
-{#                            <button id="export_student_button" type="file"class="form-group-control" >导出#}
-{#                            </button>#}
-{##}
-{#                        </a>#}
+                        {#                        <input id="upload_user_input" type="file" style="display: none;">#}
+                        {#                        <button id="upload_user_button" type="file" class="form-group-control" >导入#}
+                        {#                        </button>#}
+                        {#                        <a href="export_Student/Students_info" download="学生表.xlsx">#}
+                        {#                            <button id="export_student_button" type="file"class="form-group-control" >导出#}
+                        {#                            </button>#}
+                        {##}
+                        {#                        </a>#}
 
 
                     </div>
@@ -45,7 +75,13 @@
                         <tbody>
                         {% for value in result %}
                             <tr class="active">
-                                <td>{{ value["user"] }}</td>
+                                <td>{{ value["user"] }}
+
+                                    {% if value["user"] in user_onlinelist %}
+                                        <span style="color: blue;">(用户在线)</span>
+
+                                    {% endif %}
+                                </td>
                                 <td>{{ value["username"] }}</td>
 
                                 <td>{{ value["stopTime"] }}</td>
@@ -59,7 +95,8 @@
 
                                     {% set url=request.url | accept_pattern("(.*)/(.*)")+"/editor_user?search="+username %}
 
-                                    <input type="button" value="编辑" onclick=editor_user("{{ url }}")>
+                                    <input type="button" value="修改用户信息" onclick=editor_user("{{ url }}")>
+                                    <input type="button" value="修改用户密码" onclick=editor_user("{{ url }}")>
 
                                     {% if user.role_id!=1 %}
                                         <input type="button" value="删除" id="deleteUser"
@@ -68,8 +105,6 @@
                                         <input type="button" value="删除" id="deleteStudent"
                                                onclick="deleteUser('{{ username }}')"/>
                                     {% endif %}
-
-                                    <input type="hidden" value="submit" onclick="getText();"/>
                                 </td>
 
                             </tr>
@@ -83,7 +118,7 @@
 
                 </div>
                 {#                分页#}
-                {{ macros.pagination_widget(pagination, '.user_Manager') }}
+                {{ macros.pagination_widget(pagination, '.user_Manager',pagination_url) }}
             </div>
 
         </div><!-- /.row -->
@@ -95,9 +130,15 @@
 {% block foot %}
 
     <script>
+        {#搜索用户#}
+        $("#search_user_button").click(
+            function () {
+                var result = "?select1=" + $("#select1").val() + "&" + "search_user1=" + $("#search_user1").val() + "&" + "select2=" + $("#select2").val() + "&" + "search_user2=" + $("#search_user2").val() + "&" + "select3=" + $("#select3").val() + "&" + "search_user3=" + $("#search_user3").val();
+                window.location.href = result
 
+            });
 
-        {#删除学生#}
+        {#删除用户#}
 
         function deleteUser(name) {
             var delete_user = confirm("请确认是否删除")
@@ -120,11 +161,45 @@
         {#编辑账号信息#}
 
         function editor_user(url) {
-            console.log(url)
             window.location.href = url
-
         }
 
+        function dateCompare(dateString, compareDateString) {
+
+            var dateTime = dateParse(dateString).getTime();
+            var compareDateTime = dateParse(compareDateString).getTime();
+            if (compareDateTime > dateTime) {
+                return 1;
+            } else if (compareDateTime == dateTime) {
+                return 0;
+            } else {
+                return -1;
+            }
+        };
+        window.onload = function () {
+            var now = new Date();
+            nowTime = now.getTime();
+            console.log(nowTime);
+            var arry = new Array();
+            {% for value in result %}
+                console.log("{{ value.status }}")
+                if (nowTime > Date.parse("{{ value["stopTime"] }}") && "{{ value.status }}" != "False") {
+                    arry.push("{{ value["user"] }}")
+                }
+            {% endfor %}
+
+            if (arry.length > 0) {
+                $.ajax({
+                    url: "{{ url_for("web.delete_user") }}",
+                    method: "post",
+                    data: {"delete_user": arry},
+                    success: function (data) {
+                        return data
+                    }
+                })
+            }
 
 
+        }
+    </script>
 {% endblock %}

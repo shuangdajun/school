@@ -1,4 +1,4 @@
-from flask import render_template, jsonify, make_response, flash, get_flashed_messages,session
+from flask import render_template, jsonify, make_response, flash, get_flashed_messages, session, current_app
 from flask_login import logout_user, current_user, login_user, login_required
 from werkzeug.utils import redirect
 
@@ -15,6 +15,9 @@ from app.model.User import User, permission_required
 @web.route('/logout', methods=['GET', 'POST'])
 def logout():
     form = LoginForm()
+
+    current_app.config["USER_STATUS_REDIS"].smove("user_online","off_line", current_user.user)
+    # current_app.config["USER_STATUS_REDIS"].expire("user_online", 300)
     logout_user()
     return render_template("school_tem/login.html",form=form)
 
@@ -32,7 +35,8 @@ def login():
             user.token=session["csrf_token"]+str(user.id)
             db.session.commit()
             login_user(user,False)
-
+            # session.permanent=True #添加会话保护
+            session["username"]=current_user.user
             return redirect("/index.html")
         else:
             flash("账号或者密码错误")
@@ -51,7 +55,7 @@ def index_dash():
 @login_required
 @permission_required(1005)
 def dashboard():
-    studentlist=Students.query.all()
+    studentlist=Students.query.filter(Students.stu_sub!=None).all()
     teacherlist=Teachers.query.all()
     subjectlist = Subjects.query.all()
     pricewarn=PricesWarn.query.all()
@@ -64,6 +68,6 @@ def dashboard():
 @web.route("/SubStuCount",methods=["POST"])
 def SubStuCount():
     subjectsAll=list(filter(lambda x : len(x.sub_stu)>0,Subjects.query.all()))
-    stuCount=Students.query.count()
-    result=list(map(lambda x:{"subject_name":x.subject_name,"x":len(x.sub_stu),"y":len(x.sub_stu)*100/stuCount,"sliced":"true","selected":"true"},subjectsAll))
+    stuCount=Students.query.filter(Students.stu_sub!=None).count()
+    result=list(map(lambda x:{"subject_name":x.subject_name+"-"+x.class_name,"x":len(x.sub_stu),"y":len(x.sub_stu)*100/stuCount,"sliced":"true","selected":"true"},subjectsAll))
     return jsonify(result)

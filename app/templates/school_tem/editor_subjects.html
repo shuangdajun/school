@@ -2,6 +2,10 @@
 {% import "school_tem/sub_stu.html" as sub_stu %}
 {% block header %}
     <link href="css/artific.css" ,rel="stylesheet">
+    <link href="css/component-chosen.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/comboselect.css" type="text/css">
+    <link rel="stylesheet" href="css/demo.css"/>
+    <link rel="stylesheet" href="css/selectTeacherStudents.css">
     <style>
         table tr td {
             background: white;
@@ -49,18 +53,18 @@
                         </div>
                     </div>
 
-                    <div class="form-group" style="margin-top: 55px">
+                    <div class="form-group" style="margin-top: 55px"    >
                         <label class="col-sm-3 control-label"
                                style="font-size:  24px;font-weight: normal;font-family: FangSong">教师</label>
 
                         <!--需要核对数据类型，数字就可以 -->
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" name="teacher_name"
+                            <input type="text" id="comboSelectTeacher" class="" name="teacher_name"
 
                             {% if  subjects_modelSelect.sub_tea|length ==0 %}
                                 value={{ "" }}
                             {% else %}
-                                value={{ subjects_modelSelect.sub_tea[0].teacher_name | default("") }}
+                                value={{ subjects_modelSelect.sub_tea[0].teacher_name | default("",boolean=True) }}
                             {% endif %} >
                         </div>
 
@@ -74,8 +78,14 @@
                                    value=""/>
                         </div>
                     </div>
-
-                    <input type="hidden" name="page" value="">
+                    <div class="form-group" style="margin-top: 55px">
+                        <label class="col-sm-3 control-label"
+                               style="font-size:  24px;font-weight: normal;font-family: FangSong">备注信息</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" name="description"
+                                   value="{{ subjects_modelSelect.description | default("",boolean=True) }}"/>
+                        </div>
+                    </div>
 
                     <div class="panel-footer">
                         <div class="row">
@@ -97,16 +107,14 @@
 {% block foot %}
 
     <script type="text/javascript" src="js/subject_student_input.js"></script>
-
-    <script>
-        $("#btn").attr("disabled", "true");
-        $("#btn").attr("disabled", "disabled");
-        $("#btn").attr("disabled", "false");
-        $("#btn").removeAttr("disabled", "disabled");
-    </script>
-    {#    <script src="js/jquery-1.10.2.js"></script>#}
-    <script type="text/javascript" src="js/zDrag.js"></script>
+    <script type="text/javascript" src="js/comboselect.min.js"></script>
+    <script type="text/javascript" src="js/b.comboselect.js"></script>
+    <script type="text/javascript" src="js/demo.js"></script>
+        <script type="text/javascript" src="js/zDrag.js"></script>
     <script type="text/javascript" src="js/zDialog.js"></script>
+
+    {#    <script src="js/jquery-1.10.2.js"></script>#}
+
     <script type="text/javascript">
         function uniqe(arr) {
             var temp = []
@@ -263,4 +271,7 @@
             document.getElementById("StuChoice").value=data
         }
     </script>
+
+
+
 {% endblock %}

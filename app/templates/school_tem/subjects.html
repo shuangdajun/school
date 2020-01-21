@@ -9,7 +9,37 @@
                 <div class="table-responsive">
                     <div class="form-group " style="margin-bottom: 1%;margin-top: 1%;margin-left: 4%;">
 
-                        <input id="search_Subject" class="form-group-select" placeholder="请输入学科名称">
+                        {#                        <input id="search_Subject" class="form-group-select" placeholder="请输入学科名称">#}
+                        <select class="form-group-select" id="select1">
+                            <option value="">请输入关键字1</option>
+                            <option value="subject_name">学科名称</option>
+                            <option value="class_name">班级名称</option>
+                            <option value="teacher_name">教师名称</option>
+                            <option value="sub_stu">学生姓名</option>
+                            <option value="description">描述信息</option>
+                        </select>
+                        <input type="text" id="search_subject1" class="form-group-select" style="width: 180px;"
+                               value="">
+                        <select class="form-group-select" id="select2">
+                            <option value="">请输入关键字2</option>
+                            <option value="subject_name">学科名称</option>
+                            <option value="class_name">班级名称</option>
+                            <option value="sub_tea">教师名称</option>
+                            <option value="sub_stu">学生姓名</option>
+                            <option value="description">描述信息</option>
+                        </select>
+                        <input type="text" id="search_subject2" class="form-group-select" style="width: 180px;"
+                               value="">
+                        <select class="form-group-select" id="select3">
+                            <option value="">请输入关键字3</option>
+                            <option value="subject_name">学科名称</option>
+                            <option value="class_name">班级名称</option>
+                            <option value="sub_tea">教师名称</option>
+                            <option value="sub_stu">学生姓名</option>
+                            <option value="description">描述信息</option>
+                        </select>
+                        <input type="text" id="search_subject3" class="form-group-select" style="width: 180px;"
+                               value="">
                         <button id="search_Subject_button" type="submit" class="form-group-control">搜索
                         </button>
                         <a href="add_Subject">
@@ -35,15 +65,17 @@
                             <th style="width:6%;"> 教学讲师<i class="fa fa-sort"></i></th>
                             <th style="width:11%;">学生<i class="fa fa-sort"></i></th>
                             <th style="width:11%;">班级人数 <i class="fa fa-sort"></i></th>
+                            <th style="width:11%;">备注信息 <i class="fa fa-sort"></i></th>
                             <th style="width:20%;">选择<i class="fa fa-sort"></i></th>
                         </tr>
                         </thead>
                         <tbody>
+
                         {% for subject in subjects_modellist %}
 
                             <tr class="active">
-                                <td >{{ subject.subject_name }}</td>
-                            <td>{{ subject.class_name }}</td>
+                                <td>{{ subject.subject_name }}</td>
+                                <td>{{ subject.class_name }}</td>
                                 <td>
                                     {% for sub in subject.sub_tea %}
                                         {{ sub.teacher_name }}
@@ -60,8 +92,12 @@
                                     总计 {{ subject.sub_stu | length }} 人
                                 </td>
                                 <td>
+                                    {{ subject.description | default("",boolean=True) }}
+                                </td>
+                                <td>
                                     {% set subject_name=subject.subject_name %}
-                                    {% set url=request.url | accept_pattern("(.*)/(.*)")+"/editor_Subject?search="+subject_name %}
+                                    {% set class_name=subject.class_name %}
+                                    {% set url=request.url | accept_pattern("(.*)/(.*)")+"/editor_Subject?search="+subject_name+"-"+class_name %}
 
                                     <input type="button" value="编辑"
                                            {% if user.role_id==3 %}disabled="disabled"{% endif %}
@@ -70,8 +106,6 @@
                                     <input type="button" value="删除" onclick="deleteSubject('{{ subject_name }}')"
                                            {% if user.role_id!=1 %}disabled="disabled"{% endif %}/>
 
-
-                                    <input type="hidden" value="submit" onclick="getText();"/>
                                 </td>
                             </tr>
                         {% endfor %}
@@ -82,7 +116,7 @@
 
                 </div>
                 {#                分页#}
-                {{ macros.pagination_widget(pagination, '.Subject_info') }}
+                {{ macros.pagination_widget(pagination, '.Subject_info',pagination_url) }}
             </div>
 
         </div><!-- /.row -->
@@ -97,8 +131,8 @@
         {#搜索学生#}
         $("#search_Subject_button").click(
             function () {
-                var search_Subject = $("#search_Subject").val()
-                window.location.href = "?search_Subject=" + search_Subject
+                var result = "?select1=" + $("#select1").val() + "&" + "search_subject1=" + $("#search_subject1").val() + "&" + "select2=" + $("#select2").val() + "&" + "search_subject2=" + $("#search_subject2").val() + "&" + "select3=" + $("#select3").val() + "&" + "search_subject3=" + $("#search_subject3").val();
+                window.location.href = result
 
             });
 
@@ -116,7 +150,6 @@
                     data: {"delete_Subject": name},
                     type: "post",
                     success: function () {
-                        console.log("hehe")
                         window.location.reload()
                     }
 

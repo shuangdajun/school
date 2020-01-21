@@ -30,7 +30,7 @@ $(function () {
             tag_data_sub = result
         }
     });
-    console.log(tag_data_sub)
+
     $('#comboSelectStudent').bComboSelect({
         showField: 'name',
         keyField: 'id',

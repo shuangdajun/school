@@ -42,9 +42,9 @@
 {% endblock %}
 {% block content %}
     <div class="col-lg-12" style="margin-top: 5%;">
-        <h2 style="margin-bottom: 2%">创建用户信息</h2>
+        <h2 style="margin-bottom: 2%">修改用户信息</h2>
         <div class="panel panel-default panel-body panel-body-nopadding" style="margin-top: 55px">
-            <form class="form-horizontal form-bordered" id="form" action="{{ url_for("web.add_User") }}" method="POST"
+            <form class="form-horizontal form-bordered" id="form" action="{{ url_for("web.editor_User") }}" method="POST"
                   onsubmit="return false">
                 <ul id="ocheck">
                     <li class="form-group" style="margin-top: 55px">
@@ -52,7 +52,7 @@
                     <span class="col-sm-3 control-label"
                           style="font-size: 24px;font-weight: normal;font-family: FangSong;">账号</span>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" name="user" id="oChuser" placeholder="请输入用户账号">
+                            <input type="text" class="form-control" name="user" id="oChuser" readonly placeholder="请输入用户账号" value="{{ userSelect.user }}">
                             <div class="" type="text"></div>
                         </div>
 
@@ -63,28 +63,18 @@
                     <span class="col-sm-3 control-label"
                           style="font-size: 24px;font-weight: normal;font-family: FangSong;">姓名</span>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" name="username" id="oChxm"  placeholder="请输入用户姓名">
+                            <input type="text" class="form-control" name="username" id="oChxm" placeholder="请输入用户姓名" value="{{ userSelect.username }}" onkeydown="oChxmCheck(this)">
                             <div class="" type="text"></div>
 
                         </div>
                     </li>
-                    <li class="form-group" style="margin-top: 55px">
 
-                    <span class="col-sm-3 control-label"
-                          style="font-size: 24px;font-weight: normal;font-family: FangSong;">密码</span>
-                        <div class="col-sm-6">
-                            <input type="password" class="form-control" name="password" id="oChpass"
-                                   placeholder="密码中必须包含字母、数字、特称字符，至少8个字符，最多30个字符">
-                            <div class="" type="text"></div>
-
-                        </div>
-                    </li>
                     <li class="form-group" style="margin-top: 55px">
 
                     <span class="col-sm-3 control-label"
                           style="font-size: 24px;font-weight: normal;font-family: FangSong;">截止时间</span>
                         <div class="col-sm-6">
-                            <input type="date" class="form-control" name="stopTime" id="ostopTime" value="">
+                            <input type="date" class="form-control" name="stopTime" id="ostopTime" value="{{ userSelect.stopTime }}">
                         </div>
                         <div class="" type="text"></div>
                     </li>
@@ -93,11 +83,12 @@
                     <span class="col-sm-3 control-label"
                           style="font-size: 24px;font-weight: normal;font-family: FangSong;">账号权限</span>
                         <div class="col-sm-6">
-                            <select name="userpermission" id="optgroup" class="form-control form-control-chosen"
+                            <select name="permission" id="optgroup" class="form-control form-control-chosen"
                                     data-placeholder="请选择">
-                                <option value="Ordinary" selected>用户权限</option>
-                                <option value="admin">普通管理员权限</option>
-                                <option value="super">超级管理员权限</option>
+                               
+                                <option value="Ordinary" {% if userSelect.user_role.role_name== "Ordinary"%}selected{% endif %}>用户权限</option>
+                                <option value="admin"{% if userSelect.user_role.role_name== "admin"%}selected{% endif %}>普通管理员权限</option>
+                                <option value="super"{% if userSelect.user_role.role_name== "super"%}selected{% endif %}>超级管理员权限</option>
 
                             </select>
                         </div>
@@ -110,13 +101,20 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label"
                                    style="width:120px;font-size:  24px;font-weight: normal;font-family: FangSong"><input
-                                    name="status" type="radio" checked="checked">启用</label>
+                                    name="status" type="radio" {% if userSelect.status==True %}
+                                    checked="checked" value="true"
+                                    {% endif %}>启用</label>
                             <label class="col-sm-3 control-label"
                                    style="width:120px;font-size:  24px;font-weight: normal;font-family: FangSong"><input
-                                    name="status" type="radio" value="0">禁用</label>
+                                    name="status" type="radio" value="0"{% if userSelect.status==False %}
+                                    checked="checked"
+                                    {% endif %}>禁用</label>
                         </div>
                     </li>
                 </ul>
+
+                {#                <input type="hidden" name="page" value="">#}
+
                 <div class="panel-footer">
                     <div class="row">
                         <div class="col-sm-6 col-sm-offset-3">
@@ -148,6 +146,6 @@
             allow_single_deselect: true,
             width: '100%',
         });
-        oCHCK(false)
+        oCHCK(true)
     </script>
 {% endblock %}

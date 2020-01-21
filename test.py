@@ -111,15 +111,34 @@
 # timer=showTime()
 # timer.show="1232"
 # print(timer.show)
-fdict={}
+# fdict={}
+#
+# with open("C:\\haha.txt","r") as f:
+#     for line in f.readlines():
+#         data=line.strip("\n").split("\t")
+#         if data[0] not in fdict.keys():
+#             fdict[data[0]]=data[1]
+#         else:
+#             fdict[data[0]] = fdict[data[0]]+","+data[1]
+# for key,value in sorted(fdict.items()):
+#     print("%s   %s"%(key,value))
+#     # print("%s"%(key))
 
-with open("C:\\haha.txt","r") as f:
-    for line in f.readlines():
-        data=line.strip("\n").split("\t")
-        if data[0] not in fdict.keys():
-            fdict[data[0]]=data[1]
-        else:
-            fdict[data[0]] = fdict[data[0]]+","+data[1]
-for key,value in sorted(fdict.items()):
-    print("%s   %s"%(key,value))
-    # print("%s"%(key))
+
+
+# haha={"name":"shuang"}
+# ll=[1,2,3]
+# def wori(**hehe):
+#     print(hehe)
+#
+# def mm(*args):
+#     print(args)
+# wori(**haha)
+# mm(ll)
+
+
+import redis
+res=redis.ConnectionPool(host="172.18.1.101",port=6379,db=2)
+re=redis.Redis(connection_pool=res)
+re.hmset("user_Manager",{"user":"shuangdajun"})
+re.expire("user_Manager",300)

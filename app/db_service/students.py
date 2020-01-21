@@ -4,6 +4,8 @@ from app import db
 from app.model.Students import Students
 from app.model.Subjects import Subjects
 from app.model.Teachers import Teachers
+from app.service.detail_students import dict_if
+
 
 def add_student_db(form_dict,subjectList):
     student = Students()
@@ -55,13 +57,25 @@ def editor_student_db(args,form):
         db.session.rollback()
         print(e)
 
-def search_student_db(args,params_dict):
-    if params_dict["search_student"]=="":
+def search_student_db(params_dict):
+    paramDict=dict_if(params_dict)
+    sqlFilter=Students.query
+    if paramDict =={}:
         pagination, user = paginate_html_db(Students)
         return pagination, user
-    if Students.query.filter_by(student_name=args.get("search_student")).all()==[]:
+
+    for key,value in paramDict.items():
+        if key=="stu_sub":
+            pattern=value.split("-")
+            if pattern!=[]:
+                sqlFilter=sqlFilter.join(Students.stu_sub).filter(Subjects.subject_name==pattern[0],Subjects.class_name==pattern[1])
+        else:
+            sqlFilter=sqlFilter.filter(getattr(Students,key)==value)
+
+    result= sqlFilter.all()
+    if len(result)==0:
         return None
-    return paginate_html_db(Students)[0],Students.query.filter_by(student_name=args.get("search_student")).all()
+    return paginate_html_db_select(sqlFilter)
 
 
 def paginate_html_db(Object,num=14):
@@ -70,6 +84,14 @@ def paginate_html_db(Object,num=14):
     pagination=Object.query.paginate(page,per_page=num,error_out=False)#per_page超出时,error_out=False返回[]
     users=pagination.items
     return pagination,users
+
+def paginate_html_db_select(sqlFilter,num=14):
+    page=request.args.get("page",1,type=int)
+
+    pagination=sqlFilter.paginate(page,per_page=num,error_out=False)#per_page超出时,error_out=False返回[]
+    users=pagination.items
+    return pagination,users
+
 
 def search_stduent(student_name):
     student=Students.query.filter_by(student_name=student_name).first()

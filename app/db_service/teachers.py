@@ -1,10 +1,8 @@
-from app.db_service.students import paginate_html_db
+from app.db_service.students import paginate_html_db, paginate_html_db_select
 from app.model.Base import db
 from app.model.Subjects import Subjects
 from app.model.Teachers import Teachers
-
-
-
+from app.service.detail_students import dict_if
 
 
 def add_teacher_db(form_dict,subjectList):
@@ -52,15 +50,25 @@ def editor_teacher_db(args,form):
         print(e)
 
 
-def search_teacher_db(args,params_dict):
-    if params_dict["search_teacher"]=="":
-        result = Teachers.query.all()
+def search_teacher_db(params_dict):
+    paramDict=dict_if(params_dict)
+    sqlFilter=Teachers.query
+    if paramDict =={}:
         pagination, user = paginate_html_db(Teachers)
         return pagination, user
-    if Teachers.query.filter_by(teacher_name=args.get("search_teacher")).all()==[]:
-        return None
-    return paginate_html_db(Teachers)[0],Teachers.query.filter_by(teacher_name=args.get("search_teacher")).all()
 
+    for key,value in paramDict.items():
+        if key=="tea_sub":
+            pattern=value.split("-")
+            if pattern!=[]:
+                sqlFilter=sqlFilter.join(Teachers.tea_sub).filter(Subjects.subject_name==pattern[0],Subjects.class_name==pattern[1])
+        else:
+            sqlFilter=sqlFilter.filter(getattr(Teachers,key)==value)
+
+    result= sqlFilter.all()
+    if len(result)==0:
+        return None
+    return paginate_html_db_select(sqlFilter)
 def search_teacher(teacher_name):
     teacher=Teachers.query.filter_by(teacher_name=teacher_name).first()
     return teacher

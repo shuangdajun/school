@@ -1,7 +1,7 @@
 //Created by lx on 2016/11/15.
-var oCHCK = function () {
+var oCHCK = function (chxm) {
     var oChuser = false;
-    var chxm = false;
+    var chxm = chxm;
 
     var chpassword = false;
 
@@ -57,15 +57,16 @@ var oCHCK = function () {
 
     }
 
+
+
     oChxm();
 // 密码校验
     //ClassName  oChphone
     function oChpassword() {
 
         var reQQ = new RegExp('(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[^a-zA-Z0-9]).{8,30}');
-        ;
-        oChpassObject.onkeyup = function () {
-
+        if (oChpassObject){
+                    oChpassObject.onkeyup = function () {
             if (reQQ.test(this.value)) {
                 this.nextSibling.nextSibling.innerHTML = '输入正确';
                 this.nextSibling.nextSibling.className = 'ingreen';
@@ -78,6 +79,8 @@ var oCHCK = function () {
                 return;
             }
         }
+        }
+
     }
 
     oChpassword();
@@ -136,12 +139,13 @@ var oCHCK = function () {
     var oCheckSbumit = getByClass(window, 'btn')[0];
 
     oCheckSbumit.onclick = function () {
+        console.log("hehe")
         oCheckSbumit1();
     };
 
     function oCheckSbumit1() {
         var chckevalue = true;
-        console.log(oChuserObject.value)
+        // console.log(oChuserObject.value+"qqq")
         if (oChuserObject.value == "") {
             oChuserObject.nextSibling.nextSibling.innerHTML = "用户名不允许为空";
             oChuserObject.nextSibling.nextSibling.className = 'inred';
@@ -154,8 +158,8 @@ var oCHCK = function () {
             chckevalue = false;
 
         }
-        if (chpassword != true) {
-            oChpassObject.nextSibling.nextSibling.innerHTML = '请输入正确的姓名';
+        if (oChpassObject && chpassword != true) {
+            oChpassObject.nextSibling.nextSibling.innerHTML = '请输入正确的密码';
             oChpassObject.nextSibling.nextSibling.className = 'inred';
             chckevalue = false;
 
@@ -163,17 +167,17 @@ var oCHCK = function () {
         if (ostopTimeObject.value == "") {
             ostopTimeObject.value = yearTime
         }
+        console.log(chckevalue)
         if (chckevalue == true) {
+
             document.getElementById("form").submit()
         } else {
             console.log(ostopTimeObject.value)
             return false
         }
-
     }
-
     // window.onkeyup = function () {
     //     console.log('检查是否通过验证:\n' + '姓名' + chxm + '\n' + '手机' + chphone + '\n' + 'QQ' + chQQ + '\n' + '邮箱' + chMail)
     // }
 };
-oCHCK();
+// oCHCK(false);

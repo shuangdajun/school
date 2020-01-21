@@ -1,5 +1,5 @@
 {# 分页宏 #}
-{% macro pagination_widget(pagination, endpoint) %}
+{% macro pagination_widget(pagination, endpoint,kwargs={}) %}
 	<ul class="pagination pagination-split nomargin fudong">
 		<li{% if not pagination.has_prev %} class="disabled"{% endif %}>
 			<a href="{% if pagination.has_prev %}{{ url_for(endpoint, page = pagination.page - 1, **kwargs) }}{% else %}#{% endif %}">&laquo;</a>
